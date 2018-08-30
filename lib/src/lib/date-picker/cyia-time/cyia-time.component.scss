@@ -1,0 +1,11 @@
+app-cyia-time {
+  .cyia-time {
+    @import '~@angular/material/theming';
+    // @include mat-core();
+
+    @include mat-elevation(4);
+ 
+    background-color: mat-color($mat-light-theme-background, card);
+    padding: 8px;
+  }
+}

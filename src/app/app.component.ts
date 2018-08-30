@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'cyia-ngx-template-demo';
+  date = new Date().getTime();
+  @ViewChild('picker2') picker
+  ngOnInit(): void {
+  }
+  test(){
+    this.picker.open();
+  }
 }

@@ -1,0 +1,6 @@
+<input matInput [matDatepicker]="matDatepicker" [placeholder]="placeholder" [(ngModel)]="value" [disabled]="disabled"
+  [matDatepickerFilter]="matDatepickerFilter" (dateChange)="dateChange" (dateInput)="dateInput" [max]="max" [min]="min"
+  #input>
+<ng-template #accurateTime>
+  <app-cyia-time [time]="time" (changeData)="timeChange($event)"></app-cyia-time>
+</ng-template>

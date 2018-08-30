@@ -29,12 +29,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -91,7 +89,15 @@
       "root": "/lib",
       "sourceRoot": "/lib/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "cyia",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss",
+          "viewEncapsulation": "None",
+          "changeDetection": "OnPush",
+          "prefix": "cyia"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

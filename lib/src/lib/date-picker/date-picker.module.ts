@@ -1,0 +1,46 @@
+import { CyiaTimeComponent } from './cyia-time/cyia-time.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgModule } from '@angular/core';
+import { DatePickerComponent } from './date-picker.component';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, MatInputModule } from "@angular/material";
+import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
+import { CyiaInputTimeDirective } from './cyia-input-time.directive';
+
+@NgModule({
+  imports: [
+    MatDatepickerModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule
+  ],
+  declarations: [
+    DatePickerComponent,
+    CyiaInputTimeDirective,
+    CyiaTimeComponent
+  ],
+  exports: [
+    DatePickerComponent,
+    FormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule
+  ],
+  providers: []
+})
+export class CyiaDatePickerModule {
+  static forRoot(language: string): ModuleWithProviders {
+    return {
+      ngModule: CyiaDatePickerModule,
+      providers: [
+        { provide: MAT_DATE_LOCALE, useValue: language },
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+      ]
+    }
+  }
+
+}
+//todo 需要传入某个类型的事件,然后转化成moment

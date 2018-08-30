@@ -18,17 +18,11 @@
       "dom"
     ],
     "paths": {
-      "testlib": [
-        "dist/testlib"
-      ],
-      "testlib/*": [
-        "dist/testlib/*"
-      ],
       "lib": [
-        "dist/lib"
+        "lib/src"
       ],
       "lib/*": [
-        "dist/lib/*"
+        "lib/*"
       ]
     }
   }

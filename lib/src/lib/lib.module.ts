@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { LibComponent } from './lib.component';
+import { CyiaDatePickerModule } from './date-picker/date-picker.module';
 
 @NgModule({
   imports: [
+
   ],
-  declarations: [LibComponent],
-  exports: [LibComponent]
+  declarations: [],
+  exports: [
+    CyiaDatePickerModule
+  ]
 })
 export class LibModule { }
