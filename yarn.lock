@@ -1699,6 +1699,16 @@ cyclist@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
+cyia-ngx-common@>=1.1.0, cyia-ngx-common@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/cyia-ngx-common/-/cyia-ngx-common-1.1.4.tgz#837cf2c146a5f3c48b8dd8fe713c5e878f359575"
+
+cyia-ngx-form@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/cyia-ngx-form/-/cyia-ngx-form-1.0.8.tgz#6ec4ab59a14c633ff8ebce2514f99df832fa1010"
+  dependencies:
+    cyia-ngx-common ">=1.1.0"
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"

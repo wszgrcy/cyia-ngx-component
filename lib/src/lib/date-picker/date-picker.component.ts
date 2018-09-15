@@ -15,19 +15,28 @@ import { AccurateTime } from '../define/date-picker.define';
   selector: 'cyia-datepicker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
-  providers: [{ provide: MatFormFieldControl, useExisting: DatePickerComponent }],
+  providers: [
+    { provide: MatFormFieldControl, useExisting: CyiaDatePickerComponent }
+  ],
   encapsulation: ViewEncapsulation.None,
-
+  host: {
+    '[attr.aria-invalid]': 'errorState',
+  }
 })
-export class DatePickerComponent implements MatFormFieldControl<any>, ControlValueAccessor {
+export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePickerComponent>, ControlValueAccessor {
   /**用来决定是否显示小时,分钟 */
   @Input() accurate: boolean = false;
   _value: Moment;
   @Input() matDatepicker: MatDatepicker<any>;
+  /**用来给组件加id,但是能编译成功? */
   static nextId = 0;
-  @HostBinding() id = `cyia-datepicker-${DatePickerComponent.nextId++}`;
+  @HostBinding() id = `cyia-datepicker-${CyiaDatePickerComponent.nextId++}`;
   stateChanges = new Subject<void>();
+
+  controlType = 'cyia-datepicker';
+
   @Input() matDatepickerFilter;
+  /**是否禁用 */
   @Input() get disabled() {
     return this._disabled
   }
@@ -35,6 +44,8 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
     this._disabled = coerceBooleanProperty(value)
   }
   private _disabled = false;
+
+
   @Input() get max() {
     return this._max
   }
@@ -56,22 +67,32 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
   @ViewChild('input') input;
   @ViewChild('accurateTime') accurateTime: TemplateRef<any>;
   overlayRef: OverlayRef;
+  /**
+   * @description 设置获取值用
+   * @memberof DatePickerComponent
+   */
   @Input()
   set value(time: any) {
+    this.checkEmpty(time)
     this._value = coerceMoment(time as any);
     if (this._value.isValid()) {
+      this.errorState = false
+      //doc,反馈给外层变动的时间
       this.changeFn(this._value.unix() * 1000);
       this.touchedFn(this._value.unix() * 1000);
       this.time.hour = this._value.hour();
       this.time.minute = this._value.minute();
+      //doc 值变动时使用
       this.stateChanges.next()
+    } else {
+      this.errorState = true
     }
   };
   get value() {
     return this._value;
   }
 
-
+  /**精确时间值 */
   private time: AccurateTime = {
     hour: null,
     minute: null
@@ -83,9 +104,11 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
     private overlay: Overlay,
     private viewContainerRef: ViewContainerRef
   ) {
+    //doc 焦点
     fm.monitor(elRef.nativeElement, true).subscribe((origin) => {
       this.focused = !!origin
     })
+    //doc 用于防止循环依赖
     if (this.ngControl != null) { this.ngControl.valueAccessor = this; }
   }
   ngOnInit() {
@@ -105,27 +128,58 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
 
   }
 
-
+  /**占位符 */
   @Input() placeholder = '';
-  @Input() required;
-
-  focused = false;
-  get empty(): boolean {
-    return !!this.value
+  /**是否必须 */
+  @Input()
+  get required() {
+    return this._required;
   }
+  set required(req) {
+    this._required = coerceBooleanProperty(req);
+    this.stateChanges.next();
+  }
+  private _required = false;
+  /**焦点 */
+  focused = false;
+  /**是否为空,但是日期是否为空不太好判断,无效和为空叠在一块 */
+  get empty(): boolean {
+    console.log('空值?', this._empty)
+    return this._empty
+    // return false
+  }
+
+  private _empty = true;
+  /**是否应该把标签浮动到上面 */
   @HostBinding('class.floating')
   get shouldLabelFloat() {
-    return this.focused || !this.empty;
+    // console.log('是否浮动', this.focused || !this.empty)
+    return this.focused;
   }
-
+  /**未知 */
   @HostBinding('attr.aria-describedby') describedBy = '';
+  /**当无效时,会变红 */
+  errorState: boolean = false;
 
-
-  errorState: boolean;
+  /**
+   * ! 未知
+   * @description 
+   * @author cyia
+   * @date 2018-09-15
+   * @param ids
+   * @memberof CyiaDatePickerComponent
+   */
   setDescribedByIds(ids: string[]) {
     this.describedBy = ids.join(' ');
   }
 
+  /**
+   * @description 点击时调用
+   * @author cyia
+   * @date 2018-09-15
+   * @param event
+   * @memberof CyiaDatePickerComponent
+   */
   onContainerClick(event: MouseEvent) {
     if ((event.target as Element).tagName.toLowerCase() != 'input') {
       this.elRef.nativeElement.querySelector('input').focus();
@@ -137,6 +191,7 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
   writeValue(value) {
     if (value !== undefined) {
       this.value = value;
+      this.checkEmpty(value)
     }
   }
   changeFn: Function = () => { };
@@ -161,7 +216,7 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
     this.touchedFn = fn
   }
   ngOnDestroy(): void {
-    this.stateChanges.unsubscribe();
+    this.stateChanges.complete()
     this.fm.stopMonitoring(this.elRef.nativeElement);
   }
 
@@ -178,5 +233,18 @@ export class DatePickerComponent implements MatFormFieldControl<any>, ControlVal
     }
     this.changeFn(this._value.unix() * 1000);
     this.touchedFn(this._value.unix() * 1000);
+  }
+
+  /**
+   * @description 检查是否为空
+   * @author cyia
+   * @date 2018-09-15
+   * @param value
+   * @memberof CyiaDatePickerComponent
+   */
+  checkEmpty(value) {
+    console.log('检查', !!!value)
+    this._empty = !!!value
+    this.stateChanges.next();
   }
 }
