@@ -92,8 +92,8 @@
       }
     },
     "lib": {
-      "root": "./lib",
-      "sourceRoot": "./lib/src",
+      "root": "lib",
+      "sourceRoot": "lib/src",
       "projectType": "library",
       "prefix": "cyia",
       "schematics": {
@@ -108,29 +108,29 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "./lib/tsconfig.lib.json",
-            "project": "./lib/ng-package.json"
+            "tsConfig": "lib/tsconfig.lib.json",
+            "project": "lib/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "./lib/ng-package.prod.json"
+              "project": "lib/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "./lib/src/test.ts",
-            "tsConfig": "./lib/tsconfig.spec.json",
-            "karmaConfig": "./lib/karma.conf.js"
+            "main": "lib/src/test.ts",
+            "tsConfig": "lib/tsconfig.spec.json",
+            "karmaConfig": "lib/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "./lib/tsconfig.lib.json",
-              "./lib/tsconfig.spec.json"
+              "lib/tsconfig.lib.json",
+              "lib/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

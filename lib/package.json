@@ -1,13 +1,24 @@
 {
   "name": "cyia-ngx-component",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "cyia组件",
+  "author": {
+    "name": "cyia",
+    "email": "wszgrcy@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wszgrcy/cyia-ngx-component"
+  },
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
-
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/material": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/cdk": "^6.0.0-rc.0 || ^6.0.0"
   },
   "dependencies": {
     "@angular/material-moment-adapter": "^6.4.6",
+    "moment": "^2.22.2",
     "cyia-ngx-common": "^1.1.9"
   },
   "license": "MIT"

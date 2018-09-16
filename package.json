@@ -1,5 +1,5 @@
 {
-  "name": "cyia-ngx-template-demo",
+  "name": "cyia-ngx-component",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng build lib --prod"
+    "build:lib": "ng build lib --prod",
+    "postbuild:lib": "copy README.md .\\dist\\lib"
   },
   "private": true,
   "dependencies": {
