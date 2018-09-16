@@ -73,6 +73,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
    */
   @Input()
   set value(time: any) {
+    // console.log(time)
     this.checkEmpty(time)
     this._value = coerceMoment(time as any);
     if (this._value.isValid()) {
@@ -89,11 +90,12 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     }
   };
   get value() {
+    // console.log('get', this._value)
     return this._value;
   }
 
   /**精确时间值 */
-  private time: AccurateTime = {
+  time: AccurateTime = {
     hour: null,
     minute: null
   }
@@ -107,13 +109,18 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     //doc 焦点
     fm.monitor(elRef.nativeElement, true).subscribe((origin) => {
       this.focused = !!origin
+      this.stateChanges.next()
     })
     //doc 用于防止循环依赖
     if (this.ngControl != null) { this.ngControl.valueAccessor = this; }
   }
   ngOnInit() {
     let strategy = this.overlay.position().
-      connectedTo(this.input, { originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' }).withOffsetX(24);
+      connectedTo(this.input, { originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' })
+      .withOffsetX(24)
+      // .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' })
+      .withFallbackPosition({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }, 0, 10)
+
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
       backdropClass: 'mat-overlay-transparent-backdrop',
@@ -127,9 +134,19 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     })
 
   }
-
+  // ngOnChanges() {
+  //   this.stateChanges.next();
+  // }
   /**占位符 */
-  @Input() placeholder = '';
+  @Input()
+  get placeholder() {
+    return this._placeholder;
+  }
+  set placeholder(plh) {
+    this._placeholder = plh;
+    this.stateChanges.next();
+  }
+  private _placeholder: string;
   /**是否必须 */
   @Input()
   get required() {
@@ -142,10 +159,10 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   private _required = false;
   /**焦点 */
   focused = false;
-  /**是否为空,但是日期是否为空不太好判断,无效和为空叠在一块 */
+  /**是否为空,但是日期是否为空不太好判断,无效和为空叠在一块,是否为空决定是不是浮动 */
   get empty(): boolean {
-    console.log('空值?', this._empty)
-    return this._empty
+    // console.log(this._empty, this.focused)
+    return this._empty || this.focused
     // return false
   }
 
@@ -153,9 +170,10 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   /**是否应该把标签浮动到上面 */
   @HostBinding('class.floating')
   get shouldLabelFloat() {
-    // console.log('是否浮动', this.focused || !this.empty)
-    return this.focused;
+    return !this.empty || this.focused;
+    // return this.focused;
   }
+
   /**未知 */
   @HostBinding('attr.aria-describedby') describedBy = '';
   /**当无效时,会变红 */
@@ -187,11 +205,17 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     if (!this.overlayRef.hasAttached())
       this.overlayRef.attach(new TemplatePortal(this.accurateTime, this.viewContainerRef))
   }
-  /**写入值 */
+  /**
+   * @description 外部调用时响应
+   * @author cyia
+   * @date 2018-09-15
+   * @param value
+   * @memberof CyiaDatePickerComponent
+   */
   writeValue(value) {
     if (value !== undefined) {
       this.value = value;
-      this.checkEmpty(value)
+      // this.checkEmpty(value)
     }
   }
   changeFn: Function = () => { };
@@ -200,7 +224,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   /**
    * 初始化注册
    *
-   * @param {*} fn
+   * @param  fn
    * @memberof DatePickerComponent
    */
   registerOnChange(fn) {
@@ -209,7 +233,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   /**
  * 初始化注册
  *
- * @param {*} fn
+ * @param  fn
  * @memberof DatePickerComponent
  */
   registerOnTouched(fn) {
@@ -236,15 +260,32 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   }
 
   /**
-   * @description 检查是否为空
+   * @description 检查值是否为空
    * @author cyia
    * @date 2018-09-15
    * @param value
    * @memberof CyiaDatePickerComponent
    */
   checkEmpty(value) {
-    console.log('检查', !!!value)
     this._empty = !!!value
     this.stateChanges.next();
   }
+
+  /**
+   * @description 输入时判断值是否存在
+   * @author cyia
+   * @date 2018-09-15
+   * @param data
+   * @memberof CyiaDatePickerComponent
+   */
+  valueInput(data) {
+    this._empty = !!!data;
+    this.stateChanges.next();
+  }
+  /**
+   * todo 分为值为空,值有效,值无效
+   * 1.为空控制浮动和浮动显示
+   * 2.无效控制红字
+   * 
+   */
 }

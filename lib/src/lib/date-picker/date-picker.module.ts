@@ -7,7 +7,6 @@ import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, MatInputModule } from "
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
-import { CyiaInputTimeDirective } from './cyia-input-time.directive';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { CyiaInputTimeDirective } from './cyia-input-time.directive';
   ],
   declarations: [
     CyiaDatePickerComponent,
-    CyiaInputTimeDirective,
     CyiaTimeComponent
   ],
   exports: [

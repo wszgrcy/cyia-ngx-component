@@ -1,0 +1,14 @@
+.image-wrapper {
+
+  //   background-color: aqua;
+  display: flex;
+  overflow-y: auto;
+
+  .image-card {
+    width: 100%;
+    display: inline-block;
+    flex: 0 0 calc(100%);
+    box-sizing: border-box;
+    margin-right: 1rem;
+  }
+}

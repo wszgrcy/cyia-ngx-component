@@ -1,5 +1,5 @@
-import * as moment from "moment";
-
+import * as moment_ from "moment";
+const moment = moment_;
 /**
  * @description 强制转化为Moment对象,用来显示
  * @author cyia

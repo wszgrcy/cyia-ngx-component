@@ -16,3 +16,31 @@
 <mat-form-field class="example-full-width">
   <input matInput placeholder="Favorite food" value="Sushi">
 </mat-form-field>
+<button mat-button>
+  测试
+  <cyia-upload></cyia-upload>
+</button>
+<button mat-fab>
+  测试
+  <cyia-upload></cyia-upload>
+
+</button>
+<button mat-stroked-button>Basic
+  <cyia-upload disabled="true"></cyia-upload>
+
+</button>
+<button mat-raised-button>
+  测试2
+  <cyia-upload [(ngModel)]="input1" disabled></cyia-upload>
+
+</button>
+<button mat-icon-button>
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+  <cyia-upload></cyia-upload>
+
+</button>
+<button mat-raised-button>
+  图片
+  <cyia-upload4image></cyia-upload4image>
+
+</button>

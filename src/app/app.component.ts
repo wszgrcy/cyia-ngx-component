@@ -15,12 +15,15 @@ export class AppComponent {
   constructor(private fb: FormBuilder,
     private formB: CyiaFormService
   ) { }
+  input1
   date = new Date().getTime();
+  
   @ViewChild('picker2') picker
   list = []
   selvalue
   ngOnInit(): void {
     this.copyobj()
+
   }
   test() {
   }
