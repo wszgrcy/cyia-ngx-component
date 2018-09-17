@@ -17,9 +17,13 @@
     "@angular/cdk": "^6.0.0-rc.0 || ^6.0.0"
   },
   "dependencies": {
+    "@angular/flex-layout": "^6.0.0-beta.18",
     "@angular/material-moment-adapter": "^6.4.6",
+    "cyia-ngx-common": "^1.1.9",
+    "cyia-ngx-form": "^1.1.1",
+    "image-compressor.js": "^1.1.4",
     "moment": "^2.22.2",
-    "cyia-ngx-common": "^1.1.9"
+    "ngx-markdown": "^6.2.0"
   },
   "license": "MIT"
 }

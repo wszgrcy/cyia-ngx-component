@@ -1,0 +1,72 @@
+<div fxLayout="column" class="container" [formGroup]="form">
+  <div mat-dialog-title class="title">
+    {{data.title}}
+  </div>
+  <mat-dialog-content fxFlex="1 1 auto" fxLayoutAlign="start center" fxLayout="column">
+    <div *ngFor="let item of config;let i=index" [fxFlexOrder]="item.sort" [ngSwitch]="item.type" class="control-container"
+      ngClass.lt-sm="mb" ngClass.gt-xs="pc">
+      <!-- input输入部分 -->
+      <ng-container *ngSwitchCase="0">
+        <mat-form-field class="input pos style">
+          <span matPrefix>{{item.label}}</span>
+          <input matInput placeholder="{{item.placeholder}}" formControlName="{{item.key}}" type="text">
+        </mat-form-field>
+      </ng-container>
+      <!-- markdown -->
+      <ng-container *ngSwitchCase="3">
+        <mat-form-field class="markdown pos style">
+          <span matPrefix>{{item.label}}</span>
+          <textarea formControlName="{{item.key}}" matInput matTextareaAutosize [matTextareaAutosize]="true"></textarea>
+          <markdown ngPreserveWhitespaces [data]="form.controls[item.key].value">
+          </markdown>
+        </mat-form-field>
+      </ng-container>
+      <!-- 上传单一 -->
+      <ng-container *ngSwitchCase="4">
+        <!-- <mat-form-field class="markdown pos style"> -->
+        <div class="selectone pos style">
+          <span matPrefix>{{item.label}}</span>
+          <button mat-button>
+            <input type="file" name="{{item.token}}" (change)="uploadFile($event,item)" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
+            上传图片</button>
+        </div>
+        <!-- </mat-form-field> -->
+      </ng-container>
+      <!-- 上传多 -->
+      <ng-container *ngSwitchCase="5">
+        <!-- <mat-form-field class="markdown pos style"> -->
+        <div class="selectone pos style">
+          <span matPrefix>{{item.label}}</span>
+          <button mat-button>
+            <input type="file" name="{{item.token}}" (change)="uploadFileM($event,item)" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"
+              multiple="multiple">
+            上传图片</button>
+        </div>
+        <!-- </mat-form-field> -->
+      </ng-container>
+      <!-- 选择部分 -->
+      <ng-container *ngSwitchCase="1">
+        <mat-form-field class="select pos style">
+          <span matPrefix>{{item.label}}</span>
+          <mat-select placeholder="{{item.placeholder}}" formControlName="{{item.key}}">
+            <mat-option *ngFor="let item of item.list" [value]="item.value">
+              {{item.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions fxFlex="0 0 60px">
+    <ng-container *ngFor="let item of data.buttons">
+
+      <button mat-raised-button color="primary" type="button" (click)="submit()" class="noshadow" *ngIf="item.type=='submit'">{{item.label}}
+      </button>
+
+      <button mat-raised-button color="warn" mat-dialog-close class="noshadow" *ngIf="item.type=='cancel'">{{item.label}}
+      </button>
+    </ng-container>
+
+  </mat-dialog-actions>
+</div>

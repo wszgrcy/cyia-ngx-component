@@ -26,7 +26,7 @@
     "@angular/router": "^6.1.7",
     "core-js": "^2.5.4",
     "cyia-ngx-common": "^1.1.9",
-    "cyia-ngx-form": "^1.1.0",
+    "cyia-ngx-form": "^1.1.1",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },

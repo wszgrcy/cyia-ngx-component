@@ -1,5 +1,7 @@
+import { CyiaHttpService } from 'cyia-ngx-common';
 import { Component, ViewChild } from '@angular/core';
-import { CyiaDatePickerComponent } from "../../dist/lib";
+import { CyiaDatePickerComponent } from "cyia-component";
+// import { CyiaDatePickerComponent } from "../../dist/lib";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +9,7 @@ import { CyiaDatePickerComponent } from "../../dist/lib";
 })
 export class AppComponent {
   @ViewChild('cyiadate') cyiadate: CyiaDatePickerComponent
-  constructor() { }
+  constructor(private service: CyiaHttpService) { }
   input1
   date = new Date().getTime();
 
@@ -15,7 +17,9 @@ export class AppComponent {
   list = []
   selvalue
   ngOnInit(): void {
-
+    this.service.request({ token: 't1' }).subscribe({next:() => {
+      console.log()
+    }})
   }
   test() {
   }
