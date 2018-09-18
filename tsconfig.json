@@ -19,8 +19,8 @@
     ],
     "paths": {
       "cyia-component": [
-        // "dist/lib"
-        "lib/src"
+        "dist/lib"
+        // "lib/src"
       ],
       "lib/*": [
         "dist/lib/*"

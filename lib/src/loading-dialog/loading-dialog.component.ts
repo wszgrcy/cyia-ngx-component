@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, ViewEncapsulation, ChangeDetectionStrategy, Injector } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoadingData } from '../define/loading-data.define';
 import { LoadingServiceAbstract } from '../services/loading.servicce';
-import { LOADING_SERVICE } from '../define/token';
+import { LOADING_PROGRESS } from '../define/token';
 
 
 
@@ -10,40 +10,33 @@ import { LOADING_SERVICE } from '../define/token';
   selector: 'cyia-loading-dialog',
   templateUrl: './loading-dialog.component.html',
   styleUrls: ['./loading-dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // encapsulation: ViewEncapsulation.None,
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LoadingDialogComponent implements OnInit {
-  /**
-   * ! 使用前需要注入token
-   */
-  service: LoadingServiceAbstract
+
+  data: LoadingData
+  constructor(
+    public dialogRef: MatDialogRef<LoadingDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: LoadingData,
+    @Inject(LOADING_PROGRESS) public service: LoadingServiceAbstract
+  ) {
+    for (const x in data) {
+      if (data.hasOwnProperty(x) && !data[x])
+        delete data[x]
+    }
+    let init: LoadingData = {
+      mode: 'indeterminate',
+      diameter: 70,
+      color: 'primary',
+      // strokeWidth: 10
+    }
+    this.data = Object.assign({}, init, data)
+    console.log(this.service)
+  }
   ngOnInit() {
   }
 
-  constructor(
-    public dialogRef: MatDialogRef<LoadingDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: LoadingData,
-    injector: Injector
-  ) {
-    let init: LoadingData = {
-      mode: 'indeterminate',
-      diameter: 40,
-      color: 'primary'
-    }
-    data = Object.assign({}, init, data)
-    this.service = injector.get(LOADING_SERVICE);
-  }
 
-  /**
-   * @description 获得上传百分比,非必须
-   * @author cyia
-   * @date 2018-09-17
-   * @returns
-   * @memberof LoadingDialogComponent
-   */
-  getPercent() {
-    // return this.data.loading ? `${(HTTP_PROGRESS.loaded / HTTP_PROGRESS.total * 100).toFixed(2)}%` : '';
-  }
 }

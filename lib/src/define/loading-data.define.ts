@@ -13,7 +13,7 @@ export interface SpinnerCoreConfig {
 }
 
 export interface CyiaPopupModuleConfig {
-    service: LoadingServiceAbstract;
-    spinnerConfig: SpinnerCoreConfig;
+    service?: any;
+    spinnerConfig?: SpinnerCoreConfig;
 
 }

@@ -2,7 +2,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Component, Input, ViewChild, ElementRef, forwardRef, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
 
 
- const EXE_COUNTER_VALUE_ACCESSOR: any = {
+const EXE_COUNTER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => CyiaUploadComponent),
   multi: true
@@ -16,7 +16,7 @@ import { Component, Input, ViewChild, ElementRef, forwardRef, ChangeDetectionStr
 })
 export class CyiaUploadComponent implements ControlValueAccessor {
   @ViewChild('input') inputRef: ElementRef
-  @Input() acceptType: string = null;
+  @Input('accept') acceptType: string = null;
   @Input() multiple: boolean = false;
   /**元素和父元素相隔的层数 */
   @Input() depth = 2

@@ -17,14 +17,12 @@ export class AppComponent {
   list = []
   selvalue
   ngOnInit(): void {
-    this.service.request({ token: 't1' }).subscribe({next:() => {
-      console.log()
-    }})
+   
   }
   test() {
   }
   ngAfterViewInit(): void {
-    console.log('!', this.cyiadate.empty)
+    // console.log('!', this.cyiadate.empty)
   }
 
 }

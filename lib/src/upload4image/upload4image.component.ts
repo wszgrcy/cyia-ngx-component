@@ -16,13 +16,14 @@ export class CyiaUpload4ImageComponent implements ControlValueAccessor {
   @ViewChild('img') img: ElementRef
   @Input() hasBtnView = false;
   /**同input标签的accept属性 */
-  @Input() acceptType = 'image/gif,image/jpeg,image/jpg,image/png,image/svg'
+  @Input() accept = 'image/gif,image/jpeg,image/jpg,image/png,image/svg'
   /**显示大小,value:b,kb,mb,gb;label为要显示的单位,例如:兆 */
   @Input() unit = {
     value: '',
     label: ''
   }
-  @Input() depth = 3
+  @Input() depth = 3;
+  @Input() multiple: boolean = false;
   files: File[] = []
   fatherElement: HTMLButtonElement;
   ele: HTMLElement;

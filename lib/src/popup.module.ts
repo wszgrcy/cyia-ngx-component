@@ -1,14 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LOADING_SERVICE, MESSAGE_CONFIG } from './define/token';
+import { LOADING_PROGRESS, SPINNER_CONFIG } from './define/token';
 import { CyiaPopupModuleConfig } from './define/loading-data.define';
 import { MessageService } from './services/message.service';
 import { MatSnackBarModule, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { LoadingServiceAbstract } from './services';
 const entryComponentsArray = [LoadingDialogComponent]
-/**
- * todo 没有flex模块,用css调整
- */
+
 @NgModule({
     declarations: [
         ...entryComponentsArray
@@ -21,7 +20,6 @@ const entryComponentsArray = [LoadingDialogComponent]
     ],
     providers: [MessageService],
     exports: [
-        // MessageService,
         ...entryComponentsArray,
     ],
     entryComponents: [...entryComponentsArray],
@@ -31,8 +29,11 @@ export class CyiaPopupModule {
         return {
             ngModule: CyiaPopupModule,
             providers: [
-                { provide: LOADING_SERVICE, useClass: config.service as any },
-                { provide: MESSAGE_CONFIG, useValue: config.spinnerConfig }
+                // config.service,
+                /**上传显示进度 */
+                { provide: LOADING_PROGRESS, useClass: config.service || LoadingServiceAbstract as any },
+                /**提示框内容 */
+                { provide: SPINNER_CONFIG, useValue: config.spinnerConfig }
 
             ]
         }

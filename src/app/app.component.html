@@ -3,19 +3,8 @@
   <mat-datepicker #picker></mat-datepicker>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-hint>正常提示</mat-hint>
-  <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-    Please enter a valid email address
-  </mat-error> -->
 </mat-form-field>
 
-<mat-select placeholder="测试" [(ngModel)]="selvalue">
-  <mat-option *ngFor="let item of list" [value]="item.value">
-    {{item.label}}
-  </mat-option>
-</mat-select>
-<mat-form-field class="example-full-width">
-  <input matInput placeholder="Favorite food" value="Sushi">
-</mat-form-field>
 <button mat-button>
   测试
   <cyia-upload></cyia-upload>
@@ -24,7 +13,6 @@
 <button mat-raised-button>
   图片
   <cyia-upload4image></cyia-upload4image>
-
 </button>
 
-<cyia-editform></cyia-editform>
+<cyia-editform></cyia-editform> 

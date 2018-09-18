@@ -1,6 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
-  <div class="fangdou" fxLayout="row" fxLayoutAlign="center center">
-    <mat-spinner [diameter]="data.diameter" [mode]="data.mode" [value]="service.progress"></mat-spinner>
+<div>
+  <div class="wrapper">
+    <mat-spinner [diameter]="data.diameter" [mode]="data.mode" [value]="service.progress" [strokeWidth]="data.strokeWidth"></mat-spinner>
   </div>
-  <div class="wordDiscribe" *ngIf="data.mode=='determinate'">{{service.description}}</div>
+  <!-- [diameter]="data.diameter" -->
+  <!--  [mode]="data.mode" -->
+  <!-- [value]="service.progress" -->
+  <!-- *ngIf="data.mode=='determinate'" -->
+  <div class="wordDiscribe">{{service.description||data.content}}</div>
 </div>

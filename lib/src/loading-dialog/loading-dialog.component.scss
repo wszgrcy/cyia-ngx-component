@@ -1,6 +1,15 @@
-.fangdou {
+.wrapper {
   width: 70px;
   height: 70px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+:host>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

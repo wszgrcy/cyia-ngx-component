@@ -13,28 +13,29 @@ import { CyiaFormModule } from 'cyia-ngx-form';
 import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDatePickerModule } from "cyia-component";
 import { EditformModule } from './editform/editform.module';
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    CyiaHttpModule.forRoot(requestList),
-    CyiaDatePickerModule.forRoot('zh-cn'),
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CyiaFormModule,
-    MatInputModule,
-    CyiaUploadModule,
-    MatIconModule,
-    CyiaUpload4ImageModule,
-    EditformModule,
-    // CyiaEditFormModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        CyiaHttpModule.forRoot(requestList),//doc 自请求
+        CyiaDatePickerModule.forRoot('zh-cn'),
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CyiaFormModule,
+        MatInputModule,
+        CyiaUploadModule,
+        MatIconModule,
+        CyiaUpload4ImageModule,
+        EditformModule,//doc 子组件
+    ],
+    providers: [
+
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
+import { LoadingProgressService } from './../services/loading-progress.service';
 import { CyiaHttpService } from 'cyia-ngx-common';
-import { CyiaEditFormModule, CyiaPopupModule } from 'cyia-component';
+import { CyiaEditFormModule, CyiaPopupModule, LOADING_PROGRESS } from 'cyia-component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditformComponent } from './editform.component';
@@ -10,15 +11,20 @@ import { MatDialogModule } from '@angular/material';
     CommonModule,
     MatDialogModule,
     CyiaEditFormModule,
+
     CyiaPopupModule.forRoot({
-      service: null,
+      service: LoadingProgressService,
       spinnerConfig: {}
-    })
+    }),
   ],
   declarations: [EditformComponent],
   exports: [EditformComponent,
     // CyiaEditFormModule
   ],
-  providers: []
+  providers: [
+    LoadingProgressService,
+    { provide: LOADING_PROGRESS, useClass: LoadingProgressService },
+
+  ]
 })
 export class EditformModule { }

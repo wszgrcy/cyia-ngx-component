@@ -121,7 +121,6 @@ export class CyiaEditFormComponent {
    * @memberof CyiaEditFormComponent
    */
   initValueByFunction() {
-
     for (let i = 0; i < this.config.length; i++) {
       const element = this.config[i];
       if (!(element.dataSource && element.dataSource.fn)) continue;
@@ -143,7 +142,8 @@ export class CyiaEditFormComponent {
    * @memberof CyiaEditFormComponent
    */
   private reqValue(element: ModelViewPropertyConfig, config: ModelViewPropertyConfig[], param = null) {
-    return element.dataSource.fn(...element.dataSource.param, param).then((res) => {
+    let reqParam = element.dataSource.param ? element.dataSource.param : []
+    return element.dataSource.fn(...reqParam, param).then((res) => {
       switch (element.dataSource.target) {
         case 'both':
           [element.value, element.list] = res.result;
@@ -155,6 +155,7 @@ export class CyiaEditFormComponent {
           element.value = res.result
           break;
         default:
+          element.list = res.result
           break;
       }
       if (element.dataSource.nextToken) {

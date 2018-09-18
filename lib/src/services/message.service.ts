@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
-import { MESSAGE_CONFIG } from '../define/token';
+import { SPINNER_CONFIG } from '../define/token';
 import { SpinnerCoreConfig } from '../define/loading-data.define';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class MessageService {
   constructor(
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    @Inject(MESSAGE_CONFIG) private config: SpinnerCoreConfig
+    @Inject(SPINNER_CONFIG) private config: SpinnerCoreConfig
   ) { }
 
 

@@ -8,6 +8,6 @@ export abstract class LoadingServiceAbstract {
      * @abstract
      * @memberof LoadingServiceAbstract
      */
-    abstract progress: number;
-    abstract description: string
+    abstract progress: number = 0;
+    abstract description: string = '';
 }

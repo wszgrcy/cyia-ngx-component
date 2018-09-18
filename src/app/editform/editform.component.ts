@@ -1,10 +1,11 @@
-import { CyiaEditFormComponent } from 'cyia-component';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CyiaEditFormComponent, LOADING_PROGRESS } from 'cyia-component';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { T1_CONFIG } from '../configure/form.define';
 import { _newArray } from 'cyia-ngx-form';
 import { HttpRequestItem, CyiaHttpService } from 'cyia-ngx-common';
 import { MessageService } from 'cyia-component';
+import { LoadingProgressService } from '../services/loading-progress.service';
 // import { _newArray } from 'cyia-ngx-form';
 
 @Component({
@@ -17,10 +18,19 @@ export class EditformComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
     private http: CyiaHttpService,
-    private message: MessageService
-  ) { }
+    private message: MessageService,
+
+
+    @Inject(LOADING_PROGRESS) private test: LoadingProgressService,
+  ) {
+    // test1.getserve()
+  }
 
   ngOnInit() {
+    // setInterval(() => {
+    // this.test.description = '5'
+
+    // }, 2000)
   }
   ngAfterContentInit(): void {
     let req: HttpRequestItem = {
@@ -31,36 +41,36 @@ export class EditformComponent implements OnInit {
 
       }
     }
-    setTimeout(() => {
-      this.message.showLoading()
-      
-    }, 3000);
     // setTimeout(() => {
-
-    //   this.dialog.open(CyiaEditFormComponent,
-    //     {
-    //       data: {
-    //         list: null,
-    //         config: _newArray(T1_CONFIG),
-    //         title: '测试',
-    //         buttons: [
-    //           {
-    //             label: '提交', type: 'submit'
-    //           },
-    //           {
-    //             label: '返回', type: 'cancel'
-    //           },
-    //         ],
-    //         req: req
-
-    //       },
-    //       width: '60%',
-    //     })
+    //   this.message.showLoading()
     // }, 0);
-    this.http.request({ token: 't1' }).subscribe({
-      next: () => {
-        console.log()
-      }
-    })
+
+    setTimeout(() => {
+      this.dialog.open(CyiaEditFormComponent,
+        {
+          data: {
+            list: null,
+            config: _newArray(T1_CONFIG),
+            title: '测试',
+            buttons: [
+              {
+                label: '提交', type: 'submit'
+              },
+              {
+                label: '返回', type: 'cancel'
+              },
+            ],
+            req: req
+          },
+          width: '60%',
+        })
+    }, 200);
+
+
+    // this.http.request({ token: 't1' }).subscribe({
+    //   next: () => {
+    //     console.log()
+    //   }
+    // })
   }
 }
