@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoadingServiceAbstract } from 'cyia-component';
+import { LoadingServiceAbstract } from 'cyia-ngx-component';
 
 @Injectable()
 export class LoadingProgressService implements LoadingServiceAbstract {

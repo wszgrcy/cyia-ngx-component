@@ -9,8 +9,8 @@ const moment = moment_;
  * @param [format] 如果需要格式化传入
  * @returns
  */
-export function coerceMoment(value: any, format?: string[]) {
-  if (value instanceof moment)
+export function coerceMoment(value: any, format?: string[]): moment_.Moment {
+  if (moment.isMoment(value))
     return value
   return moment(value, format)
 }

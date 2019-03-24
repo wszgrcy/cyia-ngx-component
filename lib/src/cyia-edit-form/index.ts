@@ -1,2 +1,2 @@
-export * from './cyia-edit-form.module'
-export * from './cyia-edit-form.component'
+// export { CyiaEditFormModule } from './cyia-edit-form.module'
+// export { CyiaEditFormComponent } from './cyia-edit-form.component'

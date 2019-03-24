@@ -1,6 +1,7 @@
 import { LoadingProgressService } from './../services/loading-progress.service';
 import { CyiaHttpService } from 'cyia-ngx-common';
-import { CyiaEditFormModule, CyiaPopupModule, LOADING_PROGRESS } from 'cyia-component';
+import { CyiaPopupModule, LOADING_PROGRESS } from 'cyia-ngx-component';
+import { CyiaEditFormModule } from 'cyia-ngx-component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditformComponent } from './editform.component';

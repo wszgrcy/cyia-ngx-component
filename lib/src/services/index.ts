@@ -1,2 +1,2 @@
-export * from './loading.servicce'
-export * from './message.service'
+export { LoadingServiceAbstract } from './loading.servicce'
+export { MessageService } from './message.service'

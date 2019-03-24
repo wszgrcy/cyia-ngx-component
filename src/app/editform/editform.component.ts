@@ -1,10 +1,10 @@
-import { CyiaEditFormComponent, LOADING_PROGRESS } from 'cyia-component';
+import { CyiaEditFormComponent, LOADING_PROGRESS } from 'cyia-ngx-component';
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { T1_CONFIG } from '../configure/form.define';
 import { _newArray } from 'cyia-ngx-form';
 import { HttpRequestItem, CyiaHttpService } from 'cyia-ngx-common';
-import { MessageService } from 'cyia-component';
+import { MessageService } from 'cyia-ngx-component';
 import { LoadingProgressService } from '../services/loading-progress.service';
 // import { _newArray } from 'cyia-ngx-form';
 

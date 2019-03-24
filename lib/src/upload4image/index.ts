@@ -1,2 +1,2 @@
-export * from './upload4image.module';
-export * from './upload4image.component';
+export { CyiaUpload4ImageModule } from './upload4image.module';
+export { CyiaUpload4ImageComponent } from './upload4image.component';

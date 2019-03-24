@@ -1,1 +1,1 @@
-export * from './loading-dialog.component'
+export { LoadingDialogComponent } from './loading-dialog.component'

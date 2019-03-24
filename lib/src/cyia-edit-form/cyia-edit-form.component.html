@@ -63,6 +63,16 @@
           </mat-select>
         </mat-form-field>
       </ng-container>
+      <!-- 日期部分 -->
+      <ng-container *ngSwitchCase="6">
+        <mat-form-field class="select pos style">
+          <span matPrefix>{{item.label}}</span>
+
+          <cyia-datepicker formControlName="{{item.key}}" [matDatepicker]="picker" #cyiadate placeholder="{{item.placeholder}}"></cyia-datepicker>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        </mat-form-field>
+      </ng-container>
     </div>
 
   </mat-dialog-content>

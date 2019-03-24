@@ -33,6 +33,13 @@ export const T1_CONFIG: ModelViewPropertyConfig[] = [
             target: 'list'
         }
     },
+    {
+        token: 'date', keyPath: ['date'], key: 'date', valuePath: ['date'], value: null, disabled: false, required: false, validatorList: null, label: '日期', sort: 1, type: 6, placeholder: '', list: [], variety: null,
+        dataSource: {
+            fn: dataSourceFromList,
+            target: 'list'
+        }
+    },
 ]
 
 function dataSourceFromSelf(value): Promise<any> {

@@ -1,17 +1,17 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Component, Input, ViewChild, ElementRef, forwardRef, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
+import { fromEvent } from 'rxjs';
 
 
-const EXE_COUNTER_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CyiaUploadComponent),
-  multi: true
-};
 @Component({
   selector: 'cyia-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
-  providers: [EXE_COUNTER_VALUE_ACCESSOR],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => CyiaUploadComponent),
+    multi: true
+  }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CyiaUploadComponent implements ControlValueAccessor {
@@ -20,7 +20,7 @@ export class CyiaUploadComponent implements ControlValueAccessor {
   @Input() multiple: boolean = false;
   /**元素和父元素相隔的层数 */
   @Input() depth = 2
-
+  @Input() nameInput: HTMLInputElement
   /**任意值 */
   private _value: any = [];
   fatherButton: HTMLButtonElement;
@@ -29,13 +29,17 @@ export class CyiaUploadComponent implements ControlValueAccessor {
   ngOnInit() {
   }
   ngAfterViewInit(): void {
+    this.getFatherButton()
+  }
+
+  getFatherButton() {
+    if (this.fatherButton) return
     let ele: HTMLInputElement = this.eleRef.nativeElement;
     for (let i = 0; i < this.depth; i++) {
       this.fatherButton = i == 0 ? this.renderer.parentNode(ele) : this.renderer.parentNode(this.fatherButton)
     }
-    this.renderer.setStyle(this.fatherButton, 'overflow', 'hidden')
-  }
 
+  }
   /**
    * @description 上传,不会有任何数据导入,同时,任何绑定不操作会维持原来的值
    * @author cyia
@@ -45,6 +49,7 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    */
   writeValue(value) {
     if (value !== undefined) {
+      console.log('zhibiangeng', value)
       this._value = value;
       // this.checkEmpty(value)
     }
@@ -57,10 +62,13 @@ export class CyiaUploadComponent implements ControlValueAccessor {
   registerOnTouched(fn) {
     this.touchedFn = fn;
   }
-
+  @Input() set disabled(isDisabled: boolean) {
+    if (isDisabled === undefined) return
+    this.setDisabledState(isDisabled)
+  }
   setDisabledState(isDisabled) {
-    // console.log('查看是否禁用', isDisabled);
     this.renderer.setAttribute(this.inputRef.nativeElement, 'disabled', isDisabled);
+    this.getFatherButton()
     this.renderer.setAttribute(this.fatherButton, 'disabled', isDisabled);
   }
   /**
@@ -69,7 +77,7 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    * @memberof CyiaUploadComponent
    */
   @Input()
-  fileOnBeforeUpload: (_value, value: FileList) => Promise<any> = (_value, value: FileList) => Promise.resolve(value)
+  fileOnBeforeUpload: (_value, value: File[]) => Promise<any> = (_value, value: File[]) => Promise.resolve(value)
   /**
    * @description 需要请求请重写此方法
    * @param value fileOnBeforeUpload返回的值
@@ -86,6 +94,10 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    */
   @Input()
   fileOnAfterUpload = (_value, value) => Promise.resolve(value)
+  /**修改文件名时回传修改文件,仅在一个文件时生效,保存的_value数组必须是一个文件数组 */
+  nameInputEventFunction = (function (this: CyiaUploadComponent, e) {
+    this._value[0] = new File([this._value[0]], this.nameInput.value, { type: this._value[0].type })
+  }).bind(this)
   /**
    * @description 当上传变化时
    * @author cyia
@@ -95,8 +107,14 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    * @memberof CyiaUploadComponent
    */
   inputChange(event) {
-    let fileList: FileList = event.target.files;
+    let fileList: File[] = Array.from(event.target.files);
     if (!fileList.length) return;
+    //doc 当上传时显示输入值,
+    if (fileList.length == 1 && this.nameInput) {
+      this.nameInput.value = fileList[0].name;
+      this.nameInput.addEventListener('input', this.nameInputEventFunction)
+    }
+    //doc 点击上传时是不是触发什么操作,比如请求服务器
     this.fileOnBeforeUpload(this._value, fileList).then((res) => {
       return this.fileOnUpload(this._value, res)
     }).then((res) => {
@@ -105,7 +123,8 @@ export class CyiaUploadComponent implements ControlValueAccessor {
       this._value = res
       this.changeFn(this._value)
       this.touchedFn(this._value)
-      this.inputRef.nativeElement.value = null;
+
+      // this.inputRef.nativeElement.value = null;
     })
 
   }

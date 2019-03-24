@@ -5,7 +5,8 @@ import { CyiaPopupModuleConfig } from './define/loading-data.define';
 import { MessageService } from './services/message.service';
 import { MatSnackBarModule, MatDialogModule, MatProgressSpinnerModule } from '@angular/material';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
-import { LoadingServiceAbstract } from './services';
+import { LoadingServiceAbstract } from './services/loading.servicce';
+// import { LoadingServiceAbstract } from './services/';
 const entryComponentsArray = [LoadingDialogComponent]
 
 @NgModule({

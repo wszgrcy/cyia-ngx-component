@@ -41,4 +41,3 @@ export class CyiaDatePickerModule {
   }
 
 }
-//todo 需要传入某个类型的事件,然后转化成moment

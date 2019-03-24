@@ -10,11 +10,16 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDatePickerModule } from "cyia-component";
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule } from "cyia-ngx-component";
+import { CyiaDatePickerModule } from "cyia-ngx-component";
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { EditformModule } from './editform/editform.module';
+// import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
     declarations: [
         AppComponent
+
     ],
     imports: [
         BrowserModule,
@@ -32,6 +37,9 @@ import { EditformModule } from './editform/editform.module';
         MatIconModule,
         CyiaUpload4ImageModule,
         EditformModule,//doc 子组件
+        CyiaDirectiveModule,
+        MatPaginatorModule,
+        // CyiaPaginatorPatchModule
     ],
     providers: [
 

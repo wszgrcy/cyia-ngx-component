@@ -1,2 +1,2 @@
-export * from './upload.component'
-export * from './upload.module'
+export { CyiaUploadComponent } from './upload.component'
+export { CyiaUploadModule } from './upload.module'

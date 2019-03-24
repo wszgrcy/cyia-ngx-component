@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -18,9 +19,9 @@
       "dom"
     ],
     "paths": {
-      "cyia-component": [
-        "dist/lib"
-        // "lib/src"
+      "cyia-ngx-component": [
+        // "dist/lib"//打包调用
+        "lib/src"//调试调用
       ],
       "lib/*": [
         "dist/lib/*"

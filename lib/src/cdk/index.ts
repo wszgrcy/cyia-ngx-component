@@ -1,1 +1,1 @@
-export * from './cyia-coercion'
+export { coerceMoment } from './cyia-coercion'

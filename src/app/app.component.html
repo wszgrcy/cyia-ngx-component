@@ -7,12 +7,36 @@
 
 <button mat-button>
   测试
-  <cyia-upload></cyia-upload>
+  <cyia-upload disabled></cyia-upload>
 </button>
+<mat-form-field>
+  <button mat-stroked-button matPrefix>
+    上传
+    <cyia-upload [nameInput]="val"></cyia-upload>
+  </button>
 
+  <input matInput #val>
+</mat-form-field>
 <button mat-raised-button>
   图片
   <cyia-upload4image></cyia-upload4image>
+
 </button>
 
-<cyia-editform></cyia-editform> 
+<cyia-editform></cyia-editform>
+<div style="width: 100px;height: 100px;background: red;" cyiaFileDropzone [(files)]="files">
+
+</div>
+<button (click)="test123()">测试节流</button>
+<mat-paginator [length]="length" [pageSize]="5"  cyiaPaginatorPatch
+  [template]="template" color="primary"  (page)="test($event)">
+</mat-paginator>
+<ng-template #template let-content>
+  <div>
+    <button mat-icon-button *ngFor="let item of content.list;let i=index" class=" page-num " (click)="item.click()"
+      [class.active]="item.active">
+      <!-- <mat-icon>{{i+1}}</mat-icon> -->
+      {{item.index}}
+    </button>
+  </div>
+</ng-template>
