@@ -1,6 +1,7 @@
 import { CyiaHttpService } from 'cyia-ngx-common';
 import { Component, ViewChild } from '@angular/core';
 import { CyiaDatePickerComponent } from "cyia-ngx-component";
+import { FabItem } from 'cyia-ngx-component';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 @Component({
   selector: 'app-root',
@@ -17,6 +18,16 @@ export class AppComponent {
   list = []
   selvalue
   files
+  fabList: FabItem[] = [
+    {
+      positionStrategyList: [{ originPos: { originX: 'start', originY: 'top' }, overlayPos: { overlayX: 'start', overlayY: 'bottom' } }]
+    }, {
+      origin:0,
+      positionStrategyList: [
+        { originPos: { originX: 'end', originY: 'top' }, overlayPos: { overlayX: 'start', overlayY: 'bottom' } }
+      ]
+    }
+  ]
   ngOnInit(): void {
     setTimeout(() => {
       this.length = 10

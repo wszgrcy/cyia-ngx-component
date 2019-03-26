@@ -1,5 +1,3 @@
-import { from } from 'rxjs';
-
 export * from './define/index';
 export * from './upload/index';
 export * from './upload4image/index';
@@ -16,4 +14,6 @@ export { CyiaEditFormModule } from './cyia-edit-form/cyia-edit-form.module'
 export { CyiaEditFormComponent } from './cyia-edit-form/cyia-edit-form.component'
 
 // export { FileDropzoneDirective } from './directive/file-dropzone.directive'
-export { CyiaDirectiveModule } from './directive/directive.module'
+export { CyiaDirectiveModule } from './directive/directive.module';
+export * from './color-picker';
+

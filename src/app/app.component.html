@@ -28,10 +28,10 @@
 
 </div>
 <button (click)="test123()">测试节流</button>
-<mat-paginator [length]="length" [pageSize]="5"  cyiaPaginatorPatch
-  [template]="template" color="primary"  (page)="test($event)">
+<mat-paginator [length]="length" [pageSize]="5" cyiaPaginatorPatch [template]="template1" color="primary"
+  (page)="test($event)">
 </mat-paginator>
-<ng-template #template let-content>
+<ng-template #template1 let-content>
   <div>
     <button mat-icon-button *ngFor="let item of content.list;let i=index" class=" page-num " (click)="item.click()"
       [class.active]="item.active">
@@ -40,3 +40,18 @@
     </button>
   </div>
 </ng-template>
+<button mat-fab [cyiaFabList]>
+  <mat-icon>fab</mat-icon>
+  <ng-template>
+    <button mat-mini-fab>
+      1
+    </button>
+
+  </ng-template>
+  <ng-template>
+    <button mat-mini-fab>
+      2
+    </button>
+
+  </ng-template>
+</button>
