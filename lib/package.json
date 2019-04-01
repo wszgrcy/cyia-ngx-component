@@ -1,6 +1,6 @@
 {
   "name": "cyia-ngx-component",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "cyia组件",
   "author": {
     "name": "cyia",
@@ -26,6 +26,12 @@
   "dependencies": {},
   "license": "MIT",
   "keywords": [
-    "angular", "component", "form", "material"
-  ]
+    "angular",
+    "component",
+    "form",
+    "material"
+  ],
+  "devDependencies": {
+    "@types/chroma-js": "^1.4.1"
+  }
 }

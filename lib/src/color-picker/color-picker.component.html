@@ -1,0 +1,39 @@
+<mat-tab-group [dynamicHeight]="true" [(selectedIndex)]="selectedIndex" (selectedTabChange)="animationDone($event)" mat-align-tabs="center">
+  <mat-tab label="预设">
+    <div class=" tab labels-and-palettes">
+      <div>
+        <ul class="shades">
+          <li *ngFor="let shade of PRESET_COLOR.shades">{{shade}}</li>
+        </ul>
+        <div class="palettes">
+          <ul class="labels">
+            <li class="label" *ngFor="let palette of PRESET_COLOR.palettes">{{palette.name}}</li>
+          </ul>
+          <div>
+            <ul *ngFor="let palette of PRESET_COLOR.palettes">
+              <li *ngFor="let item of palette.hexes" [style.background]="item" class="color" (click)="valueChange(item)"
+                [class.selected]="_value===item">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="自定义">
+    <div class="color-wheel tab">
+      <div class="color-wheel__canvas">
+        <canvas style="position: relative;cursor: crosshair;display: block;"></canvas>
+        <!-- [style.color]="_value" -->
+        <mat-icon>colorize</mat-icon>
+      </div>
+      <div class="color-luminance-slider">
+        <div style="width: 10px;height: 100%;cursor: crosshair;" [style.background]="sliderBarBackground"
+          class="color-luminance-slider__bar">
+        </div>
+        <mat-icon class="color-luminance-slider__icon">arrow_left</mat-icon>
+
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
