@@ -28,7 +28,6 @@
     "@angular/platform-browser": "^7.2.8",
     "@angular/platform-browser-dynamic": "^7.2.8",
     "@angular/router": "^7.2.8",
-    "chroma-js": "^2.0.3",
     "core-js": "^2.6.5",
     "cyia-ngx-common": "^1.2.1",
     "cyia-ngx-form": "^1.2.0",

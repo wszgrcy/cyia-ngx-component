@@ -15,5 +15,5 @@ export { CyiaEditFormComponent } from './cyia-edit-form/cyia-edit-form.component
 
 // export { FileDropzoneDirective } from './directive/file-dropzone.directive'
 export { CyiaDirectiveModule } from './directive/directive.module';
-export * from './color-picker';
-export * from './component-toggle'
+export * from './color-picker/index';
+export * from './component-toggle/index'

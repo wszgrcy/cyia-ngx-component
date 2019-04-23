@@ -110,7 +110,7 @@ export class ColorPickerComponent implements ControlValueAccessor {
 
   }
   ngAfterViewInit(): void { }
-  scale: chroma.Scale<chroma.Color>
+  scale: chroma_.Scale<chroma_.Color>
   sliderBeginColor
   getColorWithSlider(e: MouseEvent) {
     const [x, y] = [Math.floor(e.clientX - this.canvas.slider.getBoundingClientRect().left), Math.floor(e.clientY - this.canvas.slider.getBoundingClientRect().top)];
@@ -222,7 +222,7 @@ export class ColorPickerComponent implements ControlValueAccessor {
    * @param color
    * @memberof ColorPickerComponent
    */
-  colorToCoordinate(color: chroma.ColorSpaces['hsv']) {
+  colorToCoordinate(color: chroma_.ColorSpaces['hsv']) {
 
     let { centerX, centerY, radius } = this.canvas;
     let [hue, saturation, value] = color;

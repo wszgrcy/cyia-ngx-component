@@ -20,8 +20,8 @@
     ],
     "paths": {
       "cyia-ngx-component": [
-        // "dist/lib"//打包调用
-        "lib/src"//调试调用
+        "dist/lib"//打包调用
+        // "lib/src"//调试调用
       ],
       "lib/*": [
         "dist/lib/*"

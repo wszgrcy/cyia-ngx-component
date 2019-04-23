@@ -3,7 +3,7 @@ import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CyiaDatePickerComponent } from "cyia-ngx-component";
 import { FabItem } from 'cyia-ngx-component';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
-import * as chroma from "chroma-js";
+// import * as chroma from "chroma-js";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -43,6 +43,6 @@ export class AppComponent {
   test123() {
     console.log('按钮点击')
   }
-  randomColor = chroma.random();
+  randomColor = 'red'
 }
 
