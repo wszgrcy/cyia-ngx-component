@@ -1,6 +1,6 @@
 {
   "name": "cyia-ngx-component",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "cyia组件",
   "author": {
     "name": "cyia",
@@ -15,15 +15,17 @@
     "@angular/core": ">=6.0.0",
     "@angular/material": ">=6.0.0",
     "@angular/cdk": ">=6.0.0",
-    "cyia-ngx-common": "1.1.11",
-    "cyia-ngx-form": "1.1.3",
+    "cyia-ngx-common": "1.2.1",
+    "cyia-ngx-form": "1.2.0",
     "@angular/flex-layout": ">=6.0.0-beta.18",
     "@angular/material-moment-adapter": ">=6.4.6",
     "ngx-markdown": "^6.2.0",
     "image-compressor.js": "^1.1.4",
     "moment": "^2.22.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "chroma-js": "^2.0.3"
+  },
   "license": "MIT",
   "keywords": [
     "angular",

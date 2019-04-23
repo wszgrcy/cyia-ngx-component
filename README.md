@@ -11,6 +11,10 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.0.14
+- 增加切换组件
+## 0.0.12
+- 增加颜色选择器组件
 ## 0.0.11
 - 增加mat-pagintor打补丁用指令,用来显示索引值
 ## 0.0.8

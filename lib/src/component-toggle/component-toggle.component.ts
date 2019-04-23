@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ViewChild, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
-import { AnimationBuilder, trigger, state, style } from '@angular/animations';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
 import { TemplateAnchorDirective } from '../directive/template-anchor.directive';
 import { coerceCssTimeValue } from '../cdk/cyia-coercion';
 
@@ -16,7 +15,10 @@ export class ComponentToggleComponent implements OnInit {
       this.templateObject[item.name] = item.template
     })
   }
-  templateObject = {}
+  templateObject: {
+    front?: TemplateRef<any>,
+    end?: TemplateRef<any>
+  } = {}
 
   isToggle = false;
   hostElement: HTMLElement

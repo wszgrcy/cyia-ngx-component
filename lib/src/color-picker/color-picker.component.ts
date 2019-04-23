@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, Renderer2, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, forwardRef, ViewChild, Optional, Inject } from '@angular/core';
 import { PRESET_COLOR, CanvasObject, Point } from '../define/color-picker.define';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as chroma from "chroma-js";
+import * as chroma_ from "chroma-js";
+const chroma = chroma_
 import { fromEvent, Subject } from 'rxjs';
 import { takeWhile, skipUntil, takeUntil, tap } from 'rxjs/operators';
 import { coerceCssPixelValue, coerceBooleanProperty } from '@angular/cdk/coercion';
