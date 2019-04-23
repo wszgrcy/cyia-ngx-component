@@ -34,6 +34,9 @@
       ],
       "ngx-markdown": [
         "../node_modules/ngx-markdown"
+      ],
+      "chroma-js":[
+        "../node_modules/chroma-js"
       ]
     }
   },

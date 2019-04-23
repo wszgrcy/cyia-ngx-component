@@ -40,9 +40,7 @@ export class AppComponent {
   ngAfterViewInit(): void {
     // console.log('!', this.cyiadate.empty)
   }
-  test123() {
-    console.log('按钮点击')
-  }
+
   randomColor = 'red'
 }
 

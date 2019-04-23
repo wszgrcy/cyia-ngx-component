@@ -9,7 +9,7 @@ import { coerceCssTimeValue } from '../cdk/cyia-coercion';
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'ComponentToggle'
 })
-export class ComponentToggleComponent implements OnInit {
+export class CyiaComponentToggleComponent implements OnInit {
   @ContentChildren(TemplateAnchorDirective) set templateAnchorList(list: QueryList<TemplateAnchorDirective>) {
     list.forEach((item) => {
       this.templateObject[item.name] = item.template

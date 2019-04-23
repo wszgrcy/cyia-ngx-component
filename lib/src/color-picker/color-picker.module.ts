@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ColorPickerComponent } from './color-picker.component';
+import { ColorPickerComponent as CyiaColorPickerComponent } from './color-picker.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     FormsModule
   ],
-  declarations: [ColorPickerComponent],
-  exports: [ColorPickerComponent]
+  declarations: [CyiaColorPickerComponent],
+  exports: [CyiaColorPickerComponent]
 })
-export class ColorPickerModule { }
+export class CyiaColorPickerModule { }
