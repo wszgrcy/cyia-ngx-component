@@ -55,3 +55,15 @@
 
   </ng-template>
 </button>
+<cyia-colorpicker [(ngModel)]="randomColor"></cyia-colorpicker>
+<button class="" (click)="el.toggle()"> 翻转</button>
+
+<cyia-component-toggle [duration]="2000" #el>
+  <ng-template [cyiaTemplateAnchor]="'front'">
+    前123
+    <div>ddd</div>
+  </ng-template>
+  <ng-template [cyiaTemplateAnchor]="'end'">
+    后
+  </ng-template>
+</cyia-component-toggle>

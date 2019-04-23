@@ -4,20 +4,25 @@ import { PaginatorPatchDirective } from './paginator-patch.directive';
 import { TextCopyDirective } from './text-copy.directive';
 import { FabListDirective } from './fab-list.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { TemplateAnchorDirective } from './template-anchor.directive';
 
 @NgModule({
-   imports: [OverlayModule],
+   imports: [
+      OverlayModule
+   ],
    declarations: [
       FileDropzoneDirective,
       PaginatorPatchDirective,
       TextCopyDirective,
-      FabListDirective
+      FabListDirective,
+      TemplateAnchorDirective,
    ],
    exports: [
       FileDropzoneDirective,
       PaginatorPatchDirective,
       TextCopyDirective,
-      FabListDirective
+      FabListDirective,
+      TemplateAnchorDirective
    ]
 })
 export class CyiaDirectiveModule { }

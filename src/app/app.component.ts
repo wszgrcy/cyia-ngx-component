@@ -1,12 +1,13 @@
 import { CyiaHttpService } from 'cyia-ngx-common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CyiaDatePickerComponent } from "cyia-ngx-component";
 import { FabItem } from 'cyia-ngx-component';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
+import * as chroma from "chroma-js";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   @ViewChild('cyiadate') cyiadate: CyiaDatePickerComponent
@@ -22,7 +23,7 @@ export class AppComponent {
     {
       positionStrategyList: [{ originPos: { originX: 'start', originY: 'top' }, overlayPos: { overlayX: 'start', overlayY: 'bottom' } }]
     }, {
-      origin:0,
+      origin: 0,
       positionStrategyList: [
         { originPos: { originX: 'end', originY: 'top' }, overlayPos: { overlayX: 'start', overlayY: 'bottom' } }
       ]
@@ -42,5 +43,6 @@ export class AppComponent {
   test123() {
     console.log('按钮点击')
   }
+  randomColor = chroma.random();
 }
 
