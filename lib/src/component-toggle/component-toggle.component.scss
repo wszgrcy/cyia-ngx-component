@@ -3,8 +3,34 @@
   position: relative;
   perspective: 3000px;
 
+  @each $direction in X,
+  Y,
+  Z {
+    &.rotate#{$direction} {
+      .front {
+        transform:rotate#{$direction}#{unquote('(0deg)')};
+      }
+
+      .end {
+        transform:rotate#{$direction}#{unquote('(180deg)')};
+      }
+
+      &.toggle {
+        .front {
+          transform:rotate#{$direction}#{unquote('(180deg)')};
+        }
+
+        .end {
+          transform:rotate#{$direction}#{unquote('(360deg)')};
+        }
+
+      }
+    }
+  }
+
   .front,
   .end {
+    // transform-origin: center;
     position: relative;
     transform-style: flat;
     transform-style: preserve-3d;
@@ -39,4 +65,5 @@
       transform: rotateY(360deg);
     }
   }
+
 }

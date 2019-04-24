@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ElementRef, ContentChildren, QueryList, TemplateRef, ChangeDetectorRef, Input, Renderer2 } from '@angular/core';
 import { TemplateAnchorDirective } from '../directive/template-anchor.directive';
 import { coerceCssTimeValue } from '../cdk/cyia-coercion';
 
@@ -22,21 +22,50 @@ export class CyiaComponentToggleComponent implements OnInit {
 
   isToggle = false;
   hostElement: HTMLElement
+  class: { [name: string]: boolean } = {
+  }
+  childList: NodeListOf<Element>
   constructor(
     private cd: ChangeDetectorRef,
-    elementRef: ElementRef
+    elementRef: ElementRef,
+    private renderer: Renderer2
   ) {
     this.hostElement = elementRef.nativeElement
+  }
+  private _direction: string
+  /**
+   * 旋转方向
+   *
+   */
+  @Input() set direction(value: string) {
+    if (!/x|y|z/i.test(value || '')) return
+    for (const key in this.class) {
+      if (/^rotate/.test(key))
+        this.class[key] = false
+    }
+    this.class[`rotate${value.toLocaleUpperCase()}`] = true
+    this._direction = value
+    this.cd.markForCheck()
+  }
+  get() {
+    return this._direction
   }
   /**
    * 持续时间: 毫秒数
    *
    */
   @Input() set duration(value: number) {
-    if (value === undefined) return
-    let childList = this.hostElement.querySelectorAll('.front,.end')
+    if (value == undefined || !(typeof value === 'number')) return
+    let childList = this.getChildList()
     childList.forEach((element: HTMLElement) => {
       element.style.transition = `transform ${coerceCssTimeValue(value)} ease-out 0s, opacity ${coerceCssTimeValue(value)} ease-in 0s`
+    })
+  }
+  @Input() set origin(value) {
+    if (value == undefined) return
+    let childList = this.getChildList()
+    childList.forEach((element: HTMLElement) => {
+      this.renderer.setStyle(element, 'transform-origin', value)
     })
   }
   ngOnInit() {
@@ -50,5 +79,10 @@ export class CyiaComponentToggleComponent implements OnInit {
       this.isToggle = !this.isToggle;
     }
     this.cd.markForCheck()
+  }
+  private getChildList() {
+    if (!this.childList)
+      this.childList = this.hostElement.querySelectorAll('.front,.end')
+    return this.childList
   }
 }

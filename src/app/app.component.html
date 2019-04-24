@@ -57,7 +57,7 @@
 <cyia-colorpicker [(ngModel)]="randomColor"></cyia-colorpicker>
 <button class="" (click)="el.toggle()"> 翻转</button>
 
-<cyia-component-toggle [duration]="2000" #el>
+<cyia-component-toggle [duration]="2000" #el [direction]="'x'" [origin]="'left bottom'">
   <ng-template [cyiaTemplateAnchor]="'front'">
     前123
     <div>ddd</div>
