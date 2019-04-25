@@ -49,7 +49,6 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    */
   writeValue(value) {
     if (value !== undefined) {
-      console.log('zhibiangeng', value)
       this._value = value;
       // this.checkEmpty(value)
     }

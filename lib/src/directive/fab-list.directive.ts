@@ -28,29 +28,31 @@ export class FabListDirective {
     while (this.cyiaFabList.length < this.templateRefQueryList.length) {
       this.cyiaFabList.push({ origin: this.cyiaFabList.length - 1 })
     }
-    this.cyiaFabList.forEach(({ positionStrategyList = DEFAULT_STRATEGY_LIST, origin = undefined }, i) => {
-      let elementRef = origin === undefined || !i || origin > i ? this.elementRef : new ElementRef(this.strategyList[origin].overlayRef.overlayElement)
-      let positionStrategy = this.overlay
-        .position()
-        .connectedTo(elementRef, positionStrategyList[0].originPos, positionStrategyList[0].overlayPos)
-        .withOffsetX(positionStrategyList[0].offsetX || 0)
-        .withOffsetY(positionStrategyList[0].offsetY || 0)
-      if (positionStrategyList.length > 1) {
-        positionStrategyList
-          .filter((val, i) => i)
-          .forEach((item) => {
-            positionStrategy = positionStrategy.withFallbackPosition(item.originPos, item.overlayPos, item.offsetX || 0, item.offsetY || 0)
-          })
-      }
-      let overlayRef = this.overlay.create({
-        positionStrategy: positionStrategy,
-        disposeOnNavigation: true
+    this.cyiaFabList
+      .forEach(({ positionStrategyList = DEFAULT_STRATEGY_LIST, origin = undefined }, i) => {
+        if (!this.templateRefQueryList.toArray()[i]) return
+        let elementRef = origin === undefined || !i || origin > i ? this.elementRef : new ElementRef(this.strategyList[origin].overlayRef.overlayElement)
+        let positionStrategy = this.overlay
+          .position()
+          .connectedTo(elementRef, positionStrategyList[0].originPos, positionStrategyList[0].overlayPos)
+          .withOffsetX(positionStrategyList[0].offsetX || 0)
+          .withOffsetY(positionStrategyList[0].offsetY || 0)
+        if (positionStrategyList.length > 1) {
+          positionStrategyList
+            .filter((val, i) => i)
+            .forEach((item) => {
+              positionStrategy = positionStrategy.withFallbackPosition(item.originPos, item.overlayPos, item.offsetX || 0, item.offsetY || 0)
+            })
+        }
+        let overlayRef = this.overlay.create({
+          positionStrategy: positionStrategy,
+          disposeOnNavigation: true
+        })
+        this.strategyList.push({
+          template: this.templateRefQueryList.find((val, j) => j == i),
+          overlayRef: overlayRef
+        })
       })
-      this.strategyList.push({
-        template: this.templateRefQueryList.find((val, j) => j == i),
-        overlayRef: overlayRef
-      })
-    })
   }
   @HostListener('click')
   click() {

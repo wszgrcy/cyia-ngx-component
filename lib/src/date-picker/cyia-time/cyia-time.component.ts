@@ -14,6 +14,7 @@ import { AccurateTime } from '../../define/date-picker.define';
   ],
   host: {
     '[@transformPanel]': '"enter"',
+    'class':'app-cyia-time'
   }
 })
 export class CyiaTimeComponent implements OnInit {
