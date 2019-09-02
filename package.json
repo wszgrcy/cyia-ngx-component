@@ -12,7 +12,7 @@
     "build:lib": "ng build lib --prod",
     "postbuild:lib": "copy README.md .\\dist\\lib",
     "update": "ng update --all --force",
-    "test:lib":"ng test lib"
+    "test:lib": "ng test lib"
   },
   "private": true,
   "dependencies": {

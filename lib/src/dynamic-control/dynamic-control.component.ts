@@ -1,25 +1,47 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, ComponentFactoryResolver, Injector, Compiler, ViewContainerRef, ApplicationRef, NgModuleFactoryLoader, ViewChild } from '@angular/core';
-import { FormsModule, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, ComponentFactoryResolver, Injector, Compiler, ViewContainerRef, ApplicationRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef } from '@angular/core';
+import { FormsModule, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'cyia-dynamic-control',
   templateUrl: './dynamic-control.component.html',
   styleUrls: ['./dynamic-control.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DynamicControlComponent), multi: true }
+  ]
 })
-export class DynamicControlComponent implements OnInit {
+export class DynamicControlComponent implements ControlValueAccessor {
+  @Input() path: string
   @ViewChild('template', { read: ViewContainerRef }) anchor: ViewContainerRef
-  title
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+  _value
+  private changeFn: Function = () => { };
+  private touchedFn: Function = () => { };
+  component: ComponentRef<any>
+  constructor(
     private injector: Injector,
     private compiler: Compiler,
-    private container: ViewContainerRef,
-    private fb: FormBuilder,
-    private applicationRef: ApplicationRef,
     private load: NgModuleFactoryLoader,
-    private resolver: ComponentFactoryResolver) { }
+  ) { }
 
   ngOnInit() {
+
+  }
+  registerOnChange(fn) {
+    this.changeFn = fn;
+  }
+  registerOnTouched(fn) {
+    this.touchedFn = fn;
+  }
+  writeValue(value) {
+    if (value !== undefined) {
+      this._value = value
+      if (this.component) {
+        this.component.instance.value = value
+      }
+    }
+  }
+  ngAfterViewInit(): void {
+    this.addComponent(this.path)
   }
   private async addComponent(path: string) {
     /**载入的模块工厂 */
@@ -36,17 +58,18 @@ export class DynamicControlComponent implements OnInit {
       public value
       public valueChange = new EventEmitter()
     }
-    @NgModule({ declarations: [TemplateComponent], imports: [module, xxxx, FormsModule] })
+    @NgModule({ declarations: [TemplateComponent], imports: [module, FormsModule] })
     class TemplateModule { }
     /**编译模块 */
     const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
     /**组件工厂 */
     const factory = mod.componentFactories.find((comp) => comp.componentType === TemplateComponent);
     /**通过锚点创建组件 */
-    const component: ComponentRef<TemplateComponent> = this.anchor.createComponent(factory, undefined, this.injector);
+    this.component = this.anchor.createComponent(factory, undefined, this.injector);
     //todo 封装
-    component.instance.value = this.title
-    component.instance.valueChange.subscribe((val) => this.title = val)
+    this.component.instance.value = this._value
+    this.component.instance.valueChange.subscribe((val) => this.valueChange(val)
+    )
   }
 
   getSelector(ngModuleRef: NgModuleRef<any>): string {
@@ -65,5 +88,10 @@ export class DynamicControlComponent implements OnInit {
     }
 
     throw '没有找到选择器'
+  }
+  valueChange(value: string) {
+    this._value = value
+    this.changeFn(value)
+    this.touchedFn(value)
   }
 }
