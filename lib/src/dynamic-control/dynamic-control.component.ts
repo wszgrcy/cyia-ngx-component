@@ -34,9 +34,10 @@ export class DynamicControlComponent implements ControlValueAccessor {
   }
   writeValue(value) {
     if (value !== undefined) {
-      this._value = value
       if (this.component) {
         this.component.instance.value = value
+      } else {
+        this._value = value
       }
     }
   }
