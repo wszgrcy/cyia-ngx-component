@@ -1,46 +1,23 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef } from '@angular/core';
-import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, NgModule, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input } from '@angular/core';
 
 @Component({
-  selector: 'cyia-dynamic-control',
-  templateUrl: './dynamic-control.component.html',
-  styleUrls: ['./dynamic-control.component.scss'],
+  selector: 'cyia-dynamic-component',
+  templateUrl: './dynamic-component.component.html',
+  styleUrls: ['./dynamic-component.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => DynamicControlComponent), multi: true }
-  ]
 })
-export class DynamicControlComponent implements ControlValueAccessor {
+export class DynamicComponentComponent {
   @Input() path: string
   @ViewChild('template', { read: ViewContainerRef }) anchor: ViewContainerRef
-  _value
-  private changeFn: Function = () => { };
-  private touchedFn: Function = () => { };
-  component: ComponentRef<any>
+
   constructor(
     private injector: Injector,
     private compiler: Compiler,
     private load: NgModuleFactoryLoader,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
-  registerOnChange(fn) {
-    this.changeFn = fn;
-  }
-  registerOnTouched(fn) {
-    this.touchedFn = fn;
-  }
-  writeValue(value) {
-    if (value !== undefined) {
-      if (this.component) {
-        this.component.instance.value = value
-      } else {
-        this._value = value
-      }
-    }
-  }
   ngAfterViewInit(): void {
     this.addComponent(this.path)
   }
@@ -54,24 +31,22 @@ export class DynamicControlComponent implements ControlValueAccessor {
     const selector = this.getSelector(ngModuleRef);
 
     @Component({
-      template: `<${selector} [ngModelOptions]="{standalone:true}"  [(ngModel)]="value" (ngModelChange)="valueChange.emit($event)"></${selector}>`
+      template: '<' + selector + '></' + selector + '>'
+      // `
+      // <${selector}>
+      // </${selector}>
+      // `
     })
-    class TemplateComponent {
-      public value
-      public valueChange = new EventEmitter()
-    }
-    @NgModule({ declarations: [TemplateComponent], imports: [module, FormsModule] })
+    class TemplateComponent { }
+    @NgModule({ declarations: [TemplateComponent], imports: [module] })
     class TemplateModule { }
     /**编译模块 */
     const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
     /**组件工厂 */
     const factory = mod.componentFactories.find((comp) => comp.componentType === TemplateComponent);
     /**通过锚点创建组件 */
-    this.component = this.anchor.createComponent(factory, undefined, this.injector);
+    let component = this.anchor.createComponent(factory, undefined, this.injector);
     //doc 表现为表单控件时,才进行值的监听
-    this.component.instance.value = this._value
-    this.component.instance.valueChange.subscribe((val) => this.valueChange(val)
-    )
   }
 
   getSelector(ngModuleRef: NgModuleRef<any>): string {
@@ -90,10 +65,5 @@ export class DynamicControlComponent implements ControlValueAccessor {
     }
 
     throw '没有找到选择器'
-  }
-  valueChange(value: string) {
-    this._value = value
-    this.changeFn(value)
-    this.touchedFn(value)
   }
 }

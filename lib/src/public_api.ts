@@ -19,3 +19,5 @@ export * from './color-picker/index';
 export * from './component-toggle/index'
 export * from './dynamic-control/dynamic-control.component'
 export * from './dynamic-control/dynamic-control.module'
+export * from './dynamic-component/dynamic-component.component'
+export * from './dynamic-component/dynamic-component.module'
