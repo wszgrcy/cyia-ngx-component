@@ -10,11 +10,12 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule,CyiaColorPickerModule, CyiaComponentToggleModule } from "cyia-ngx-component";
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule } from "cyia-ngx-component";
 import { CyiaDatePickerModule } from "cyia-ngx-component";
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { EditformModule } from './editform/editform.module';
+import { RouterModule } from '@angular/router';
 // import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
     declarations: [
@@ -41,7 +42,11 @@ import { EditformModule } from './editform/editform.module';
         MatPaginatorModule,
         // CyiaPaginatorPatchModule
         CyiaColorPickerModule,
-        CyiaComponentToggleModule
+        CyiaComponentToggleModule,
+        RouterModule.forRoot([
+            { path: 'lazy', loadChildren: './lazy-load/lazy-load.module#LazyLoadModule' }
+        ]),
+        DynamicControlModule
     ],
     providers: [
 

@@ -17,3 +17,5 @@ export { CyiaEditFormComponent } from './cyia-edit-form/cyia-edit-form.component
 export { CyiaDirectiveModule } from './directive/directive.module';
 export * from './color-picker/index';
 export * from './component-toggle/index'
+export * from './dynamic-control/dynamic-control.component'
+export * from './dynamic-control/dynamic-control.module'

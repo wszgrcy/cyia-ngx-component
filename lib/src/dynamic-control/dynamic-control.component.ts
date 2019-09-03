@@ -12,6 +12,7 @@ import { FormsModule, FormBuilder, NG_VALUE_ACCESSOR, ControlValueAccessor } fro
 })
 export class DynamicControlComponent implements ControlValueAccessor {
   @Input() path: string
+  @Input() isControl: boolean = false
   @ViewChild('template', { read: ViewContainerRef }) anchor: ViewContainerRef
   _value
   private changeFn: Function = () => { };
@@ -52,8 +53,14 @@ export class DynamicControlComponent implements ControlValueAccessor {
     //doc 正规方法需要先实例化模块浪费性能,可以将正规方法作为候选
     const ngModuleRef = ngModuleFactory.create(this.injector)
     const selector = this.getSelector(ngModuleRef);
+    let template = ``
+    if (this.isControl) {
+      template = `<${selector} [ngModelOptions]="{standalone:true}"  [(ngModel)]="value" (ngModelChange)="valueChange.emit($event)"></${selector}>`
+    } else {
+      template = `<${selector}></${selector}>`
+    }
     @Component({
-      template: `<${selector}  [ngModelOptions]="{standalone:true}"  [(ngModel)]="value" (ngModelChange)="valueChange.emit($event)"></${selector}>`
+      template: template
     })
     class TemplateComponent {
       public value
@@ -67,10 +74,12 @@ export class DynamicControlComponent implements ControlValueAccessor {
     const factory = mod.componentFactories.find((comp) => comp.componentType === TemplateComponent);
     /**通过锚点创建组件 */
     this.component = this.anchor.createComponent(factory, undefined, this.injector);
-    //todo 封装
-    this.component.instance.value = this._value
-    this.component.instance.valueChange.subscribe((val) => this.valueChange(val)
-    )
+    //doc 表现为表单控件时,才进行值的监听
+    if (this.isControl) {
+      this.component.instance.value = this._value
+      this.component.instance.valueChange.subscribe((val) => this.valueChange(val)
+      )
+    }
   }
 
   getSelector(ngModuleRef: NgModuleRef<any>): string {

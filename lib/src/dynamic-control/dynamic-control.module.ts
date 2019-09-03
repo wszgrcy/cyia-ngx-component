@@ -6,6 +6,7 @@ import { DynamicControlComponent } from './dynamic-control.component';
   imports: [
     CommonModule
   ],
-  declarations: [DynamicControlComponent]
+  declarations: [DynamicControlComponent],
+  exports:[DynamicControlComponent]
 })
 export class DynamicControlModule { }
