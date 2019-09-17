@@ -1,6 +1,6 @@
 import { CyiaEditFormComponent, LOADING_PROGRESS } from 'cyia-ngx-component';
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { T1_CONFIG } from '../configure/form.define';
 import { _newArray } from 'cyia-ngx-form';
 import { HttpRequestItem, CyiaHttpService } from 'cyia-ngx-common';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter, Input } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { matDatepickerAnimations } from '@angular/material';
+import { matDatepickerAnimations } from '@angular/material/datepicker';
 import { AccurateTime } from '../../define/date-picker.define';
 
 @Component({

@@ -8,7 +8,7 @@ import { Component, ChangeDetectionStrategy, NgModule, NgModuleRef, Injector, Co
 })
 export class DynamicComponentComponent {
   @Input() path: string
-  @ViewChild('template', { read: ViewContainerRef }) anchor: ViewContainerRef
+  @ViewChild('template', { read: ViewContainerRef, static: true }) anchor: ViewContainerRef
 
   constructor(
     private injector: Injector,

@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
 import { FabItem } from 'lib/define';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FabListDirective } from 'lib/directive/fab-list.directive';
-import { MatPaginatorModule, MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({

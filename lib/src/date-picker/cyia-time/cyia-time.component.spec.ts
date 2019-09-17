@@ -6,7 +6,8 @@ import { DebugElement } from '@angular/core';
 import { CyiaTimeComponent } from './cyia-time.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { newEvent } from '../../testing';
 fdescribe('CyiaTimeComponent', () => {

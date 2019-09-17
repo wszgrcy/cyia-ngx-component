@@ -1,12 +1,14 @@
 import { requestList } from './configure/http-list';
 import { CyiaHttpModule } from 'cyia-ngx-common';
-import { MatInputModule, MatIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CyiaFormModule } from 'cyia-ngx-form';
@@ -44,7 +46,7 @@ import { RouterModule } from '@angular/router';
         CyiaColorPickerModule,
         CyiaComponentToggleModule,
         RouterModule.forRoot([
-            { path: 'lazy', loadChildren: './lazy-load/lazy-load.module#LazyLoadModule' }
+            { path: 'lazy', loadChildren: () => import('./lazy-load/lazy-load.module').then(m => m.LazyLoadModule) }
         ]),
         DynamicControlModule
     ],

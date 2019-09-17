@@ -12,7 +12,7 @@ import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/f
 })
 export class DynamicControlComponent implements ControlValueAccessor {
   @Input() path: string
-  @ViewChild('template', { read: ViewContainerRef }) anchor: ViewContainerRef
+  @ViewChild('template', { read: ViewContainerRef, static: true }) anchor: ViewContainerRef
   _value
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };

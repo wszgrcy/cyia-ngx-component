@@ -10,12 +10,12 @@ import { FabItem } from 'cyia-ngx-component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild('cyiadate') cyiadate: CyiaDatePickerComponent
+  @ViewChild('cyiadate', { static: true }) cyiadate: CyiaDatePickerComponent
   constructor(private service: CyiaHttpService) { }
   input1
   date = new Date().getTime();
   length = 20
-  @ViewChild('picker2') picker
+  @ViewChild('picker2', { static: true }) picker
   list = []
   selvalue
   files

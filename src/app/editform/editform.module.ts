@@ -5,7 +5,7 @@ import { CyiaEditFormModule } from 'cyia-ngx-component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditformComponent } from './editform.component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

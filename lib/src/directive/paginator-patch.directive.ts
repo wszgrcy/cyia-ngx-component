@@ -1,5 +1,5 @@
 import { Directive, ViewChild, ViewContainerRef, TemplateRef, ElementRef, Input, NgZone, Renderer2, EmbeddedViewRef, EventEmitter, Output } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
 import { take, throttleTime, filter } from "rxjs/operators";
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 @Directive({

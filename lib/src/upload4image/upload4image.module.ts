@@ -4,7 +4,8 @@ import { CyiaUploadModule } from './../upload/upload.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CyiaUpload4ImageComponent } from './upload4image.component';
-import { MatCardModule, MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [

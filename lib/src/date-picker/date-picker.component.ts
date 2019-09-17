@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { Input, HostBinding, ElementRef, Optional, Self, Output, EventEmitter, ViewChild, ViewContainerRef, TemplateRef, Component, ViewEncapsulation } from '@angular/core';
-import { MatFormFieldControl, MatDatepickerInputEvent, MatDatepicker } from '@angular/material';
+import { MatDatepickerInputEvent, MatDatepicker } from '@angular/material/datepicker';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { coerceMoment } from '../cdk/cyia-coercion';
 import { Subject } from 'rxjs';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
@@ -64,8 +65,8 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   dateChange: EventEmitter<MatDatepickerInputEvent<any>>
   @Output()
   dateInput: EventEmitter<MatDatepickerInputEvent<any>>
-  @ViewChild('input') input;
-  @ViewChild('accurateTime') accurateTime: TemplateRef<any>;
+  @ViewChild('input', { static: true }) input;
+  @ViewChild('accurateTime', { static: true }) accurateTime: TemplateRef<any>;
   overlayRef: OverlayRef;
   /**
    * @description 设置获取值用

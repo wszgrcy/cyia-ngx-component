@@ -13,7 +13,7 @@ const EXE_COUNTER_VALUE_ACCESSOR: any = {
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CyiaUpload4ImageComponent implements ControlValueAccessor {
-  @ViewChild('img') img: ElementRef
+  @ViewChild('img', { static: true }) img: ElementRef
   @Input() hasBtnView = false;
   /**同input标签的accept属性 */
   @Input() accept = 'image/gif,image/jpeg,image/jpg,image/png,image/svg'

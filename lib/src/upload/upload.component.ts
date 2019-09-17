@@ -15,7 +15,7 @@ import { fromEvent } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CyiaUploadComponent implements ControlValueAccessor {
-  @ViewChild('input') inputRef: ElementRef
+  @ViewChild('input', { static: true }) inputRef: ElementRef
   @Input('accept') acceptType: string = null;
   @Input() multiple: boolean = false;
   /**元素和父元素相隔的层数 */
