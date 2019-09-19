@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "../out-tsc/lib",
     "target": "es2015",
     "module": "es2015",
@@ -35,7 +36,7 @@
       "ngx-markdown": [
         "../node_modules/ngx-markdown"
       ],
-      "chroma-js":[
+      "chroma-js": [
         "../node_modules/chroma-js"
       ]
     }

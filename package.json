@@ -28,7 +28,7 @@
     "@angular/platform-browser": "^8.2.6",
     "@angular/platform-browser-dynamic": "^8.2.6",
     "@angular/router": "^8.2.6",
-    "core-js": "^3.2.1",
+    "core-js": "2.6.9",
     "cyia-ngx-common": "^2.0.1",
     "cyia-ngx-form": "^1.2.0",
     "image-compressor.js": "^1.1.4",

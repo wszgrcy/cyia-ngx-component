@@ -26,9 +26,7 @@ export class TextCopyDirective {
     this.fakeElem.style.top = yPosition + 'px';
     this.fakeElem.setAttribute('readonly', '');
     this.fakeElem.value = text;
-
     document.body.appendChild(this.fakeElem);
-
     this.fakeElem.select();
     this.fakeElem.setSelectionRange(0, this.fakeElem.value.length);
   }
