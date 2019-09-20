@@ -11,6 +11,9 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.0.22
+- form和component组件合并
+- 增加markdown文本编辑器
 ## 0.0.20
 - 增加切换组件切换方式
 ## 0.0.14

@@ -28,15 +28,17 @@
     "@angular/platform-browser": "^8.2.6",
     "@angular/platform-browser-dynamic": "^8.2.6",
     "@angular/router": "^8.2.6",
+    "chroma-js": "^2.0.6",
     "core-js": "2.6.9",
     "cyia-ngx-common": "^2.0.1",
     "cyia-ngx-form": "^1.2.0",
     "image-compressor.js": "^1.1.4",
+    "markdown-it": "^10.0.0",
     "moment": "^2.24.0",
+    "monaco-editor": "^0.18.1",
     "ngx-markdown": "^8.1.0",
     "rxjs": "~6.5.3",
-    "zone.js": "~0.9.1",
-    "chroma-js": "^2.0.6"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.4",

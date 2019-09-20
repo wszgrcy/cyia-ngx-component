@@ -1,0 +1,43 @@
+<button mat-icon-button (click)="switchPattern()" class="switch-button" *ngIf="!readMode">
+    <mat-icon>{{(pattern=='w'?'toggle_on':'toggle_off')}}</mat-icon>
+</button>
+<div [class.write-item--disabled]="pattern!='w'" class="write-item" [style.height]="height">
+    <div>
+        <button mat-icon-button (click)="format('wrap','format_bold')">
+            <mat-icon>format_bold</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('wrap','format_italic')">
+            <mat-icon>format_italic</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('wrap','delete')">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('multiStart','format_quote')">
+            <mat-icon>format_quote</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('multiStart','format_list_bulleted')">
+            <mat-icon>format_list_bulleted</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('multiStart','format_list_numbered')">
+            <mat-icon>format_list_numbered</mat-icon>
+        </button>
+        <button mat-icon-button (click)="format('divider')">
+            <mat-icon>power_input</mat-icon>
+        </button>
+        <button mat-icon-button (click)="open('image')">
+            <mat-icon>insert_photo</mat-icon>
+        </button>
+        <button mat-icon-button (click)="open('url')">
+            <mat-icon>link</mat-icon>
+        </button>
+        <button mat-icon-button (click)="save()">
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
+    <div #container class="monaco-editor--container"></div>
+</div>
+
+
+<div [innerHTML]="readValue" [class.read-item--disabled]="pattern!='r'" class="read-item">
+
+</div>

@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  .button--hover {
+    position: relative;
+    display: inline-block;
+
+    &>button {}
+
+    .hover__content {
+      position: absolute;
+      left: 0;
+      //   bottom: 0;
+      display: none;
+
+      &.hover__content--display {
+        display: block;
+        z-index: 1;
+      }
+    }
+  }
+
+  .read-item {
+
+    // padding-top: 40px;
+    // padding-left: 64px;
+    &.read-item--disabled {
+      display: none;
+    }
+  }
+
+
+
+  .switch-button {
+    position: absolute;
+    // top: 0;
+    right: 0;
+  }
+
+  .write-item {
+    // height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &.write-item--disabled {
+      display: none;
+    }
+  }
+
+  .monaco-editor--container {
+    flex: 1 1;
+  }
+}
