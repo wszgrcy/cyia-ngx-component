@@ -108,7 +108,7 @@ export class CyiaFormControlComponent implements OnInit {
     this.formControl.valueChanges.subscribe(async (val) => {
       //doc 错误提示
       this.errors = this.setErrorHint(this.formControl.errors)
-      this.nowError = Object.values(this.errors)[0] as string
+      this.nowError = this.errors ? Object.values(this.errors)[0] as string : null
       //doc 如果允许输出错误,才输出
       cyiaFormControl.outputError && this.errorsChange.emit(this.errors)
       this.statusChange.emit(this.formControl.status)
@@ -145,7 +145,7 @@ export class CyiaFormControlComponent implements OnInit {
     this.valueInput$.next(value)
   }
   /**
-   * 告知外界值变更
+   * 在valueChange时告知外界值变更
    *
    * @author cyia
    * @date 2019-09-12
@@ -300,7 +300,7 @@ export class CyiaFormControlComponent implements OnInit {
     }
   }
   setErrorHint(errors: ValidationErrors) {
-    let obj = {}
+    const obj = {}
     for (const key in errors) {
       if (!errors.hasOwnProperty(key)) continue
       const element = errors[key];
@@ -325,7 +325,7 @@ export class CyiaFormControlComponent implements OnInit {
           break;
       }
     }
-    return obj
+    return Object.values(obj).length ? obj : null
   }
   /**
    * 当writeValue传入值时触发订阅

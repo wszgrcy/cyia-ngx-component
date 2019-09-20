@@ -44,7 +44,7 @@ export class _CyiaFormControl<T = any>{
     /**是否必须,控件内 */
     required?= false
     @ChangeEmit()
-    /**是否输出,控件内 */
+    /**是否输出,控件内/组过滤 */
     output?: boolean = true
     @ChangeEmit()
     /**是否输出错误,控件内 */
@@ -129,7 +129,8 @@ export class CyiaFormGroup {
     controls?: (CyiaFormControl | CyiaFormGroup)[] = []
     layoutStyle?: LayoutStyle = LayoutStyle.cssGrid
     gridTemplateAreas?: number[][] = [[]]
-
+    output?: boolean = true
+    outputError?: boolean = true
     getControl(key: string) {
         return this.controls.find((control) => control.key == key)
     }

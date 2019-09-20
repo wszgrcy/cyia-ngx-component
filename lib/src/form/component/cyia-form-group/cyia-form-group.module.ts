@@ -14,6 +14,6 @@ import { CyiaFormGroupService } from './cyia-form-group.service';
     ReactiveFormsModule
   ],
   declarations: [CyiaFormGroupComponent],
-  exports: [CyiaFormGroupComponent],
+  exports: [CyiaFormGroupComponent, FormsModule, ReactiveFormsModule],
 })
 export class CyiaFormGroupModule { }

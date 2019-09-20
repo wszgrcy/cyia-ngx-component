@@ -66,8 +66,8 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
   ) { }
   writeValue(value) {
     if (typeof value == 'string') {
-      this.value = value
-      this.tempValue = value
+      this.tempValue = this.value = value
+      this.instance && this.instance.setValue(value)
     }
   }
   registerOnChange(fn) {
@@ -104,9 +104,9 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       this.readMode = pattern == Pattern.w ? false : true
     }
     if (changes.height) {
-      console.log(this.height)
+      // console.log(this.height)
       this.height = coerceCssPixelValue(this.height)
-      console.log(this.height)
+      // console.log(this.height)
     }
   }
   /**

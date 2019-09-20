@@ -1,8 +1,9 @@
-import { Component, OnInit, forwardRef, Input, ChangeDetectionStrategy, SimpleChanges, Renderer2, ViewChild, ViewContainerRef, ElementRef, ViewChildren, QueryList, Self, Host, SkipSelf, Optional, Injector, INJECTOR } from '@angular/core';
+import { Component, OnInit, forwardRef, Input, ChangeDetectionStrategy, SimpleChanges, Renderer2, ViewChild, ViewContainerRef, ElementRef, ViewChildren, QueryList, Self, Host, SkipSelf, Optional, Injector, INJECTOR, EventEmitter, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CyiaFormGroup, CyiaFormControl } from '../../class/cyia-form.class';
 import { LayoutStyle } from '../../type/form-group.type';
 import { CyiaFormGroupService } from './cyia-form-group.service';
+import { fadeInItems } from '@angular/material/menu';
 
 @Component({
   selector: 'cyia-form-group',
@@ -30,18 +31,25 @@ import { CyiaFormGroupService } from './cyia-form-group.service';
   }
 })
 export class CyiaFormGroupComponent implements ControlValueAccessor {
-  @Input() cyiaFormGroup: CyiaFormGroup
-  @Input() deep: number = 0
+  /**所有控件的元素列表,用于布局 */
   @ViewChildren('controlEl', { read: ElementRef }) controlList: QueryList<ElementRef>
   @ViewChild('wrapper', { static: false }) set wrapper(val: ElementRef<HTMLDivElement>) {
     this.setLayout(val)
   }
+  @Input() cyiaFormGroup: CyiaFormGroup
+  @Input() deep: number = 0
+  /**顶层用于处理事件变更的 */
+  @Input() service: CyiaFormGroupService
+  @Output() errorsChange = new EventEmitter()
+  @Output() statusChange = new EventEmitter()
+  errors = {}
   formGroup: FormGroup
-  init = false
+  /**保证数据只初始化一次,其余交给控件处理 */
+  private init = false
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };
   value
-  @Input() service: CyiaFormGroupService
+  notOutputKeyList: string[] = []
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
@@ -54,6 +62,7 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
       if (!this.deep) this.service = new CyiaFormGroupService()
       let formGroup = new FormGroup({})
       this.cyiaFormGroup.controls.forEach((item) => {
+        // !item.output && this.notOutputKeyList.push(item.key);
         if (item instanceof CyiaFormGroup) {
           formGroup.addControl(item.key, this.fb.control(undefined))
         } else if (item instanceof CyiaFormControl) {
@@ -85,7 +94,7 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
       this.value = value
     }
   }
-  valueChange(value: string) {
+  valueChange(value) {
     this.value = value
     this.changeFn(value)
     this.touchedFn(value)
@@ -100,10 +109,32 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
     //   return 'array'
     // }
   }
+  /**
+   * 监听值变化,发送到上一级
+   *
+   * @memberof CyiaFormGroupComponent
+   */
   valueChangeListener() {
     this.formGroup.valueChanges.subscribe((val) => {
-      this.valueChange(val)
+      const notOutputKeyList = this.cyiaFormGroup.controls.map((item) => !item.output ? item.key : null).filter(Boolean)
+      this.valueChange(this.outputFilter(val, notOutputKeyList))
     })
+  }
+  /**
+   * 对不输出的字段过滤
+   *
+   * @param {*} val
+   * @returns
+   * @memberof CyiaFormGroupComponent
+   */
+  outputFilter(val, filterList = []) {
+    if (!val) return val;
+    let obj = {}
+    for (const key in val) {
+      if (!val.hasOwnProperty(key) || filterList.find((notKey) => notKey == key)) continue
+      obj[key] = val[key]
+    }
+    return obj
   }
   /**
    * 其他控件发送事件时调用
@@ -144,4 +175,27 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
         break;
     }
   }
+  onErrorsChange(control: CyiaFormControl | CyiaFormGroup, e) {
+    if (e) this.errors[control.key] = e;
+    else delete this.errors[control.key]
+    if (this.cyiaFormGroup.outputError) {
+      const errors = Object.values(this.errors).length ? this.errors : null
+      this.errorsChange.emit(errors)
+      this.formGroup.setErrors(errors)
+      // this.formGroup.va
+      //todo 需要根据错误同时设定状态是否有效
+    }
+  }
+  // hasError(errors = this.errors): Boolean {
+  //   // let status = true
+  //   for (const key in errors) {
+  //     if (!errors.hasOwnProperty(key)) continue
+  //     if (Object.values(errors[key]).length && typeof Object.values(errors[key])[0] == 'string') {
+  //       // return false
+
+  //     }
+
+
+  //   }
+  // }
 }

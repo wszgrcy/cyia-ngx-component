@@ -12,7 +12,7 @@ export function ChangeSubscribe() {
                 let value = this[str]
                 Object.defineProperty(this, str, {
                     set: (val) => {
-                        if (value !== val) {
+                        if (value !== val && val === val) {
                             value = val;
                             subject.next({ type: str as any, value: val })
                         }
