@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CyiaFormGroupService } from '../cyia-form-group/cyia-form-group.service';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
-import { CyiaFormGroup } from '../../form/cyia-form.class';
+import { CyiaFormGroup } from '../../class/cyia-form.class';
 
 @Component({
   selector: 'app-cyia-form',

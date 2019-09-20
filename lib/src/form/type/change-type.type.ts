@@ -1,4 +1,4 @@
-import { _CyiaFormControl } from '../form/cyia-form.class';
+import { _CyiaFormControl } from '../class/cyia-form.class';
 
 export interface CyiaFormControlChange {
     type: keyof _CyiaFormControl

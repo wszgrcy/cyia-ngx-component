@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef, Input, ChangeDetectionStrategy, SimpleChanges, Renderer2, ViewChild, ViewContainerRef, ElementRef, ViewChildren, QueryList, Self, Host, SkipSelf, Optional, Injector, INJECTOR } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { CyiaFormGroup, CyiaFormControl } from '../../form/cyia-form.class';
+import { CyiaFormGroup, CyiaFormControl } from '../../class/cyia-form.class';
 import { LayoutStyle } from '../../type/form-group.type';
 import { CyiaFormGroupService } from './cyia-form-group.service';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, forwardRef, Input, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormControl, ValidationErrors } from '@angular/forms';
-import { CyiaFormControl } from '../../form/cyia-form.class';
+import { CyiaFormControl } from '../../class/cyia-form.class';
 import { CyiaFormControlFlag } from '../../type/form-control.type';
 import { take, filter } from "rxjs/operators";
 import { FormControlType } from '../../enum/control-type.enum';

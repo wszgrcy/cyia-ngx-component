@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import md from "markdown-it";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Pattern } from '../../form/cyia-form.class';
+import { Pattern } from '../../class/cyia-form.class';
 import { coerceBooleanProperty, coerceNumberProperty, coerceCssPixelValue } from '@angular/cdk/coercion';
 @Component({
   selector: 'cyia-markdown',
