@@ -13,8 +13,24 @@ import { TemplateRef } from '@angular/core';
 import { CyiaOption } from '../type/options.type';
 import { LayoutStyle } from '../type/form-group.type';
 // @ListenClass()
-export class _CyiaFormControl<T = any>{
-    key?: string = `${Math.random()}`
+export class CyiaControlBase {
+    readonly key?: string = `${Math.random()}`
+    /**显示标签,控件内 */
+    @ChangeEmit()
+    label?: string;
+    /**是否输出,控件内/组过滤 */
+    @ChangeEmit()
+    output?: boolean = true
+    /**是否输出错误,控件内 */
+    @ChangeEmit()
+    outputError?: boolean = true
+    /**隐藏控件,控件内 */
+    @ChangeEmit()
+    hidden?: boolean = false
+}
+export class _CyiaFormControl<T = any> extends CyiaControlBase {
+    readonly linkKey?: string
+    // key?: string = `${Math.random()}`
     /**值变化,控件内 */
     @ChangeEmit()
     value?: T
@@ -28,12 +44,12 @@ export class _CyiaFormControl<T = any>{
     /**占位符,控件内 */
     @ChangeEmit()
     placeholder?: string = ''
-    @ChangeEmit()
-    /**隐藏控件,控件内 */
-    hidden?: boolean = false
-    @ChangeEmit()
-    /**显示标签,控件内 */
-    label?: string;
+    // @ChangeEmit()
+    // /**隐藏控件,控件内 */
+    // hidden?: boolean = false
+    // @ChangeEmit()
+    // /**显示标签,控件内 */
+    // label?: string;
     /**是否显示错误,表单域内使用,控件内 */
     displayError?: boolean = true
     /**控件提示,表单域内使用,控件内 */
@@ -43,12 +59,12 @@ export class _CyiaFormControl<T = any>{
     labelPosition?: 'float' | 'inline' | 'default' | 'none' = 'default'
     /**是否必须,控件内 */
     required?= false
-    @ChangeEmit()
-    /**是否输出,控件内/组过滤 */
-    output?: boolean = true
-    @ChangeEmit()
-    /**是否输出错误,控件内 */
-    outputError?: boolean = true
+    // @ChangeEmit()
+    // /**是否输出,控件内/组过滤 */
+    // output?: boolean = true
+    // @ChangeEmit()
+    // /**是否输出错误,控件内 */
+    // outputError?: boolean = true
     /**加入到表单控件中,如果是true,那么还需要再加入回来,group内 */
     @ChangeEmit()
     join?: boolean = true
@@ -124,15 +140,47 @@ export class CyiaFormControl<T = any> extends _CyiaFormControl {
         }
     }
 }
-export class CyiaFormGroup {
-    key?: string = `${Math.random()}`
-    controls?: (CyiaFormControl | CyiaFormGroup)[] = []
+export class _CyiaFormGroup extends CyiaControlBase {
     layoutStyle?: LayoutStyle = LayoutStyle.cssGrid
     gridTemplateAreas?: number[][] = [[]]
-    output?: boolean = true
-    outputError?: boolean = true
-    getControl(key: string) {
-        return this.controls.find((control) => control.key == key)
+}
+export class CyiaFormGroup extends _CyiaFormGroup {
+    // key?: string = `${Math.random()}`
+    controls?: (CyiaFormControl | CyiaFormGroup)[] = []
+    // output?: boolean = true
+    // outputError?: boolean = true
+    constructor(config: _CyiaFormControl) {
+        super()
+        this._setValue(config)
+    }
+    private _setValue(object) {
+        if (!object) return
+        for (const key in object) {
+            if (!object.hasOwnProperty(key)) continue
+            this[key] = object[key]
+        }
+    }
+    getControl(key: string, withLink = false) {
+        return this.controls.find((control) => control.key == key || (withLink ? control['linkKey'] == key : false))
+    }
+
+    setPattern(pattern: Pattern) {
+        this.controls.forEach((control) => {
+            if (control instanceof CyiaFormControl) control.pattern = pattern
+        })
+        return this
+    }
+    setValue(obj) {
+        for (const key in obj) {
+            if (!obj.hasOwnProperty(key)) continue
+            const value = obj[key];
+            let control = this.getControl(key, true)
+            if (control instanceof CyiaFormControl) {
+                control.value = value
+            } else if (control instanceof CyiaFormGroup) {
+                control.setValue(value)
+            }
+        }
     }
 }
 // export class CyiaFormArray {

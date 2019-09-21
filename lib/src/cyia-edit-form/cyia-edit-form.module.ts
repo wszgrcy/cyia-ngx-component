@@ -11,7 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MarkdownModule } from "ngx-markdown";
-import { CyiaFormModule } from 'cyia-ngx-form';
+// import { CyiaFormModule } from 'cyia-ngx-form';
 import { CyiaDatePickerModule } from '../date-picker/date-picker.module';
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { CyiaDatePickerModule } from '../date-picker/date-picker.module';
     MatSelectModule,
     MatDialogModule,
     CyiaPopupModule,
-    CyiaFormModule,
+    // CyiaFormModule,
     MatButtonModule,
     CyiaUpload4ImageModule,
     CyiaDatePickerModule.forRoot('zh-cn'),

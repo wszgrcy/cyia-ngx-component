@@ -13,17 +13,7 @@ import { fadeInItems } from '@angular/material/menu';
     useExisting: forwardRef(() => CyiaFormGroupComponent),
     provide: NG_VALUE_ACCESSOR,
     multi: true
-  },
-    // CyiaFormGroupService
-    // {
-    //   provide: CyiaFormGroupService,
-    //   useFactory: (service) => {
-    //     if (!service) {
-    //       return new service()
-    //     }
-    //   },
-    //   deps: [CyiaFormGroupService]
-    // }
+  }
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {

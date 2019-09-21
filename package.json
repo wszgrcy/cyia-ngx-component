@@ -31,7 +31,6 @@
     "chroma-js": "^2.0.6",
     "core-js": "2.6.9",
     "cyia-ngx-common": "^2.0.1",
-    "cyia-ngx-form": "^1.2.0",
     "image-compressor.js": "^1.1.4",
     "markdown-it": "^10.0.0",
     "moment": "^2.24.0",

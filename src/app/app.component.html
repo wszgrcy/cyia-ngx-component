@@ -1,9 +1,9 @@
-<mat-form-field>
+<!-- <mat-form-field>
   <cyia-datepicker [(ngModel)]="date" [matDatepicker]="picker" #cyiadate placeholder="测试标签浮动"></cyia-datepicker>
   <mat-datepicker #picker></mat-datepicker>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-hint>正常提示</mat-hint>
-</mat-form-field>
+</mat-form-field> -->
 
 <button mat-button>
   测试
@@ -23,7 +23,7 @@
 
 </button>
 
-<cyia-editform></cyia-editform>
+<!-- <cyia-editform></cyia-editform> -->
 <div style="width: 100px;height: 100px;background: red;" cyiaFileDropzone [(files)]="files">
 
 </div>
@@ -67,4 +67,5 @@
   </ng-template>
 </cyia-component-toggle>
 <!-- <cyia-dynamic-control [path]="'lazy-load/lazy-load.module#LazyLoadModule'"></cyia-dynamic-control> -->
-<cyia-markdown></cyia-markdown>
+<!-- <cyia-markdown></cyia-markdown> -->
+<cyia-form-group [cyiaFormGroup]="group"></cyia-form-group>

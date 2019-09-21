@@ -11,12 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaMarkdownModule } from "cyia-ngx-component";
+// import { CyiaFormModule } from 'cyia-ngx-form';
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaMarkdownModule, CyiaFormGroupModule } from "cyia-ngx-component";
 import { CyiaDatePickerModule } from "cyia-ngx-component";
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { EditformModule } from './editform/editform.module';
+// import { EditformModule } from './editform/editform.module';
 import { RouterModule } from '@angular/router';
 // import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
@@ -34,12 +34,12 @@ import { RouterModule } from '@angular/router';
         MatSelectModule,
         FormsModule,
         ReactiveFormsModule,
-        CyiaFormModule,
+        // CyiaFormModule,
         MatInputModule,
         CyiaUploadModule,
         MatIconModule,
         CyiaUpload4ImageModule,
-        EditformModule,//doc 子组件
+        // EditformModule,//doc 子组件
         CyiaDirectiveModule,
         MatPaginatorModule,
         // CyiaPaginatorPatchModule
@@ -49,7 +49,8 @@ import { RouterModule } from '@angular/router';
         RouterModule.forRoot([
             { path: 'lazy', loadChildren: () => import('./lazy-load/lazy-load.module').then(m => m.LazyLoadModule) }
         ]),
-        DynamicControlModule
+        DynamicControlModule,
+        CyiaFormGroupModule
     ],
     providers: [
 

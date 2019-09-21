@@ -1,7 +1,9 @@
 import { CyiaHttpService } from 'cyia-ngx-common';
 import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CyiaDatePickerComponent } from "cyia-ngx-component";
-import { FabItem } from 'cyia-ngx-component';
+import { FabItem, CyiaFormFactory } from 'cyia-ngx-component';
+import { CyiaFormControl, Pattern } from 'lib/src/form/class/cyia-form.class';
+import { FormControlType } from 'lib/src/form/enum/control-type.enum';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
@@ -29,6 +31,14 @@ export class AppComponent {
       ]
     }
   ]
+  group = CyiaFormFactory.group({ gridTemplateAreas: [[1, 2]] },
+    // new CyiaFormControl({
+    //   type: FormControlType.markdown
+    // }),
+    new CyiaFormControl({
+      type: FormControlType.datepicker,
+    })
+  ).setPattern(Pattern.w)
   ngOnInit(): void {
     setTimeout(() => {
       this.length = 10

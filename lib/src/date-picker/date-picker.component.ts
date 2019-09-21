@@ -65,7 +65,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
   dateChange: EventEmitter<MatDatepickerInputEvent<any>>
   @Output()
   dateInput: EventEmitter<MatDatepickerInputEvent<any>>
-  @ViewChild('input', { static: true }) input;
+  @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>;
   @ViewChild('accurateTime', { static: true }) accurateTime: TemplateRef<any>;
   overlayRef: OverlayRef;
   /**
@@ -74,7 +74,6 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
    */
   @Input()
   set value(time: any) {
-    // console.log(time)
     this.checkEmpty(time)
     this._value = coerceMoment(time as any);
     if (this._value.isValid()) {
@@ -119,7 +118,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     let strategy = this.overlay.position().
       connectedTo(this.input, { originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' })
       .withOffsetX(24)
-      // .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'top' })
+      .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'end', overlayY: 'top' }, -10, 0)
       .withFallbackPosition({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }, 0, 10)
 
     this.overlayRef = this.overlay.create({
@@ -201,9 +200,9 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
    */
   onContainerClick(event: MouseEvent) {
     if ((event.target as Element).tagName.toLowerCase() != 'input') {
-      this.elRef.nativeElement.querySelector('input').focus();
+      this.input.nativeElement.focus()
     }
-    if (!this.overlayRef.hasAttached())
+    if (!this.overlayRef.hasAttached() && this._value.isValid())
       this.overlayRef.attach(new TemplatePortal(this.accurateTime, this.viewContainerRef))
   }
   /**
@@ -268,7 +267,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
    * @memberof CyiaDatePickerComponent
    */
   checkEmpty(value) {
-    this._empty = !!!value
+    this._empty = !value
     this.stateChanges.next();
   }
 

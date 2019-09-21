@@ -1,8 +1,8 @@
 import { CyiaEditFormComponent, LOADING_PROGRESS } from 'cyia-ngx-component';
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { T1_CONFIG } from '../configure/form.define';
-import { _newArray } from 'cyia-ngx-form';
+// import { T1_CONFIG } from '../configure/form.define';
+// import { _newArray } from 'cyia-ngx-form';
 import { HttpRequestItem, CyiaHttpService } from 'cyia-ngx-common';
 import { MessageService } from 'cyia-ngx-component';
 import { LoadingProgressService } from '../services/loading-progress.service';
@@ -49,24 +49,24 @@ export class EditformComponent implements OnInit {
     // }, 0);
 
     setTimeout(() => {
-      this.dialog.open(CyiaEditFormComponent,
-        {
-          data: {
-            list: null,
-            config: _newArray(T1_CONFIG),
-            title: '测试',
-            buttons: [
-              {
-                label: '提交', type: 'submit'
-              },
-              {
-                label: '返回', type: 'cancel'
-              },
-            ],
-            req: req
-          },
-          width: '60%',
-        })
+      // this.dialog.open(CyiaEditFormComponent,
+      //   {
+      //     data: {
+      //       list: null,
+      //       config: T1_CONFIG,
+      //       title: '测试',
+      //       buttons: [
+      //         {
+      //           label: '提交', type: 'submit'
+      //         },
+      //         {
+      //           label: '返回', type: 'cancel'
+      //         },
+      //       ],
+      //       req: req
+      //     },
+      //     width: '60%',
+      //   })
     }, 200);
 
 

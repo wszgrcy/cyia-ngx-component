@@ -69,6 +69,7 @@ export class CyiaFormControlComponent implements OnInit {
    */
   @Input() set cyiaFormControl(value) {
     if (!value) return
+    console.log('变更', value);
     this.initFormControl(value)
     this.cyiaFormControlInput(value)
     //doc 取消上一次订阅
@@ -111,7 +112,7 @@ export class CyiaFormControlComponent implements OnInit {
       this.nowError = this.errors ? Object.values(this.errors)[0] as string : null
       //doc 如果允许输出错误,才输出
       cyiaFormControl.outputError && this.errorsChange.emit(this.errors)
-      this.statusChange.emit(this.formControl.status)
+      // this.statusChange.emit(this.formControl.status)
       //原值变更操作
       this.notifyValueChange(val, cyiaFormControl)
       //doc 如果是自动补全,那么需要计算出过滤的菜单
@@ -128,7 +129,8 @@ export class CyiaFormControlComponent implements OnInit {
           this.service.event$.next(item)
         })
       })
-      cyiaFormControl.value = val
+      // cyiaFormControl.value = val
+      console.log('值变更', val)
     })
   }
   ngOnInit() {
@@ -243,6 +245,7 @@ export class CyiaFormControlComponent implements OnInit {
     cyiaFormControl.change$
       .pipe(filter((change) => !change.target))
       .subscribe((val) => {
+        console.log('变更返回', val)
         switch (val.type) {
           case 'labelPosition':
             this.labelPositionChange(cyiaFormControl)
@@ -295,7 +298,7 @@ export class CyiaFormControlComponent implements OnInit {
       } else {
         this.oldValue = this.formControl.value;
         //doc 设置控件的值.
-        this.cyiaFormControl.value = this.formControl.value
+        // this.cyiaFormControl.value = this.formControl.value
       }
     }
   }
