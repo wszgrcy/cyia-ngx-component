@@ -22,9 +22,8 @@
     <ng-container *ngIf="flag.formField">
       <ng-container *ngTemplateOutlet="formField"></ng-container>
     </ng-container>
-
     <ng-template #formField>
-      <mat-form-field [class]="cyiaFormControl.class" [floatLabel]="flag.floatLabel"
+      <mat-form-field [ngClass]="cyiaFormControl.class" [floatLabel]="flag.floatLabel"
         [appearance]="cyiaFormControl.appearance">
         <!-- 浮动 -->
         <mat-label *ngIf="cyiaFormControl.labelPosition=='float'">{{cyiaFormControl.label}}</mat-label>

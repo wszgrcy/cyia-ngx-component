@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { Input, HostBinding, ElementRef, Optional, Self, Output, EventEmitter, ViewChild, ViewContainerRef, TemplateRef, Component, ViewEncapsulation } from '@angular/core';
+import { Input, HostBinding, ElementRef, Optional, Self, Output, EventEmitter, ViewChild, ViewContainerRef, TemplateRef, Component, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { MatDatepickerInputEvent, MatDatepicker } from '@angular/material/datepicker';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { coerceMoment } from '../cdk/cyia-coercion';
@@ -74,10 +74,11 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
    */
   @Input()
   set value(time: any) {
+
     this.checkEmpty(time)
     this._value = coerceMoment(time as any);
     if (this._value.isValid()) {
-      this.errorState = false
+      // this.errorState = false
       //doc,反馈给外层变动的时间
       this.changeFn(this._value.unix() * 1000);
       this.touchedFn(this._value.unix() * 1000);
@@ -86,8 +87,9 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
       //doc 值变动时使用
       this.stateChanges.next()
     } else {
-      this.errorState = true
+      // console.log(this.ngControl);
     }
+    this.errorState = this.ngControl.invalid
   };
   get value() {
     // console.log('get', this._value)
@@ -176,7 +178,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
 
   /**未知 */
   @HostBinding('attr.aria-describedby') describedBy = '';
-  /**当无效时,会变红 */
+  /**当无效时,会变红,修改为invalid决定 */
   errorState: boolean = false;
 
   /**
@@ -202,7 +204,7 @@ export class CyiaDatePickerComponent implements MatFormFieldControl<CyiaDatePick
     if ((event.target as Element).tagName.toLowerCase() != 'input') {
       this.input.nativeElement.focus()
     }
-    if (!this.overlayRef.hasAttached() && this._value.isValid())
+    if (!this.overlayRef.hasAttached() && this._value && this._value.isValid())
       this.overlayRef.attach(new TemplatePortal(this.accurateTime, this.viewContainerRef))
   }
   /**

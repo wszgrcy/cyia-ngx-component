@@ -31,12 +31,13 @@ export class AppComponent {
       ]
     }
   ]
-  group = CyiaFormFactory.group({ gridTemplateAreas: [[1, 2]] },
+  group = CyiaFormFactory.group({ gridTemplateAreas: [[1, 1, 1, 1, 1, 2]] },
     // new CyiaFormControl({
     //   type: FormControlType.markdown
     // }),
     new CyiaFormControl({
       type: FormControlType.datepicker,
+      // appearance: '' as any
     })
   ).setPattern(Pattern.w)
   ngOnInit(): void {

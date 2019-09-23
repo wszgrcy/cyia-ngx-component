@@ -157,7 +157,8 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
     switch (this.cyiaFormGroup.layoutStyle) {
       case LayoutStyle.cssGrid:
         this.renderer.setStyle(wrapper.nativeElement, 'grid-template-areas', this.cyiaFormGroup.gridTemplateAreas.map((items) => `'${items.map((item) => item ? `a${item}` : '.').join(' ')}'`).join(' '))
-        this.renderer.setStyle(wrapper.nativeElement, 'grid-template-columns', `repeat(${this.cyiaFormGroup.gridTemplateAreas[0].length}, 1fr)`)
+        let percent =( 100 / this.cyiaFormGroup.gridTemplateAreas[0].length).toFixed(4);
+        this.renderer.setStyle(wrapper.nativeElement, 'grid-template-columns', `repeat(${this.cyiaFormGroup.gridTemplateAreas[0].length}, ${percent}%)`)
         this.controlList.forEach((item, i) => this.renderer.setStyle(item.nativeElement, 'grid-area', `a${i + 1}`))
         break;
 
