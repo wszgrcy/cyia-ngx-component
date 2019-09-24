@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Component, Input, ViewChild, ElementRef, forwardRef, ChangeDetectionStrategy, Renderer2 } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, forwardRef, ChangeDetectionStrategy, Renderer2, Output, EventEmitter } from '@angular/core';
 import { fromEvent } from 'rxjs';
 
 
@@ -18,9 +18,13 @@ export class CyiaUploadComponent implements ControlValueAccessor {
   @ViewChild('input', { static: true }) inputRef: ElementRef
   @Input('accept') acceptType: string = null;
   @Input() multiple: boolean = false;
-  /**元素和父元素相隔的层数 */
+  /**
+   * doc 对父元素设置禁用使用...
+   * 元素和父元素相隔的层数 */
   @Input() depth = 2
   @Input() nameInput: HTMLInputElement
+  @Output() fileChange = new EventEmitter()
+  @Input() afterChange = (value) => Promise.resolve(value);
   /**任意值 */
   private _value: any = [];
   fatherButton: HTMLButtonElement;
@@ -70,29 +74,7 @@ export class CyiaUploadComponent implements ControlValueAccessor {
     this.getFatherButton()
     this.renderer.setAttribute(this.fatherButton, 'disabled', isDisabled);
   }
-  /**
-   * @description 
-   * @param value 参数是获得的文件列表
-   * @memberof CyiaUploadComponent
-   */
-  @Input()
-  fileOnBeforeUpload: (_value, value: File[]) => Promise<any> = (_value, value: File[]) => Promise.resolve(value)
-  /**
-   * @description 需要请求请重写此方法
-   * @param value fileOnBeforeUpload返回的值
-   * @memberof CyiaUploadComponent
-   */
-  @Input()
-  fileOnUpload = (_value, value) => Promise.resolve(value)
 
-  /**
-   * @description 请求后的值返回在这里进行处理,最后返回的值将输出到外界
-   * @param value fileOnUpload返回的值
-   * 
-   * @memberof CyiaUploadComponent
-   */
-  @Input()
-  fileOnAfterUpload = (_value, value) => Promise.resolve(value)
   /**修改文件名时回传修改文件,仅在一个文件时生效,保存的_value数组必须是一个文件数组 */
   nameInputEventFunction = (function (this: CyiaUploadComponent, e) {
     this._value[0] = new File([this._value[0]], this.nameInput.value, { type: this._value[0].type })
@@ -105,29 +87,25 @@ export class CyiaUploadComponent implements ControlValueAccessor {
    * @returns
    * @memberof CyiaUploadComponent
    */
-  inputChange(event) {
+  async inputChange(event) {
     let fileList: File[] = Array.from(event.target.files);
     if (!fileList.length) return;
-    //doc 当上传时显示输入值,
-    if (fileList.length == 1 && this.nameInput) {
+    //doc 当上传时显示输入值,如果input赋值使用,
+    if (!this.multiple && this.nameInput) {
       this.nameInput.value = fileList[0].name;
       this.nameInput.addEventListener('input', this.nameInputEventFunction)
     }
-    //doc 点击上传时是不是触发什么操作,比如请求服务器
-    this.fileOnBeforeUpload(this._value, fileList).then((res) => {
-      return this.fileOnUpload(this._value, res)
-    }).then((res) => {
-      return this.fileOnAfterUpload(this._value, res)
-    }).then((res) => {
-      this._value = res
-      this.changeFn(this._value)
-      this.touchedFn(this._value)
 
-      // this.inputRef.nativeElement.value = null;
-    })
+    let result = await this.afterChange(!this.multiple ? fileList[0] : fileList)
+    this._value = result;
+    this.fileChange.next(this._value)
+    this.changeFn(this._value)
+    this.touchedFn(this._value)
 
   }
-
+  ngOnDestroy(): void {
+    this.fileChange.complete()
+  }
 
 
 }

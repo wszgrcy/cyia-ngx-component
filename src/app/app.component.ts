@@ -4,6 +4,7 @@ import { CyiaDatePickerComponent } from "cyia-ngx-component";
 import { FabItem, CyiaFormFactory } from 'cyia-ngx-component';
 import { CyiaFormControl, Pattern } from 'lib/src/form/class/cyia-form.class';
 import { FormControlType } from 'lib/src/form/enum/control-type.enum';
+import { fcall } from 'q';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
@@ -53,5 +54,8 @@ export class AppComponent {
   }
 
   randomColor = 'red'
+  fc(e) {
+    console.log(e);
+  }
 }
 

@@ -1,5 +1,5 @@
-<cyia-upload [(ngModel)]="files" [fileOnAfterUpload]="fileOnAfterUpload" [depth]="depth" [fileOnBeforeUpload]="fileOnBeforeUpload"
-  [fileOnUpload]="fileOnUpload" [accept]="accept" disabled="{{uploadDisabled}}" [multiple]="multiple"></cyia-upload>
+<cyia-upload [(ngModel)]="files" [afterChange]="afterChange" [accept]="accept" disabled="{{uploadDisabled}}"
+  [multiple]="multiple"></cyia-upload>
 <div #img class="image-wrapper">
   <ng-container *ngFor="let item of imageList;let i=index">
     <mat-card class="image-card">

@@ -69,3 +69,13 @@
 <!-- <cyia-dynamic-control [path]="'lazy-load/lazy-load.module#LazyLoadModule'"></cyia-dynamic-control> -->
 <!-- <cyia-markdown></cyia-markdown> -->
 <cyia-form-group [cyiaFormGroup]="group"></cyia-form-group>
+<mat-form-field>
+  <cyia-file placeholder="label" [cyiaUpload]="file" (ngModelChange)="fc($event)" ngModel></cyia-file>
+  <button mat-icon-button matSuffix>
+    <mat-icon>note</mat-icon>
+    <cyia-upload #file></cyia-upload>
+  </button>
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="label" value="value">
+</mat-form-field>

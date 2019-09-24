@@ -59,15 +59,14 @@ export class CyiaUpload4ImageComponent implements ControlValueAccessor {
    * 1.应该正常显示，2应该正常返回,显示和返回不是一个数组
    */
 
-  // fileOnAfterUpload = (value) => Promise.resolve(value)
-  fileOnAfterUpload = (_value: File[], fileList: FileList) => {
-    this.setImage(_value, fileList).then((res) => {
-      return this.changeValue(_value, fileList, res)
+  afterChange = (fileList: File[]) => {
+    this.setImage(fileList).then((res) => {
+      return this.changeValue(fileList)
     }).then((res) => {
       this.changeFn(res)
       this.touchedFn(res)
     })
-    return Promise.resolve(_value);
+    return Promise.resolve(fileList);
   }
 
   /**
@@ -77,21 +76,7 @@ export class CyiaUpload4ImageComponent implements ControlValueAccessor {
    * @param result 设置图像的返回值
    * @memberof CyiaUpload4ImageComponent
    */
-  @Input() changeValue = (_value: File[], fileList: FileList, result) => Promise.resolve(_value)
-  /**
-   * @description 
-   * @param value 参数是获得的文件列表
-   * @memberof CyiaUploadComponent
-   */
-  @Input()
-  fileOnBeforeUpload: (_value, value: FileList) => Promise<any> = (_value, value: FileList) => Promise.resolve(value)
-  /**
-   * @description 需要请求请重写此方法
-   * @param value fileOnBeforeUpload返回的值
-   * @memberof CyiaUploadComponent
-   */
-  @Input()
-  fileOnUpload = (_value, value) => Promise.resolve(value)
+  @Input() changeValue = (fileList: File[]) => Promise.resolve(fileList)
 
   /**
    * @description 把图片读取出来用于显示,默认是文件格式,如果上传需要重写
@@ -101,12 +86,11 @@ export class CyiaUpload4ImageComponent implements ControlValueAccessor {
    * @param fileList 单一本次上传的数据
    * @memberof CyiaUpload4ImageComponent
    */
-  @Input() setImage = (_value, fileList: FileList) => {
-
+  @Input() setImage = (fileList: File[]) => {
     for (let i = 0; i < fileList.length; i++) {
-      !_value.find((val) => {
-        return this.queryImage(val, fileList.item(i))
-      }) && _value.push(fileList.item(i));
+      !fileList.find((val) => {
+        return this.queryImage(val, fileList[i])
+      }) && fileList.push(fileList[i]);
     }
     return new Promise((pres) => {
       for (let i = 0, j = 0, length = fileList.length; i < length; i++) {
