@@ -42,7 +42,8 @@ export class AppComponent {
     // })
     new CyiaFormControl({
       type: FormControlType.input,
-      value: '只读测试'
+      value: '只读测试',
+      label: '标签'
     })
   ).setPattern(Pattern.w)
   ngOnInit(): void {

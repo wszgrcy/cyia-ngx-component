@@ -23,10 +23,10 @@
   &.label-position-default {
 
     //doc 默认下调整样式
-    &>.cyia-form-control-write>label {
-      padding-bottom: 1.25em;
-      padding-right: 0.5em;
-    }
+    // &>.cyia-form-control-write>label {
+    //   padding-bottom: 1.25em;
+    //   padding-right: 0.5em;
+    // }
 
     //doc 默认模式下,取消浮动和上面的高度
     ::ng-deep .mat-form-field-infix {

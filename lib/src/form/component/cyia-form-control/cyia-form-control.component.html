@@ -1,6 +1,17 @@
 <ng-container *ngIf="cyiaFormControl">
-  <cyia-form-control-write *ngIf="cyiaFormControl.pattern=='w'" [cyiaFormControl]="cyiaFormControl" [service]="service" [(ngModel)]="value">
-  </cyia-form-control-write>
-  <cyia-form-control-read *ngIf="cyiaFormControl.pattern=='r'" [cyiaFormControl]="cyiaFormControl">
-  </cyia-form-control-read>
+  <label [for]="writeControl&&writeControl.id"
+    *ngIf="cyiaFormControl.label!==undefined&&cyiaFormControl.labelPosition=='default'" class="mat-focused">
+    <span>
+      {{cyiaFormControl.label}}
+    </span>
+    <span class="mat-placeholder-required mat-form-field-required-marker" *ngIf="cyiaFormControl.required"> *</span>
+  </label>
+  <div>
+    <cyia-form-control-write #writeControl *ngIf="cyiaFormControl.pattern=='w'" [cyiaFormControl]="cyiaFormControl"
+      [service]="service" [(ngModel)]="value">
+    </cyia-form-control-write>
+    <cyia-form-control-read *ngIf="cyiaFormControl.pattern=='r'" [cyiaFormControl]="cyiaFormControl">
+    </cyia-form-control-read>
+
+  </div>
 </ng-container>

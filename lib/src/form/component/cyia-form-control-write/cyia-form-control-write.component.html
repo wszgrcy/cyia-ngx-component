@@ -11,13 +11,7 @@
 
 <div class="cyia-form-control-write">
   <!-- 默认模式下显示的 -->
-  <label [for]="id" *ngIf="cyiaFormControl.label!==undefined&&cyiaFormControl.labelPosition=='default'"
-    class="mat-focused">
-    <span>
-      {{cyiaFormControl.label}}
-    </span>
-    <span class="mat-placeholder-required mat-form-field-required-marker" *ngIf="cyiaFormControl.required"> *</span>
-  </label>
+
   <ng-container *ngIf="flag.formField">
     <ng-container *ngTemplateOutlet="formField"></ng-container>
   </ng-container>
