@@ -36,9 +36,13 @@ export class AppComponent {
     // new CyiaFormControl({
     //   type: FormControlType.markdown
     // }),
+    // new CyiaFormControl({
+    //   type: FormControlType.datepicker,
+    //   // appearance: '' as any
+    // })
     new CyiaFormControl({
-      type: FormControlType.datepicker,
-      // appearance: '' as any
+      type: FormControlType.input,
+      value: '只读测试'
     })
   ).setPattern(Pattern.w)
   ngOnInit(): void {

@@ -1,0 +1,20 @@
+<ng-container [ngSwitch]="readOnlyControlMode">
+  <ng-container *ngSwitchCase="'direct'">
+
+  </ng-container>
+  <ng-container *ngSwitchCase="'markdown'">
+
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <div class="read mat-form-field-appearance-{{cyiaFormControl.appearance}} ">
+      <div class="mat-form-field-wrapper">
+        <div class="mat-form-field-flex">
+          <span class="mat-form-field-infix ">
+            {{readValue}}
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
