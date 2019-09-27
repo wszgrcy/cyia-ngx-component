@@ -1,7 +1,8 @@
-import { Component, forwardRef, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CyiaFormControl } from '../../class/cyia-form.class';
 import { CyiaFormGroupService } from '../cyia-form-group/cyia-form-group.service';
+import { CyiaFormControlWriteComponent } from '../cyia-form-control-write/cyia-form-control-write.component';
 @Component({
   selector: 'cyia-form-control',
   templateUrl: './cyia-form-control.component.html',
@@ -15,7 +16,8 @@ import { CyiaFormGroupService } from '../cyia-form-group/cyia-form-group.service
 
 })
 export class CyiaFormControlComponent implements ControlValueAccessor {
-
+  /**用于label关联 */
+  @ViewChild(CyiaFormControlWriteComponent, { static: false }) writeControl: CyiaFormControlWriteComponent
   @Input() service: CyiaFormGroupService
   @Input() cyiaFormControl: CyiaFormControl
   @Output() errorsChange = new EventEmitter()
