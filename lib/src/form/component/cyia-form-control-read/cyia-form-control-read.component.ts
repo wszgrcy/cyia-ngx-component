@@ -14,7 +14,7 @@ import { filter } from 'rxjs/operators';
 export class CyiaFormControlReadComponent implements OnInit {
   @Input() cyiaFormControl: CyiaFormControl
   @Input() readValue
-  readOnlyControlMode: ReadOnlyControlMode
+  readOnlyControlMode: FormControlType
   options: CyiaOption[]
   constructor(private cd: ChangeDetectorRef) { }
 
@@ -45,6 +45,7 @@ export class CyiaFormControlReadComponent implements OnInit {
           case 'required':
             break
           case 'type':
+            this.typeChange(cyiaFormControl)
             break
           case 'options':
             this.optionsChange(cyiaFormControl)
@@ -61,17 +62,21 @@ export class CyiaFormControlReadComponent implements OnInit {
       })
   }
   /**
- * 每次类变更的操作
- *
- * @author cyia
- * @date 2019-09-07
- * @param cyiaFormControl
- */
+   * 每次类变更的操作
+   *
+   * @author cyia
+   * @date 2019-09-07
+   * @param cyiaFormControl
+   */
   async cyiaFormControlInput(cyiaFormControl: CyiaFormControl) {
     await this.optionsChange(cyiaFormControl)
     // this.inputValueChange(cyiaFormControl)
     await this.readValueChange(cyiaFormControl)
+    await this.typeChange(cyiaFormControl)
     this.cd.markForCheck()
+  }
+  async typeChange(cyiaFormControl: CyiaFormControl) {
+    this.readOnlyControlMode = cyiaFormControl.type
   }
   /**
    * 

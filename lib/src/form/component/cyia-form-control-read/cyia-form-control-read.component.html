@@ -3,7 +3,7 @@
 
   </ng-container>
   <ng-container *ngSwitchCase="'markdown'">
-
+    <cyia-markdown [pattern]="'r'" [(ngModel)]="readValue"></cyia-markdown>
   </ng-container>
   <ng-container *ngSwitchDefault>
     <div class="read mat-form-field-appearance-{{cyiaFormControl.appearance}} ">

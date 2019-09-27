@@ -78,7 +78,7 @@
         </mat-slide-toggle>
       </ng-container>
       <ng-container *ngSwitchCase="'markdown'">
-        <cyia-markdown [formControl]="formControl" [height]="cyiaFormControl?.height"> </cyia-markdown>
+        <cyia-markdown [formControl]="formControl" [height]="cyiaFormControl?.height||undefined"> </cyia-markdown>
       </ng-container>
     </ng-container>
   </ng-container>

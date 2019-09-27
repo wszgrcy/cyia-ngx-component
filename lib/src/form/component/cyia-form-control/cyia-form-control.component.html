@@ -6,7 +6,7 @@
     </span>
     <span class="mat-placeholder-required mat-form-field-required-marker" *ngIf="cyiaFormControl.required"> *</span>
   </label>
-  <div>
+  <div class="control__display">
     <cyia-form-control-write *ngIf="cyiaFormControl.pattern=='w'" [cyiaFormControl]="cyiaFormControl"
       [service]="service" [(ngModel)]="value">
     </cyia-form-control-write>

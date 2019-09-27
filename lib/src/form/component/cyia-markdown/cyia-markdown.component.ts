@@ -10,7 +10,7 @@ import md from "markdown-it";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Pattern } from '../../class/cyia-form.class';
-import { coerceBooleanProperty, coerceNumberProperty, coerceCssPixelValue } from '@angular/cdk/coercion';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
 @Component({
   selector: 'cyia-markdown',
   templateUrl: './cyia-markdown.component.html',
@@ -25,8 +25,22 @@ import { coerceBooleanProperty, coerceNumberProperty, coerceCssPixelValue } from
 export class CyiaMarkdownComponent implements ControlValueAccessor {
   @ViewChild('container', { static: true }) container: ElementRef<HTMLDivElement>
   @Input() pattern: Pattern = Pattern.w;
-  @Input() height: string = '100px'
-  readonly editorBarPrefix = 'editor-bar-'
+  @Input() set height(val: string) {
+    if (val != undefined) {
+      this._height = val
+    }
+  }
+  get height() {
+    return this._height
+  }
+  _height = '300px';
+  readonly editorBarPrefix = 'editor-bar-';
+  @Input() readonly mdClassMap = {
+    h1: 'mat-h1',
+    h2: 'mat-h2',
+    h3: 'mat-h3',
+    h4: 'mat-h4',
+  }
   // flag = {
   //   quote: false
   // }
@@ -65,9 +79,16 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     private snackBar: MatSnackBar
   ) { }
   writeValue(value) {
+    console.log('写入值', value);
     if (typeof value == 'string') {
-      this.tempValue = this.value = value
+      this.tempValue = this.value = value;
+      if (this.pattern == Pattern.r) {
+        this.initRead()
+      } else if (this.pattern == Pattern.w) {
+        this.initWrite()
+      }
       this.instance && this.instance.setValue(value)
+
     }
   }
   registerOnChange(fn) {
@@ -90,12 +111,9 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     }
   }
   ngOnInit() {
-    if (this.pattern == Pattern.r) {
-      this.initRead()
-    } else if (this.pattern == Pattern.w) {
+    if (this.pattern == Pattern.w) {
       this.initWrite()
     }
-
   }
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(changes)
@@ -104,8 +122,9 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       this.readMode = pattern == Pattern.w ? false : true
     }
     if (changes.height) {
-      // console.log(this.height)
-      this.height = coerceCssPixelValue(this.height)
+      console.log(changes.height);
+      console.log(this.height);
+      this.height = coerceCssPixelValue(this.height == undefined ? changes.height.previousValue : this.height)
       // console.log(this.height)
     }
   }
@@ -228,7 +247,35 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
    * @memberof CyiaMarkdownComponent
    */
   initRead() {
-    this.readValue = this.domSanitizer.bypassSecurityTrustHtml(md({ html: true }).render(this.tempValue))
+    // console.log(this.tempValue);
+    let mdres = md({
+      html: true,
+
+    })
+    console.log(
+      mdres
+    );
+    mdres.core.ruler.after('linkify', 'test', (s) => {
+      s.tokens.forEach((token) => {
+        if (this.mdClassMap[token.tag]) {
+          token.attrJoin('class', this.mdClassMap[token.tag])
+        }
+      })
+    })
+    // console.log(mdres);
+    // console.log(mdres.renderer.rules);
+
+    // console.log(mdres.renderer.rules.html_block);
+
+
+    /**
+     *   mdHtml.renderer.rules.paragraph_open = mdHtml.renderer.rules.heading_open = injectLineNumbers;
+     */
+    this.readValue = this.domSanitizer.bypassSecurityTrustHtml(
+      mdres.render(this.tempValue)
+    )
+    console.log(this.readValue);
+    this.cd.markForCheck()
   }
 
   /**
@@ -241,7 +288,8 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     this.instance = this.instance || monaco.editor.create(this.container.nativeElement, {
       language: 'markdown',
       minimap: { enabled: false },
-      automaticLayout: true
+      automaticLayout: true,
+
     })
   }
   /**

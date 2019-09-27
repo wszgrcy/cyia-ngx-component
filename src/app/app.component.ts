@@ -32,19 +32,21 @@ export class AppComponent {
       ]
     }
   ]
-  group = CyiaFormFactory.group({ gridTemplateAreas: [[1, 2, 2, 2, 2, 2]] },
-    // new CyiaFormControl({
-    //   type: FormControlType.markdown
-    // }),
+  group = CyiaFormFactory.group({ gridTemplateAreas: [[1]] },
+    new CyiaFormControl({
+      type: FormControlType.markdown,
+      value:`# 表头
+      - 12342`
+    }),
     // new CyiaFormControl({
     //   type: FormControlType.datepicker,
     //   // appearance: '' as any
     // })
-    new CyiaFormControl({
-      type: FormControlType.input,
-      value: '只读测试',
-      label: '标签'
-    })
+    // new CyiaFormControl({
+    //   type: FormControlType.input,
+    //   value: '只读测试',
+    //   label: '标签'
+    // })
   ).setPattern(Pattern.w)
   ngOnInit(): void {
     setTimeout(() => {

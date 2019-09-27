@@ -11,6 +11,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
@@ -22,7 +23,7 @@
     "paths": {
       "cyia-ngx-component": [
         // "dist/lib"//打包调用
-        "lib/src"//调试调用
+        "lib/src" //调试调用
       ]
       // "lib/*": [
       //   "dist/lib/*"
