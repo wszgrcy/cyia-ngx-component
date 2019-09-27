@@ -27,6 +27,7 @@ export class CyiaControlBase {
     /**隐藏控件,控件内 */
     @ChangeEmit()
     hidden?: boolean = false
+    showLabel?: boolean = true
 }
 export class _CyiaFormControl<T = any> extends CyiaControlBase {
     readonly linkKey?: string
@@ -115,6 +116,7 @@ export class _CyiaFormControl<T = any> extends CyiaControlBase {
     filterPipe?: (arg0: this, value) => Promise<CyiaOption<T>[]>
     valueChange?: (arg0: this, formControl: FormControl, value) => Promise<CyiaFormControlChange[]>
     height?: number | string
+
 }
 export class CyiaFormControl<T = any> extends _CyiaFormControl {
     change$: Subject<CyiaFormControlChange>
@@ -143,6 +145,8 @@ export class CyiaFormControl<T = any> extends _CyiaFormControl {
 export class _CyiaFormGroup extends CyiaControlBase {
     layoutStyle?: LayoutStyle = LayoutStyle.cssGrid
     gridTemplateAreas?: number[][] = [[]]
+    /**表格的大小[2,3]2*3 */
+    tableSize?: Number[] = []
 }
 export class CyiaFormGroup extends _CyiaFormGroup {
     // key?: string = `${Math.random()}`

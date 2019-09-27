@@ -1,4 +1,4 @@
-import { Component, OnInit, forwardRef, Input, ChangeDetectionStrategy, SimpleChanges, Renderer2, ViewChild, ViewContainerRef, ElementRef, ViewChildren, QueryList, Self, Host, SkipSelf, Optional, Injector, INJECTOR, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, forwardRef, Input, ChangeDetectionStrategy, SimpleChanges, Renderer2, ViewChild, ViewContainerRef, ElementRef, ViewChildren, QueryList, Self, Host, SkipSelf, Optional, Injector, INJECTOR, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CyiaFormGroup, CyiaFormControl } from '../../class/cyia-form.class';
 import { LayoutStyle } from '../../type/form-group.type';
@@ -24,7 +24,10 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   /**所有控件的元素列表,用于布局 */
   @ViewChildren('controlEl', { read: ElementRef }) controlList: QueryList<ElementRef>
   @ViewChild('wrapper', { static: false }) set wrapper(val: ElementRef<HTMLDivElement>) {
-    this.setLayout(val)
+    if (!this.wrapperInit) {
+      this.wrapperInit = true;
+      this.setLayout(val);
+    }
   }
   @Input() cyiaFormGroup: CyiaFormGroup
   @Input() deep: number = 0
@@ -36,14 +39,17 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   formGroup: FormGroup
   /**保证数据只初始化一次,其余交给控件处理 */
   private init = false
+  wrapperInit = false
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };
   value
   notOutputKeyList: string[] = []
+  tableFormatList: (CyiaFormControl | CyiaFormGroup)[][] = []
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
-    private injector: Injector
+    private injector: Injector,
+    private cd: ChangeDetectorRef
   ) {
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -157,14 +163,28 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
     switch (this.cyiaFormGroup.layoutStyle) {
       case LayoutStyle.cssGrid:
         this.renderer.setStyle(wrapper.nativeElement, 'grid-template-areas', this.cyiaFormGroup.gridTemplateAreas.map((items) => `'${items.map((item) => item ? `a${item}` : '.').join(' ')}'`).join(' '))
-        let percent =( 100 / this.cyiaFormGroup.gridTemplateAreas[0].length).toFixed(4);
+        let percent = (100 / this.cyiaFormGroup.gridTemplateAreas[0].length).toFixed(4);
         this.renderer.setStyle(wrapper.nativeElement, 'grid-template-columns', `repeat(${this.cyiaFormGroup.gridTemplateAreas[0].length}, ${percent}%)`)
         this.controlList.forEach((item, i) => this.renderer.setStyle(item.nativeElement, 'grid-area', `a${i + 1}`))
         break;
-
+      case LayoutStyle.htmlTable:
+        let controlIndex = 0
+        for (let i = 0; i < this.cyiaFormGroup.tableSize[0]; i++) {
+          let list = []
+          for (let j = 0; j < this.cyiaFormGroup.tableSize[1]; j++) {
+            list.push(this.cyiaFormGroup.controls[controlIndex++])
+          }
+          this.tableFormatList.push(list)
+        }
+        this.cyiaFormGroup.controls.forEach((item) => {
+          item.showLabel = false
+        })
+        break;
       default:
+
         break;
     }
+    this.cd.detectChanges()
   }
   onErrorsChange(control: CyiaFormControl | CyiaFormGroup, e) {
     if (e) this.errors[control.key] = e;

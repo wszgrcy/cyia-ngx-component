@@ -1,4 +1,4 @@
 export enum LayoutStyle {
-    cssGrid = 'css-grid'
-    
+    cssGrid = 'css-grid',
+    htmlTable='html-table'
 }

@@ -1,6 +1,7 @@
 <ng-container *ngIf="cyiaFormControl">
   <label [for]="writeControl&&writeControl.id"
-    *ngIf="cyiaFormControl.label!==undefined&&cyiaFormControl.labelPosition=='default'" class="mat-focused">
+    *ngIf="cyiaFormControl.showLabel&& cyiaFormControl.label!==undefined&&cyiaFormControl.labelPosition=='default'"
+    class="mat-focused">
     <span>
       {{cyiaFormControl.label}}
     </span>
