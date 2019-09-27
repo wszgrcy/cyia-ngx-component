@@ -57,7 +57,7 @@ export class CyiaFormControlWriteComponent implements OnInit {
   nowError: string
   formControl: FormControl
   @Output() errorsChange = new EventEmitter()
-  @Output() statusChange = new EventEmitter()
+  // @Output() statusChange = new EventEmitter()
   // readValue: string = ''
   options: CyiaOption[]
   /**
@@ -104,7 +104,7 @@ export class CyiaFormControlWriteComponent implements OnInit {
   initFormControl(cyiaFormControl: CyiaFormControl) {
     if (this.formControl) return
     this.formControl = new FormControl(
-      cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value,
+      undefined,
       cyiaFormControl.validator)
     this.formControl.valueChanges.subscribe(async (val) => {
       //doc 错误提示
@@ -125,13 +125,13 @@ export class CyiaFormControlWriteComponent implements OnInit {
       !this.formControl.touched && this.formControl.markAllAsTouched()
       //doc 值变更外界调用
       cyiaFormControl.valueChange && this.service && cyiaFormControl.valueChange(cyiaFormControl, this.formControl, this.formControl.value).then((list) => {
-        list.forEach((item) => {
-          this.service.event$.next(item)
-        })
+        this.service.event$.next(list)
       })
       // cyiaFormControl.value = val
-      console.log('值变更', val)
+      // console.log('值变更', val)
     })
+    let value = cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value
+    this.formControl.patchValue(value)
   }
   ngOnInit() {
   }
@@ -180,7 +180,7 @@ export class CyiaFormControlWriteComponent implements OnInit {
       cyiaFormControl.type == FormControlType.autocomplete ||
       cyiaFormControl.type == FormControlType.datepicker
     // debugger
-    console.log(cyiaFormControl.type, this.flag.formField);
+    // console.log(cyiaFormControl.type, this.flag.formField);
   }
   async optionsChange(cyiaFormControl: CyiaFormControl) {
     this.options = []
@@ -218,7 +218,6 @@ export class CyiaFormControlWriteComponent implements OnInit {
     // this.inputValueChange(cyiaFormControl)
     await this.labelPositionChange(cyiaFormControl)
     await this.optionsChange(cyiaFormControl)
-    // await this.readValueChange(cyiaFormControl)
     await this.oldValueChange(cyiaFormControl)
     await this.formFieldChange(cyiaFormControl)
     this.cd.markForCheck()
@@ -232,11 +231,9 @@ export class CyiaFormControlWriteComponent implements OnInit {
             this.labelPositionChange(cyiaFormControl)
             break;
           case 'pattern':
-            // this.readValueChange(cyiaFormControl)
             break
           case 'value':
             this.inputValueChange(cyiaFormControl)
-            // this.readValueChange(cyiaFormControl)
             this.oldValueChange(cyiaFormControl)
             break
           case 'required':

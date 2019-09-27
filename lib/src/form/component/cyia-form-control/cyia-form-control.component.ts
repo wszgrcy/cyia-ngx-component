@@ -40,6 +40,9 @@ export class CyiaFormControlComponent implements ControlValueAccessor {
   ngOnInit() {
   }
 
+  onErrorsChange(e) {
+    this.errorsChange.emit(e)
+  }
   registerOnChange(fn) {
     this.changeFn = fn;
   }

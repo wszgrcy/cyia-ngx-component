@@ -8,7 +8,7 @@ import { CyiaFormControlChange } from '../../type/change-type.type';
  * @class CyiaFormGroupService
  */
 export class CyiaFormGroupService {
-  event$ = new Subject<CyiaFormControlChange>()
+  event$ = new Subject<CyiaFormControlChange[]>()
   constructor() {
   }
 

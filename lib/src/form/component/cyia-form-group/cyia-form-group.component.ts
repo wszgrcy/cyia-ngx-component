@@ -140,15 +140,18 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
    */
   controlEventSubscribe() {
     if (this.deep) return
-    this.service.event$.subscribe((e) => {
-      let control: CyiaFormGroup | CyiaFormControl<any> = this.cyiaFormGroup
-      try {
-        e.target.forEach((key) => {
-          control = (<CyiaFormGroup>control).getControl(key)
-        })
-        control[e.type] = e.value
-      } catch (error) {
-        console.warn('发生事件路径错误')
+    this.service.event$.subscribe((eList) => {
+      for (let i = 0; i < eList.length; i++) {
+        const e = eList[i];
+        let control: CyiaFormGroup | CyiaFormControl<any> = this.cyiaFormGroup
+        try {
+          e.target.forEach((key) => {
+            control = (<CyiaFormGroup>control).getControl(key)
+          })
+          control[e.type] = e.value
+        } catch (error) {
+          console.warn('发生事件路径错误')
+        }
       }
     })
   }

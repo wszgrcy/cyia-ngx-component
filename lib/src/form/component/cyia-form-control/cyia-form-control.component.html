@@ -9,7 +9,7 @@
   </label>
   <div class="control__display">
     <cyia-form-control-write *ngIf="cyiaFormControl.pattern=='w'" [cyiaFormControl]="cyiaFormControl"
-      [service]="service" [(ngModel)]="value">
+      [service]="service" [(ngModel)]="value" (errorsChange)="onErrorsChange($event)">
     </cyia-form-control-write>
     <cyia-form-control-read *ngIf="cyiaFormControl.pattern=='r'" [cyiaFormControl]="cyiaFormControl">
     </cyia-form-control-read>
