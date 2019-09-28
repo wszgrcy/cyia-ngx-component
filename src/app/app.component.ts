@@ -2,10 +2,9 @@ import { CyiaHttpService } from 'cyia-ngx-common';
 import { Component, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CyiaDatePickerComponent } from "cyia-ngx-component";
 import { FabItem, CyiaFormFactory } from 'cyia-ngx-component';
-import { CyiaFormControl, Pattern } from 'lib/src/form/class/cyia-form.class';
-import { FormControlType } from 'lib/src/form/enum/control-type.enum';
-import { fcall } from 'q';
-import { LayoutStyle } from 'lib/src/form/type/form-group.type';
+import { CyiaFormControl, Pattern } from 'cyia-ngx-component';
+import { FormControlType } from 'cyia-ngx-component';
+import { LayoutStyle } from 'cyia-ngx-component';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
