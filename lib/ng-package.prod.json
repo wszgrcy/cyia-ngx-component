@@ -3,7 +3,11 @@
   "dest": "../dist/lib",
   "deleteDestPath": true,
   "lib": {
-    "entryFile": "src/public_api.ts"
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "monaco-editor": "monaco-editor",
+      "moment": "moment"
+    }
   },
   "whitelistedNonPeerDependencies": [
     "."

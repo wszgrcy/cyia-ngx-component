@@ -85,9 +85,10 @@ export class CyiaFormControlWriteComponent implements OnInit {
   }
   _cyiaFormControl: CyiaFormControl
 
-  private changeFn: Function = () => { };
-  private touchedFn: Function = () => { };
+  private changeFn: Function
+  private touchedFn: Function
   valueInput$ = new BehaviorSubject(undefined)
+  valueOutput$ = new BehaviorSubject(undefined)
   constructor(
     private cd: ChangeDetectorRef,
     private ngZone: NgZone
@@ -138,9 +139,11 @@ export class CyiaFormControlWriteComponent implements OnInit {
 
   registerOnChange(fn) {
     this.changeFn = fn;
+    this.touchedFn && this.valueOutput()
   }
   registerOnTouched(fn) {
     this.touchedFn = fn;
+    this.changeFn && this.valueOutput()
   }
 
   writeValue(value) {
@@ -158,8 +161,13 @@ export class CyiaFormControlWriteComponent implements OnInit {
     if (!cyiaFormControl.output) return
     //doc 如果有输出管道,先经过输出管道转化
     const outValue = cyiaFormControl.outputPipe ? cyiaFormControl.outputPipe(cyiaFormControl, value) : value;
-    this.changeFn(outValue)
-    this.touchedFn(outValue)
+    this.valueOutput$.next(outValue)
+  }
+  valueOutput() {
+    this.valueOutput$.pipe(filter(() => this.changeFn && !!this.touchedFn)).subscribe((outValue) => {
+      this.changeFn(outValue)
+      this.touchedFn(outValue)
+    })
   }
   labelPositionChange(cyiaFormControl: CyiaFormControl) {
     if (cyiaFormControl.labelPosition == 'default') {
