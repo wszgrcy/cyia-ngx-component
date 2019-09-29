@@ -16,30 +16,30 @@
     "types": [],
     "lib": [
       "dom",
-      "es2018"
+      "esnext"
     ],
     "paths": {
-      "@angular/*": [
-        "../node_modules/@angular/*"
-      ],
-      "cyia-ngx-common": [
-        "../node_modules/cyia-ngx-common"
-      ],
-      "cyia-ngx-form": [
-        "../node_modules/cyia-ngx-form"
-      ],
-      "moment": [
-        "../node_modules/moment"
-      ],
-      "image-compressor.js": [
-        "../node_modules/image-compressor.js"
-      ],
-      "ngx-markdown": [
-        "../node_modules/ngx-markdown"
-      ],
-      "chroma-js": [
-        "../node_modules/chroma-js"
-      ]
+      // "@angular/*": [
+      //   "../node_modules/@angular/*"
+      // ],
+      // "cyia-ngx-common": [
+      //   "../node_modules/cyia-ngx-common"
+      // ],
+      // "cyia-ngx-form": [
+      //   "../node_modules/cyia-ngx-form"
+      // ],
+      // "moment": [
+      //   "../node_modules/moment"
+      // ],
+      // "image-compressor.js": [
+      //   "../node_modules/image-compressor.js"
+      // ],
+      // "ngx-markdown": [
+      //   "../node_modules/ngx-markdown"
+      // ],
+      // "chroma-js": [
+      //   "../node_modules/chroma-js"
+      // ]
     }
   },
   "angularCompilerOptions": {
@@ -52,6 +52,7 @@
   },
   "exclude": [
     "src/test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "src/index.ts"
   ]
 }

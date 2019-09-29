@@ -134,7 +134,7 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
    * @author cyia
    * @date 2019-09-19
    */
-  format(type: string, subType?: WrapType | StartType) {
+  format(type: string, subType?: string) {
     switch (type) {
       case 'wrap':
         this.wrap(subType as WrapType)

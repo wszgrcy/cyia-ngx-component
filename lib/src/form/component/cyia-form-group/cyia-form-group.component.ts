@@ -119,7 +119,6 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   /**
    * 对不输出的字段过滤
    *
-   * @param {*} val
    * @returns
    * @memberof CyiaFormGroupComponent
    */

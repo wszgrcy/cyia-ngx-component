@@ -12,7 +12,6 @@
         "@schematics/angular:component": {
           "styleext": "scss",
           "changeDetection": "OnPush"
-
         }
       },
       "architect": {
@@ -36,10 +35,13 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "tsConfig": "src/tsconfig.lib-build.json",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
