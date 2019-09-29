@@ -30,7 +30,7 @@ export class CyiaControlBase {
     showLabel?: boolean = true
 }
 export class _CyiaFormControl<T = any> extends CyiaControlBase {
-    readonly linkKey?: string
+    linkKey?: string
     // key?: string = `${Math.random()}`
     /**值变化,控件内 */
     @ChangeEmit()
@@ -147,10 +147,11 @@ export class _CyiaFormGroup extends CyiaControlBase {
     gridTemplateAreas?: number[][] = [[]]
     /**表格的大小[2,3]2*3 */
     tableSize?: Number[] = []
+    controls?: (_CyiaFormControl | _CyiaFormGroup)[] = []
 }
 export class CyiaFormGroup extends _CyiaFormGroup {
-    // key?: string = `${Math.random()}`
     controls?: (CyiaFormControl | CyiaFormGroup)[] = []
+    // key?: string = `${Math.random()}`
     // output?: boolean = true
     // outputError?: boolean = true
     constructor(config: _CyiaFormControl) {

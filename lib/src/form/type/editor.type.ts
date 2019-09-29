@@ -1,3 +1,4 @@
+/**内部 */
 export enum WrapType {
     format_bold = 'format_bold',
     format_italic = 'format_italic',
