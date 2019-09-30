@@ -20,11 +20,11 @@
     "@angular/material-moment-adapter": ">=6.4.6",
     "ngx-markdown": "^6.2.0",
     "image-compressor.js": "^1.1.4",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "monaco-editor": "0.18.1"
   },
   "dependencies": {
     "chroma-js": "2.0.3",
-    "monaco-editor": "0.18.1",
     "markdown-it": "10.0.0"
   },
   "license": "MIT",
