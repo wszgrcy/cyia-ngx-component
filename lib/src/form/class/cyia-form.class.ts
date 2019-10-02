@@ -28,6 +28,7 @@ export class CyiaControlBase {
     @ChangeEmit()
     hidden?: boolean = false
     showLabel?: boolean = true
+    description?: string
 }
 export class _CyiaFormControl<T = any> extends CyiaControlBase {
     linkKey?: string
