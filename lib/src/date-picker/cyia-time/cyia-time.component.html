@@ -1,10 +1,10 @@
 <div class="cyia-time mat-calendar ng-trigger ng-trigger-fadeInCalendar">
   <mat-form-field>
-    <input matInput placeholder="小时" type="number" max="23" min="0" (change)="timeChange(hour,1)" #hour [(ngModel)]="time.hour"
-      name="hour" (keydown)="timeChange(hour,1)">
+    <input matInput placeholder="小时" type="number" max="23" min="0" #hour [(ngModel)]="time.hour" name="hour"
+      (ngModelChange)="timeChange(hour,1)">
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="分钟" type="number" max="59" min="0" (change)="timeChange(minute,2)" #minute [(ngModel)]="time.minute"
-      name="minute" (keydown)="timeChange(minute,2)">
+    <input matInput placeholder="分钟" type="number" max="59" min="0" #minute [(ngModel)]="time.minute" name="minute"
+      (ngModelChange)="timeChange(minute,2)">
   </mat-form-field>
 </div>

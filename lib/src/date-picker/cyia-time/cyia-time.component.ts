@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { matDatepickerAnimations } from '@angular/material/datepicker';
 import { AccurateTime } from '../../define/date-picker.define';
@@ -14,16 +14,11 @@ import { AccurateTime } from '../../define/date-picker.define';
   ],
   host: {
     '[@transformPanel]': '"enter"',
-    'class':'app-cyia-time'
+    'class': 'app-cyia-time'
   }
 })
-export class CyiaTimeComponent implements OnInit {
-
+export class CyiaTimeComponent {
   constructor() { }
-
-  ngOnInit() {
-
-  }
   @Input() time: AccurateTime = {
     hour: null,
     minute: null
@@ -39,6 +34,11 @@ export class CyiaTimeComponent implements OnInit {
     } else if (value < min) {
       event.value = min;
     }
-    this.changeData.emit({ value: event.value, type: type })
+    if (type == 1) {
+      this.time.hour = +event.value
+    } else if (type == 2) {
+      this.time.minute = +event.value
+    }
+    this.changeData.emit({ value: +event.value, type: type })
   }
 }

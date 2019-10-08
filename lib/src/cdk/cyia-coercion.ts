@@ -1,5 +1,4 @@
-import * as moment_ from "moment";
-const moment = moment_;
+import moment from "moment";
 /**
  * @description 强制转化为Moment对象,用来显示
  * @author cyia
@@ -9,9 +8,10 @@ const moment = moment_;
  * @param [format] 如果需要格式化传入
  * @returns
  */
-export function coerceMoment(value: any, format?: string[]): moment_.Moment {
-  if (moment.isMoment(value))
-    return value
+export function coerceMoment(value: string | Date | number | moment.Moment, format?: string): moment.Moment {
+  //doc 对于moment也转换,防止相同引用
+  //doc 默认对string类型设置格式化
+  format = (!format && typeof value == 'string') ? "YYYY-MM-DD HH:mm" : format
   return moment(value, format)
 }
 
@@ -25,14 +25,20 @@ export function coerceMoment(value: any, format?: string[]): moment_.Moment {
  * @param [unit='s']
  * @returns
  */
-export function coerceCssTimeValue(value: any, unit: string = 's') {
+export function coerceCssTimeValue(value: string | number, unit: 's' | 'ms' = 's') {
   if (typeof value == 'string') {
     return value
   } else if (typeof value == 'number') {
+    if (value != value) {
+      return `0${unit}`
+    }
+    
     if (unit == 's') {
       return `${value / 1000}${unit}`
     } else if (unit == 'ms') {
       return `${value}${unit}`
     }
+  } else if (!value) {
+    return `0${unit}`
   }
 }
