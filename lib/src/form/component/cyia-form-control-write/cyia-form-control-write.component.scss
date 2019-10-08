@@ -30,7 +30,8 @@
 
     //doc 默认模式下,取消浮动和上面的高度
     ::ng-deep .mat-form-field-infix {
-      width : 100%;
+      //doc 移除是因为select会宽度异常
+      // width : 100%;
       border: 0;
     }
 

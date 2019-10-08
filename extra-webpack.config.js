@@ -1,6 +1,6 @@
 module.exports = (webpackConfig, cliConfig) => {
     if (cliConfig.buildOptimizer) {
-        // console.log('测试');
+        console.log('测试');
         // https://github.com/angular/angular-cli/issues/14033
         // console.log(webpackConfig.module);
         // webpackConfig.module.rules.forEach((e) => {
