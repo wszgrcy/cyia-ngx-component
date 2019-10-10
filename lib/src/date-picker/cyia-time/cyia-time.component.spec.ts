@@ -18,7 +18,7 @@ import { newEvent } from '../../testing';
 class TestComponent {
 
 }
-fdescribe('CyiaTimeComponent', () => {
+describe('CyiaTimeComponent', () => {
   let component: CyiaTimeComponent;
   let fixture: ComponentFixture<CyiaTimeComponent>;
 

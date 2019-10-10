@@ -50,20 +50,21 @@ export class ColorPickerComponent implements ControlValueAccessor {
   }
   _value: string
   writeValue(value) {
-    if (value != undefined) {
-      this._value = chroma(value).hex()
-      for (let i = 0; i < this.PRESET_COLOR.palettes.length; i++) {
-        const palette = this.PRESET_COLOR.palettes[i];
-        for (let j = 0; j < palette.hexes.length; j++) {
-          const color = palette.hexes[j];
-          if (color == this._value) {
-            return
-          }
+    //doc 只有字符串才能转换
+    if (value == undefined) return
+    this._value = chroma(value).hex()
+    for (let i = 0; i < this.PRESET_COLOR.palettes.length; i++) {
+      const palette = this.PRESET_COLOR.palettes[i];
+      for (let j = 0; j < palette.hexes.length; j++) {
+        const color = palette.hexes[j];
+        if (color == this._value) {
+          return
         }
       }
-      this._selectedIndex = 1;
-
     }
+    this._selectedIndex = 1;
+
+
   }
   /**
    * @description 切换tab
@@ -103,7 +104,7 @@ export class ColorPickerComponent implements ControlValueAccessor {
     if (this.isInitColorWheel) return
     this.initCanvas()
     this.drawCanvas()
-    this.getCustomColor()
+    this.cursorMoveLinstener()
     this.changeSlider()
 
     this.isInitColorWheel = true
@@ -138,28 +139,31 @@ export class ColorPickerComponent implements ControlValueAccessor {
 
   }
   /**
-   * @description 监听色轮颜色变化
+   * @description 监听光标的移动
    * @author cyia
    * @date 2019-03-31
    * @memberof ColorPickerComponent
    */
-  getCustomColor() {
+  cursorMoveLinstener() {
+    let setCursorPositionFn = (e: MouseEvent) => {
+      const domRect = this.canvas.el.getBoundingClientRect();
+      const [x, y] = [Math.floor(e.clientX - domRect.left), Math.floor(e.clientY - domRect.top)];
+      const coordinateObj = this.getColorSpaceCoordinates(x, y);
+      this.setColorWheelFromMousePosition({ x: coordinateObj.x, y: coordinateObj.y }) as any;
+      this.valueChange(chroma.hsv(coordinateObj.h, coordinateObj.s, this.luminanceValue).hex())
+      this.scale = chroma.scale([this._value, '#000000']).domain([0, +this.canvas.slider.clientHeight])
+      this.sliderBeginColor = this._value
+    }
     fromEvent(this.canvas.el, 'mousemove')
       .pipe(
         skipUntil(fromEvent(this.canvas.el, 'mousedown').pipe(tap((e) => {
-          // this.setSelectorFromMousePosition(e)
+          setCursorPositionFn(e)
         }))),
         takeUntil(fromEvent(this.canvas.el, 'mouseup'))
       )
       .subscribe((e: MouseEvent) => {
-        const domRect = this.canvas.el.getBoundingClientRect();
-        const [x, y] = [Math.floor(e.clientX - domRect.left), Math.floor(e.clientY - domRect.top)];
-        const coordinateObj = this.getColorSpaceCoordinates(x, y);
-        this.setColorWheelFromMousePosition({ x: coordinateObj.x, y: coordinateObj.y }) as any;
-        this.valueChange(chroma.hsv(coordinateObj.h, coordinateObj.s, this.luminanceValue).hex())
-        this.scale = chroma.scale([this._value, '#000000']).domain([0, +this.canvas.slider.clientHeight])
-        this.sliderBeginColor = this._value
-      }, undefined, this.getCustomColor.bind(this))
+        setCursorPositionFn(e)
+      }, undefined, this.cursorMoveLinstener.bind(this))
   }
   initCanvas() {
     this.canvas.el = this.hostElement.querySelector('canvas')
