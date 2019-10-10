@@ -9,3 +9,10 @@ function syncRunSetTimeout(fn: Function, time = 0) {
         }, time);
     })
 }
+export function waitTime(time = 0) {
+    return new Promise((res) => {
+        setTimeout(() => {
+            res()
+        }, time);
+    })
+}

@@ -31,6 +31,9 @@ export class CyiaComponentToggleComponent implements OnInit {
     private renderer: Renderer2
   ) {
     this.hostElement = elementRef.nativeElement
+    this.direction = 'x'
+    this.duration = 1000
+    this.origin = 'left bottom'
   }
   private _direction: string
   /**
@@ -78,7 +81,7 @@ export class CyiaComponentToggleComponent implements OnInit {
     } else {
       this.isToggle = !this.isToggle;
     }
-    this.cd.markForCheck()
+    this.cd.detectChanges()
   }
   private getChildList() {
     if (!this.childList)
