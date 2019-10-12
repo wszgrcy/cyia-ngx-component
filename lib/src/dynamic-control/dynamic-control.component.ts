@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef, Type } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { DynamicImportStrategy } from '../class/dynamic-import-component';
 
 @Component({
   selector: 'cyia-dynamic-control',
@@ -11,12 +12,21 @@ import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/f
   ]
 })
 export class DynamicControlComponent implements ControlValueAccessor {
+  /**
+   * 输入值,要转到组件中
+   * 输出值,要发送事件
+   */
+  @Input() dynamicInput = {}
+  @Input() dynamicOutput = {}
+  @Input() context
   @Input() path: string
   @ViewChild('template', { read: ViewContainerRef, static: true }) anchor: ViewContainerRef
   _value
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };
   component: ComponentRef<any>
+  strategy: Type<DynamicImportStrategy>
+  strategyInstance: DynamicImportStrategy
   constructor(
     private injector: Injector,
     private compiler: Compiler,
@@ -41,56 +51,22 @@ export class DynamicControlComponent implements ControlValueAccessor {
       }
     }
   }
-  ngAfterViewInit(): void {
-    this.addComponent(this.path)
-  }
-  private async addComponent(path: string) {
-    /**载入的模块工厂 */
-    const ngModuleFactory = await this.load.load(path);
-    /**模块的类 */
-    const module = ngModuleFactory.moduleType;
-    //doc 正规方法需要先实例化模块浪费性能,可以将正规方法作为候选
-    const ngModuleRef = ngModuleFactory.create(this.injector)
-    const selector = this.getSelector(ngModuleRef);
-
-    @Component({
-      template: `<${selector} [ngModelOptions]="{standalone:true}"  [(ngModel)]="value" (ngModelChange)="valueChange.emit($event)"></${selector}>`
-    })
-    class TemplateComponent {
-      public value
-      public valueChange = new EventEmitter()
-    }
-    @NgModule({ declarations: [TemplateComponent], imports: [module, FormsModule] })
-    class TemplateModule { }
-    /**编译模块 */
-    const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
-    /**组件工厂 */
-    const factory = mod.componentFactories.find((comp) => comp.componentType === TemplateComponent);
-    /**通过锚点创建组件 */
-    this.component = this.anchor.createComponent(factory, undefined, this.injector);
-    //doc 表现为表单控件时,才进行值的监听
-    this.component.instance.value = this._value
-    this.component.instance.valueChange.subscribe((val) => this.valueChange(val)
+  async ngAfterViewInit() {
+    this.strategyInstance = new this.strategy(
+      this.injector,
+      this.compiler,
+      this.anchor,
+      // this.dynamicInput,
+      // this.dynamicOutput,
+      // this.eventChange,
+      // this.applicationRef
     )
+    let component = await this.strategyInstance
+      .setComponentBindingProperty(this.dynamicInput, this.dynamicOutput)
+      .load(this.path)
+
   }
 
-  getSelector(ngModuleRef: NgModuleRef<any>): string {
-    try {
-      return ngModuleRef.instance.entry.__annotations__[0].selector
-    } catch (error) { }
-    let componentFactoryResolver = ngModuleRef.componentFactoryResolver
-    try {
-      let map: Map<any, any> = componentFactoryResolver['_factories']
-      return map[0].selector
-    } catch (error) { }
-    try {
-      let componentFactory = ngModuleRef.componentFactoryResolver.resolveComponentFactory(ngModuleRef.instance.entry)
-      return componentFactory.selector
-    } catch (error) {
-    }
-
-    throw '没有找到选择器'
-  }
   valueChange(value: string) {
     this._value = value
     this.changeFn(value)

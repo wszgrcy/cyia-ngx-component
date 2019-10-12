@@ -7,6 +7,9 @@
       "cyia-ngx-component": [
         // "dist/lib"//打包调用
         "lib/src" //调试调用
+      ],
+      "lazy-load/*":[
+        "./app/lazy-load/*"
       ]
       // "lib/*": [
       //   "dist/lib/*"

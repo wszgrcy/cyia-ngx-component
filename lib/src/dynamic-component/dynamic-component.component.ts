@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy, NgModule, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, NgModule, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, NgModuleFactory, Type, Inject, Output, EventEmitter, ApplicationRef, SimpleChanges } from '@angular/core';
+import { DYNAMIC_IMPORT_METHOD } from '../token/dynamic-import-method.token';
+import { DynamicImportStrategy } from '../class/dynamic-import-component';
 
 @Component({
   selector: 'cyia-dynamic-component',
@@ -7,63 +9,65 @@ import { Component, ChangeDetectionStrategy, NgModule, NgModuleRef, Injector, Co
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicComponentComponent {
-  @Input() path: string
+  @Input() path: any
   @ViewChild('template', { read: ViewContainerRef, static: true }) anchor: ViewContainerRef
-
+  /**将想要传入的参数以key-Value格式传入,慎用引用取值 */
+  @Input() dynamicInput = {}
+  @Input() dynamicOutput = {}
+  @Input() context
+  /**将动态组件的事件以一个统一的接口传出 */
+  // @Input() set method(val: 'view' | 'compiler' | 'element') {
+  //   switch (val) {
+  //     case 'compiler':
+  //       this.strategy = CompilerDynamicImportStragegy
+  //       break;
+  //     case 'view':
+  //       this.strategy = ViewDynamicImportStragegy
+  //     case 'element':
+  //       this.strategy = ElementDynamicImportStragegy
+  //     default:
+  //       break;
+  //   }
+  // }
+  strategy: Type<DynamicImportStrategy>
+  strategyInstance: DynamicImportStrategy
   constructor(
     private injector: Injector,
+    private viewContainerRef: ViewContainerRef,
     private compiler: Compiler,
-    private load: NgModuleFactoryLoader,
-  ) { }
+    @Inject(DYNAMIC_IMPORT_METHOD) strategy,
+    // private applicationRef: ApplicationRef
+  ) {
+    this.strategy = this.strategy || strategy
+  }
 
   ngOnInit() { }
-
-  ngAfterViewInit(): void {
-    this.addComponent(this.path)
-  }
-  private async addComponent(path: string) {
-    /**载入的模块工厂 */
-    const ngModuleFactory = await this.load.load(path);
-    /**模块的类 */
-    const module = ngModuleFactory.moduleType;
-    //doc 正规方法需要先实例化模块浪费性能,可以将正规方法作为候选
-    const ngModuleRef = ngModuleFactory.create(this.injector)
-    const selector = this.getSelector(ngModuleRef);
-
-    @Component({
-      template: '<' + selector + '></' + selector + '>'
-      // `
-      // <${selector}>
-      // </${selector}>
-      // `
-    })
-    class TemplateComponent { }
-    @NgModule({ declarations: [TemplateComponent], imports: [module] })
-    class TemplateModule { }
-    /**编译模块 */
-    const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
-    /**组件工厂 */
-    const factory = mod.componentFactories.find((comp) => comp.componentType === TemplateComponent);
-    /**通过锚点创建组件 */
-    let component = this.anchor.createComponent(factory, undefined, this.injector);
-    //doc 表现为表单控件时,才进行值的监听
-  }
-
-  getSelector(ngModuleRef: NgModuleRef<any>): string {
-    try {
-      return ngModuleRef.instance.entry.__annotations__[0].selector
-    } catch (error) { }
-    let componentFactoryResolver = ngModuleRef.componentFactoryResolver
-    try {
-      let map: Map<any, any> = componentFactoryResolver['_factories']
-      return map[0].selector
-    } catch (error) { }
-    try {
-      let componentFactory = ngModuleRef.componentFactoryResolver.resolveComponentFactory(ngModuleRef.instance.entry)
-      return componentFactory.selector
-    } catch (error) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.strategyInstance) return
+    if (changes.dynamicInput) {
+      this.strategyInstance.inputChange(this.dynamicInput)
     }
-
-    throw '没有找到选择器'
+    else if (changes.dynamicOutput) {
+      this.strategyInstance.inputChange(this.dynamicOutput)
+    }
+    else if (changes.context) {
+      this.strategyInstance.inputChange(this.context)
+    }
   }
+  async ngAfterViewInit() {
+    this.strategyInstance = new this.strategy(
+      this.injector,
+      this.compiler,
+      this.anchor,
+      // this.dynamicInput,
+      // this.dynamicOutput,
+      // this.eventChange,
+      // this.applicationRef
+    )
+    let component = await this.strategyInstance
+      .setComponentBindingProperty(this.dynamicInput, this.dynamicOutput)
+      .load(this.path)
+  }
+
+
 }

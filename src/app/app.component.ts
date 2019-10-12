@@ -5,6 +5,7 @@ import { FabItem, CyiaFormFactory } from 'cyia-ngx-component';
 import { CyiaFormControl, Pattern } from 'cyia-ngx-component';
 import { FormControlType } from 'cyia-ngx-component';
 import { LayoutStyle } from 'cyia-ngx-component';
+import { LAZY_LOAD } from './lazy/lazy-import';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
@@ -62,11 +63,25 @@ export class AppComponent {
   }
   ngAfterViewInit(): void {
     // console.log('!', this.cyiadate.empty)
+    setTimeout(() => {
+      this.dinput = {
+        title: '测试修改'
+      }
+      console.log('修改');
+    }, 2000);
   }
+
 
   randomColor = 'red'
   fc(e) {
     console.log(e);
+  }
+  path = LAZY_LOAD.loadChildren
+  dinput = { title: '测试标题' }
+  output = {
+    toutput: ($event, e) => {
+      console.log('测试输出', $event, e);
+    }
   }
 }
 
