@@ -3,7 +3,7 @@ import { DynamicImportStrategy } from './dynamic-import-component';
 import { Injector, Compiler, ViewContainerRef, Type, ComponentRef } from '@angular/core';
 import { DynamicEntryPoint } from '../define';
 
-export class ViewDynamicImportStragegy extends DynamicImportStrategy {
+export class ViewDynamicImportStragegy  {
     componentRef: ComponentRef<any>
 
     constructor(
@@ -11,7 +11,7 @@ export class ViewDynamicImportStragegy extends DynamicImportStrategy {
         private compiler: Compiler,
         private anchor: ViewContainerRef
     ) {
-        super()
+        // super()
     }
     setComponentBindingProperty(dynamicInput = {}, dynamicOutput = []) {
       

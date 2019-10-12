@@ -15,6 +15,7 @@ export class LazyLoadComponent implements ControlValueAccessor {
   constructor(private cd: ChangeDetectorRef) { }
   @Output() tchange = new EventEmitter()
   @Output() toutput = new EventEmitter()
+  inputvalue
   ngOnInit() {
     setTimeout(() => {
       this.tchange.emit('发送测试')
@@ -24,16 +25,20 @@ export class LazyLoadComponent implements ControlValueAccessor {
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
-  writeValue() {
-
+  writeValue(v) {
+    this.inputvalue = v
   }
-  registerOnChange() {
-
+  fn
+  registerOnChange(fn) {
+    this.fn = fn
   }
   registerOnTouched() {
 
   }
   click() {
     this.toutput.emit('被点击')
+  }
+  changevalue() {
+    this.fn(Math.random())
   }
 }

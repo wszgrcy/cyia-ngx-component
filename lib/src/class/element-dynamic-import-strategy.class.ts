@@ -5,13 +5,13 @@ import { getSelector } from '../cdk/dynamic-component';
 // import { createCustomElement } from "@angular/elements";
 /**
  * !不能在动态组件中使用,因为没有意义, */
-export class ElementDynamicImportStragegy extends DynamicImportStrategy {
+export class ElementDynamicImportStragegy  {
     constructor(
         private injector: Injector,
         private compiler: Compiler,
         private anchor: ViewContainerRef
     ) {
-        super()
+        // super()
     }
     async load(moduleFn: () => Promise<Type<DynamicEntryPoint>>) {
         console.log('载入');

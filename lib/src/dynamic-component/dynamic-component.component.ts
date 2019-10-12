@@ -15,6 +15,7 @@ export class DynamicComponentComponent {
   @Input() dynamicInput = {}
   @Input() dynamicOutput = {}
   @Input() context
+  @Input() selector
   /**将动态组件的事件以一个统一的接口传出 */
   // @Input() set method(val: 'view' | 'compiler' | 'element') {
   //   switch (val) {
@@ -59,6 +60,7 @@ export class DynamicComponentComponent {
       this.injector,
       this.compiler,
       this.anchor,
+      this.selector
       // this.dynamicInput,
       // this.dynamicOutput,
       // this.eventChange,
@@ -66,6 +68,7 @@ export class DynamicComponentComponent {
     )
     let component = await this.strategyInstance
       .setComponentBindingProperty(this.dynamicInput, this.dynamicOutput)
+      .setContext(this.context)
       .load(this.path)
   }
 

@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef, Type } from '@angular/core';
+import { Component, ChangeDetectionStrategy, EventEmitter, NgModule, ComponentRef, NgModuleRef, Injector, Compiler, ViewContainerRef, NgModuleFactoryLoader, ViewChild, Input, forwardRef, Type, SimpleChanges, Inject } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DynamicImportStrategy } from '../class/dynamic-import-component';
+import { DYNAMIC_IMPORT_METHOD } from '../token/dynamic-import-method.token';
 
 @Component({
   selector: 'cyia-dynamic-control',
@@ -19,22 +20,38 @@ export class DynamicControlComponent implements ControlValueAccessor {
   @Input() dynamicInput = {}
   @Input() dynamicOutput = {}
   @Input() context
-  @Input() path: string
+  @Input() path: any
+  @Input() selector: string
   @ViewChild('template', { read: ViewContainerRef, static: true }) anchor: ViewContainerRef
   _value
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };
-  component: ComponentRef<any>
+  // component: ComponentRef<any>
   strategy: Type<DynamicImportStrategy>
   strategyInstance: DynamicImportStrategy
   constructor(
     private injector: Injector,
     private compiler: Compiler,
-    private load: NgModuleFactoryLoader,
-  ) { }
+    @Inject(DYNAMIC_IMPORT_METHOD) strategy,
+  ) {
+    this.strategy = this.strategy || strategy
+
+  }
 
   ngOnInit() {
 
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.strategyInstance) return
+    if (changes.dynamicInput) {
+      this.strategyInstance.inputChange(this.dynamicInput)
+    }
+    else if (changes.dynamicOutput) {
+      this.strategyInstance.inputChange(this.dynamicOutput)
+    }
+    else if (changes.context) {
+      this.strategyInstance.inputChange(this.context)
+    }
   }
   registerOnChange(fn) {
     this.changeFn = fn;
@@ -43,12 +60,10 @@ export class DynamicControlComponent implements ControlValueAccessor {
     this.touchedFn = fn;
   }
   writeValue(value) {
-    if (value !== undefined) {
-      if (this.component) {
-        this.component.instance.value = value
-      } else {
-        this._value = value
-      }
+    if (value !== undefined && this.strategyInstance) {
+      this.strategyInstance.valueChange(value)
+    } else if (value !== undefined) {
+      this._value = value
     }
   }
   async ngAfterViewInit() {
@@ -56,14 +71,20 @@ export class DynamicControlComponent implements ControlValueAccessor {
       this.injector,
       this.compiler,
       this.anchor,
+      this.selector
       // this.dynamicInput,
       // this.dynamicOutput,
       // this.eventChange,
       // this.applicationRef
     )
-    let component = await this.strategyInstance
+    await this.strategyInstance
       .setComponentBindingProperty(this.dynamicInput, this.dynamicOutput)
+      .setNgModel(this._value)
+      .setContext(this.context)
       .load(this.path)
+    this.strategyInstance.onValueChange((e) => {
+      this.valueChange(e)
+    })
 
   }
 
