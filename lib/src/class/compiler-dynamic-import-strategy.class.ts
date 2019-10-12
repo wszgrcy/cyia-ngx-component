@@ -50,7 +50,7 @@ export class CompilerDynamicImportStragegy extends DynamicImportStrategy {
     /**
      * 载入模块,返回的是包裹动态组件的组件
      *
-     * @param {() => Promise<Type<DynamicEntryPoint>>} moduleFn
+     * @param  moduleFn
      * @returns
      * @memberof CompilerDynamicImportStragegy
      */
