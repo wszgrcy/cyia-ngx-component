@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-// import { UrlValidator } from '../../../../validator';
+import { UrlValidator } from 'cyia-ngx-component/common/validator';
 
 @Component({
   selector: 'app-insert-url',
@@ -17,7 +17,7 @@ export class InsertUrlComponent implements OnInit {
     this.formGroup = fb.group({
       'src': ['', [Validators.required, 
         //todo
-        // UrlValidator()
+        UrlValidator()
       ]],
       alt: [''],
       title: ['']

@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "sourceRoot": "./src",
+    "baseUrl": "./",
+    "sourceRoot": "./",
     "outDir": "../out-tsc/lib",
     "target": "es2015",
     "module": "esnext",
@@ -19,32 +19,6 @@
       "dom",
       "esnext"
     ],
-    "paths": {
-      "cyia-ngx-component/markdown": [
-        "./markdown"
-      ]
-      // "@angular/*": [
-      //   "../node_modules/@angular/*"
-      // ],
-      // "cyia-ngx-common": [
-      //   "../node_modules/cyia-ngx-common"
-      // ],
-      // "cyia-ngx-form": [
-      //   "../node_modules/cyia-ngx-form"
-      // ],
-      // "moment": [
-      //   "../node_modules/moment"
-      // ],
-      // "image-compressor.js": [
-      //   "../node_modules/image-compressor.js"
-      // ],
-      // "ngx-markdown": [
-      //   "../node_modules/ngx-markdown"
-      // ],
-      // "chroma-js": [
-      //   "../node_modules/chroma-js"
-      // ]
-    }
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

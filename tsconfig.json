@@ -22,13 +22,13 @@
     ],
     "paths": {
       "cyia-ngx-component": [
-        "dist/cyia-ngx-component"//打包调用
-        // "lib/src" //调试调用
-      ]
-      ,
+        // "dist/cyia-ngx-component" //打包调用
+        "lib/src" //调试调用
+      ],
       "cyia-ngx-component/*": [
-        "dist/cyia-ngx-component/*"
-      ]
+        // "dist/cyia-ngx-component/*",
+        "lib/src/*" //调试调用
+      ],
     }
   }
 }

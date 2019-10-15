@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-// import { ImageValidator } from '../../../../validator';
+import { ImageValidator } from 'cyia-ngx-component/common/validator';
 
 @Component({
   selector: 'app-insert-image',
@@ -18,7 +18,7 @@ export class InsertImageComponent implements OnInit {
   ) {
     this.srcFC = new FormControl('', [Validators.required,
       //todo 后期分出验证包来引入 
-      // ImageValidator()
+      ImageValidator()
     ])
     this.formGroup = fb.group({
       'src': this.srcFC,
