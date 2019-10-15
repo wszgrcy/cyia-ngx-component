@@ -28,7 +28,7 @@ class TestComponent {
         this.toggleComp.toggle()
     }
 }
-fdescribe('组件(正反面)切换', () => {
+describe('组件(正反面)切换', () => {
     let component: TestComponent;
     let fixture: ComponentFixture<TestComponent>;
     let hostElement: HTMLElement

@@ -104,7 +104,7 @@
       "root": "lib",
       "projectType": "library",
       "prefix": "cyia",
-      "sourceRoot": "./lib/src",
+      "sourceRoot": "lib/src",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss",
