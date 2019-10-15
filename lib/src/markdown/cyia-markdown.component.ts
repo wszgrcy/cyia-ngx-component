@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Sanitizer, SimpleChanges } from '@angular/core';
 import * as monaco from 'monaco-editor';
-import { WrapType, StartType, MultiStartType } from '../../type/editor.type';
+import { WrapType, StartType, MultiStartType, Pattern } from './type/editor.type';
 import { repeat, take } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { InsertImageComponent } from './insert/insert-image/insert-image.component';
@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import md from "markdown-it";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Pattern } from '../../class/cyia-form.class';
+// import { Pattern } from '../../class/cyia-form.class';
 import { coerceCssPixelValue } from '@angular/cdk/coercion';
 @Component({
   selector: 'cyia-markdown',

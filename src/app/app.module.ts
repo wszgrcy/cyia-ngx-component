@@ -12,8 +12,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaMarkdownModule, CyiaFormGroupModule, FileModule, DynamicComponentModule } from "cyia-ngx-component";
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaFormGroupModule, FileModule, DynamicComponentModule } from "cyia-ngx-component";
 import { CyiaDatePickerModule } from "cyia-ngx-component";
+import { CyiaMarkdownModule } from "cyia-ngx-component/markdown";
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 // import { EditformModule } from './editform/editform.module';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UrlValidator } from '../../../../validator';
+// import { UrlValidator } from '../../../../validator';
 
 @Component({
   selector: 'app-insert-url',
@@ -15,7 +15,10 @@ export class InsertUrlComponent implements OnInit {
     private dialogRef: MatDialogRef<InsertUrlComponent>
   ) {
     this.formGroup = fb.group({
-      'src': ['', [Validators.required, UrlValidator()]],
+      'src': ['', [Validators.required, 
+        //todo
+        // UrlValidator()
+      ]],
       alt: [''],
       title: ['']
     })

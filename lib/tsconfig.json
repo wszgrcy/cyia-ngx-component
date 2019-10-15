@@ -1,8 +1,7 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "sourceRoot": "./src",
+    "baseUrl": "./",
     "outDir": "../out-tsc/lib",
     "target": "es2015",
     "module": "esnext",
@@ -20,8 +19,8 @@
       "esnext"
     ],
     "paths": {
-      "cyia-ngx-component/markdown": [
-        "./markdown"
+      "cyia-ngx-component/markdown":[
+        "src/cyia-markdown"
       ]
       // "@angular/*": [
       //   "../node_modules/@angular/*"

@@ -1,0 +1,9 @@
+{
+  "ngPackage": {
+    "deleteDestPath": true,
+    "dest": "../../../dist/cyia-ngx-component/markdown",
+    "lib": {
+      "entryFile": "index.ts"
+    }
+  }
+}

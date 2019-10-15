@@ -1,6 +1,6 @@
 export { CyiaFormControlModule } from './cyia-form-control/cyia-form-control.module'
 export { CyiaFormControlComponent } from './cyia-form-control/cyia-form-control.component'
-export { CyiaMarkdownModule } from './cyia-markdown/cyia-markdown.module'
-export { CyiaMarkdownComponent } from './cyia-markdown/cyia-markdown.component'
+// export { CyiaMarkdownModule } from './cyia-markdown/cyia-markdown.module'
+// export { CyiaMarkdownComponent } from './cyia-markdown/cyia-markdown.component'
 export { CyiaFormGroupModule } from './cyia-form-group/cyia-form-group.module'
 export { CyiaFormGroupComponent } from './cyia-form-group/cyia-form-group.component'

@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng build lib --prod",
+    "build:lib": "ng build lib",
     "xpostbuild:lib": "copy README.md .\\dist\\lib && cd dist/lib&&npm publish",
     "update": "ng update --all --force",
     "test:lib": "ng test lib"

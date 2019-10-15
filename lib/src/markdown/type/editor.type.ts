@@ -14,3 +14,6 @@ export enum MultiStartType {
     format_list_bulleted = 'format_list_bulleted',
     format_list_numbered = 'format_list_numbered'
 }
+export enum Pattern {
+    w = 'w', r = 'r'
+}
