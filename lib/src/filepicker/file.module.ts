@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileComponent } from './file.component';
+import { CyiaFilepicker } from './file.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-
+/**
+ * 自定义mat控件
+ */
 @NgModule({
   imports: [
     CommonModule,
     MatInputModule,
     FormsModule
   ],
-  declarations: [FileComponent],
-  exports: [FileComponent]
+  declarations: [CyiaFilepicker],
+  exports: [CyiaFilepicker]
 })
-export class FileModule { }
+export class CyiaFilepickerModule { }

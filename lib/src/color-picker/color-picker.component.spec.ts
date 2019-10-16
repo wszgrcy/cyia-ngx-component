@@ -1,17 +1,17 @@
 import { async, TestBed, ComponentFixtureAutoDetect, ComponentFixture } from "@angular/core/testing";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CyiaColorPickerModule } from './color-picker.module';
+import { CyiaColorpickerModule } from './color-picker.module';
 import { Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ColorPickerComponent } from './color-picker.component';
+import { CyiaColorpicker } from './color-picker.component';
 import { syncRun } from '../testing/sync-run';
 @Component({
     template: `<cyia-colorpicker [(ngModel)]="value"></cyia-colorpicker>`
 })
 class TestComponent {
-    @ViewChild(ColorPickerComponent, { static: true }) colorPicker: ColorPickerComponent
+    @ViewChild(CyiaColorpicker, { static: true }) colorPicker: CyiaColorpicker
     value
 }
 describe('颜色选择器', () => {
@@ -22,7 +22,7 @@ describe('颜色选择器', () => {
             imports: [
                 CommonModule,
                 FormsModule,
-                CyiaColorPickerModule,
+                CyiaColorpickerModule,
                 BrowserAnimationsModule
             ],
             declarations: [TestComponent],

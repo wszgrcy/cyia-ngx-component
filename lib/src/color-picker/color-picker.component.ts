@@ -16,10 +16,10 @@ import { coerceCssPixelValue, coerceBooleanProperty } from '@angular/cdk/coercio
   styleUrls: ['./color-picker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ColorPickerComponent), multi: true }
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CyiaColorpicker), multi: true }
   ]
 })
-export class ColorPickerComponent implements ControlValueAccessor {
+export class CyiaColorpicker implements ControlValueAccessor {
   readonly PRESET_COLOR = PRESET_COLOR;
   private changeFn: Function = () => { };
   private touchedFn: Function = () => { };

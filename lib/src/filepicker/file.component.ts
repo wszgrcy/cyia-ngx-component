@@ -13,15 +13,15 @@ import { CustomControlBase } from '../form/class/custom-control.base';
   styleUrls: ['./file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: MatFormFieldControl, useExisting: FileComponent }
+    { provide: MatFormFieldControl, useExisting: CyiaFilepicker }
   ],
   host: {
     '[attr.aria-invalid]': 'errorState',
   }
 })
-export class FileComponent extends CustomControlBase implements MatFormFieldControl<FileComponent> {
+export class CyiaFilepicker extends CustomControlBase implements MatFormFieldControl<CyiaFilepicker> {
   static nextId = 0;
-  @HostBinding() id = `cyia-file-${FileComponent.nextId++}`;
+  @HostBinding() id = `cyia-file-${CyiaFilepicker.nextId++}`;
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>;
   @Input() cyiaUpload: CyiaUploadComponent
   /**通知表单字段执行变更检测 */
