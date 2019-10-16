@@ -39,6 +39,6 @@ export class LazyLoadComponent implements ControlValueAccessor {
     this.toutput.emit('被点击')
   }
   changevalue() {
-    this.fn(Math.random())
+    this.fn && this.fn(Math.random())
   }
 }

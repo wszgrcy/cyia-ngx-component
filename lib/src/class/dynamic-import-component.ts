@@ -11,6 +11,6 @@ export abstract class DynamicImportStrategy {
     abstract contextChange(value): this
     abstract inputChange(value): this
     abstract outputChange(value): this
-    abstract onValueChange(fn): this
-    abstract valueChange(value): this
+    abstract setNgModelChange(fn): this
+    abstract setNgModelValue(value): this
 }

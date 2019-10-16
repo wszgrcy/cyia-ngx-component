@@ -47,10 +47,10 @@ export class DynamicControlComponent implements ControlValueAccessor {
       this.strategyInstance.inputChange(this.dynamicInput)
     }
     else if (changes.dynamicOutput) {
-      this.strategyInstance.inputChange(this.dynamicOutput)
+      this.strategyInstance.outputChange(this.dynamicOutput)
     }
     else if (changes.context) {
-      this.strategyInstance.inputChange(this.context)
+      this.strategyInstance.contextChange(this.context)
     }
   }
   registerOnChange(fn) {
@@ -61,7 +61,7 @@ export class DynamicControlComponent implements ControlValueAccessor {
   }
   writeValue(value) {
     if (value !== undefined && this.strategyInstance) {
-      this.strategyInstance.valueChange(value)
+      this.strategyInstance.setNgModelValue(value)
     } else if (value !== undefined) {
       this._value = value
     }
@@ -82,7 +82,7 @@ export class DynamicControlComponent implements ControlValueAccessor {
       .setNgModel(this._value)
       .setContext(this.context)
       .load(this.path)
-    this.strategyInstance.onValueChange((e) => {
+    this.strategyInstance.setNgModelChange((e) => {
       this.valueChange(e)
     })
 

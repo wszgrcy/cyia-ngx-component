@@ -1,10 +1,17 @@
 import { DynamicImportStrategy } from './dynamic-import-component';
-import { Type, Compiler, Injector, ViewContainerRef, Component, NgModule, EventEmitter, Output, ComponentFactory, ApplicationRef, ChangeDetectionStrategy, ViewChild, ComponentRef, ChangeDetectorRef, Input } from '@angular/core';
+import { Type, Compiler, Injector, ViewContainerRef, Component, NgModule, EventEmitter, Output, ComponentFactory, ApplicationRef, ChangeDetectionStrategy, ViewChild, ComponentRef, ChangeDetectorRef, Input, NgModuleFactory } from '@angular/core';
 import { DynamicEntryPoint } from '../define';
 import { getSelector } from '../cdk/dynamic-component';
 import { Subject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * ! 仅可在jit下使用
+ *
+ * @export
+ * 
+ * 
+ */
 export class CompilerDynamicImportStragegy extends DynamicImportStrategy {
     /**
      * 保证值变更后的传入,
@@ -58,7 +65,7 @@ export class CompilerDynamicImportStragegy extends DynamicImportStrategy {
         /**模块的类 */
         let module = await moduleFn()
         /**载入的模块工厂 */
-        const ngModuleFactory = await this.compiler.compileModuleAsync(module)
+        const ngModuleFactory = module instanceof NgModuleFactory ? module : await this.compiler.compileModuleAsync(module)
         const ngModuleRef = ngModuleFactory.create(this.injector)
         //doc 正规方法需要先实例化模块浪费性能,可以将正规方法作为候选
         const selector = this.selector || getSelector(ngModuleRef);
@@ -116,13 +123,12 @@ export class CompilerDynamicImportStragegy extends DynamicImportStrategy {
         this.componentRef.changeDetectorRef.markForCheck()
         return this
     }
-    valueChange(value) {
+    setNgModelValue(value) {
         this.componentRef.instance.value = value
         this.componentRef.changeDetectorRef.markForCheck()
         return this
-
     }
-    onValueChange(fn) {
+    setNgModelChange(fn) {
         this.componentRef.instance.valueChange = fn
         return this
     }
