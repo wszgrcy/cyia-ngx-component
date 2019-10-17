@@ -12,11 +12,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorPickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaFormGroupModule, FileModule, DynamicComponentModule } from "cyia-ngx-component";
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorpickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaFormGroupModule, CyiaFilepickerModule, DynamicComponentModule } from "cyia-ngx-component";
 import { CyiaDatePickerModule } from "cyia-ngx-component";
 import { CyiaMarkdownModule } from "cyia-ngx-component/markdown";
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { CustompickerModule } from "cyia-ngx-component/custompicker";
 // import { EditformModule } from './editform/editform.module';
 import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
@@ -45,7 +45,7 @@ import { LAZY_LOAD } from './lazy/lazy-import';
         CyiaDirectiveModule,
         MatPaginatorModule,
         // CyiaPaginatorPatchModule
-        CyiaColorPickerModule,
+        CyiaColorpickerModule,
         CyiaComponentToggleModule,
         CyiaMarkdownModule,
         DynamicComponentModule,
@@ -54,7 +54,8 @@ import { LAZY_LOAD } from './lazy/lazy-import';
         ]),
         DynamicControlModule,
         CyiaFormGroupModule,
-        FileModule
+        CyiaFilepickerModule,
+        CustompickerModule
     ],
     providers: [
 

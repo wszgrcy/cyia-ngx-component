@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, ElementRef, Renderer2, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA, forwardRef, ViewChild, Optional, Inject } from '@angular/core';
 import { PRESET_COLOR, CanvasObject, Point } from '../define/color-picker.define';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as chroma_ from "chroma-js";
-const chroma = chroma_
+import chroma from "chroma-js";
 import { fromEvent, Subject } from 'rxjs';
 import { takeWhile, skipUntil, takeUntil, tap } from 'rxjs/operators';
 import { coerceCssPixelValue, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -111,7 +110,7 @@ export class CyiaColorpicker implements ControlValueAccessor {
 
   }
   ngAfterViewInit(): void { }
-  scale: chroma_.Scale<chroma_.Color>
+  scale: chroma.Scale<chroma.Color>
   sliderBeginColor
   getColorWithSlider(e: MouseEvent) {
     const [x, y] = [Math.floor(e.clientX - this.canvas.slider.getBoundingClientRect().left), Math.floor(e.clientY - this.canvas.slider.getBoundingClientRect().top)];
@@ -226,7 +225,7 @@ export class CyiaColorpicker implements ControlValueAccessor {
    * @param color
    * @memberof ColorPickerComponent
    */
-  colorToCoordinate(color: chroma_.ColorSpaces['hsv']) {
+  colorToCoordinate(color: chroma.ColorSpaces['hsv']) {
 
     let { centerX, centerY, radius } = this.canvas;
     let [hue, saturation, value] = color;

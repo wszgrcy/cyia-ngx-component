@@ -84,5 +84,9 @@ export class AppComponent {
     }
   }
   dvalue
+  customChange(e) {
+    console.log('自定义值变更', e);
+  }
+  options = [{ label: 'ces', value: 1 }]
 }
 

@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { CyiaFormControlReadModule } from '../cyia-form-control-read/cyia-form-control-read.module';
 import { CyiaFormControlWriteModule } from '../cyia-form-control-write/cyia-form-control-write.module';
-// import { CyiaDatePickerModule } from "cyia-ngx-component";
 @NgModule({
   imports: [
     CommonModule,

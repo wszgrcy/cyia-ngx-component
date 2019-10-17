@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    // "sourceRoot": "./",
     "experimentalDecorators": true,
     "paths": {
       "cyia-ngx-component/common/validator": [
@@ -9,7 +10,10 @@
       ],
       "cyia-ngx-component/markdown": [
         "./src/markdown"
-      ]
+      ],
+      "cyia-ngx-component/custompicker": [
+        "./src/custompicker"
+      ],
     }
   },
   "files": [

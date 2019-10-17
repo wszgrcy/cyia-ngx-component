@@ -6,7 +6,8 @@
     "entryFile": "index.ts",
     "umdModuleIds": {
       "monaco-editor": "monaco-editor",
-      "moment": "moment"
+      "moment": "moment",
+      "chroma-js": "chroma"
     }
   },
   "whitelistedNonPeerDependencies": [

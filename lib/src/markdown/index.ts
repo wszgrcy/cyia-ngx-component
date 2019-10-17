@@ -1,2 +1,2 @@
-export * from './cyia-markdown.module'
-export * from './cyia-markdown.component'
+export { CyiaMarkdownModule } from './cyia-markdown.module'
+export { CyiaMarkdownComponent } from './cyia-markdown.component'

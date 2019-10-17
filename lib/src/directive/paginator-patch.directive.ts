@@ -68,7 +68,6 @@ export class PaginatorPatchDirective {
       filter(() => this.hasInit),
       throttleTime(0)
     ).subscribe((val) => {
-      console.log('页面变更111');
       this.removePageIndex()
       this.addPageIndex()
     })
