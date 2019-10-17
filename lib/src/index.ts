@@ -25,4 +25,4 @@ export * from './form/enum/control-type.enum'
 export * from './form/type/form-group.type'
 export * from './form/type/options.type'
 export * from 'cyia-ngx-component/markdown';
-// export * from 'cyia-ngx-component/custompicker';
+export { CustompickerModule } from 'cyia-ngx-component/custompicker';
