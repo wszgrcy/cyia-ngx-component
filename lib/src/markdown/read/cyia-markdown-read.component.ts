@@ -3,7 +3,7 @@ import md from "markdown-it";
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'cyia-cyia-markdown-read',
+  selector: 'cyia-markdown-read',
   templateUrl: './cyia-markdown-read.component.html',
   styleUrls: ['./cyia-markdown-read.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
