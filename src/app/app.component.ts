@@ -6,6 +6,7 @@ import { CyiaFormControl, Pattern } from 'cyia-ngx-component';
 import { FormControlType } from 'cyia-ngx-component';
 import { LayoutStyle } from 'cyia-ngx-component';
 import { LAZY_LOAD } from './lazy/lazy-import';
+import { DialogComponent } from './dialog/dialog.component';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
@@ -15,6 +16,7 @@ import { LAZY_LOAD } from './lazy/lazy-import';
 })
 export class AppComponent {
   @ViewChild('cyiadate', { static: true }) cyiadate: CyiaDatePickerComponent
+  dialog = DialogComponent
   constructor(private service: CyiaHttpService) {
     this.group.layoutStyle = LayoutStyle.htmlTable
     this.group.tableSize = [2, 2]

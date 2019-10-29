@@ -20,6 +20,7 @@ import { CustompickerModule } from "cyia-ngx-component/custompicker";
 // import { EditformModule } from './editform/editform.module';
 import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
+import { DialogModule } from './dialog/dialog.module';
 // import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { LAZY_LOAD } from './lazy/lazy-import';
         DynamicControlModule,
         CyiaFormGroupModule,
         CyiaFilepickerModule,
-        CustompickerModule
+        CustompickerModule,
+        DialogModule
     ],
     providers: [
 

@@ -1,9 +1,10 @@
-import { Directive, Input, forwardRef, ElementRef } from '@angular/core';
+import { Directive, Input, forwardRef, ElementRef, Inject, Optional } from '@angular/core';
 // import { CustomControlBase } from '../form/class/custom-control.base';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { CustompickerWrapperComponent } from './custompicker-wrapper/custompicker-wrapper.component';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import { MatFormField } from '@angular/material/form-field';
 /**
  * todo 后期抽出公共
  */
@@ -17,15 +18,16 @@ interface CyiaOption<T = any> {
 @Directive({
   selector: '[cyiaCustompickerInput]',
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CustompickerInputDirective), multi: true },
-    { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: CustompickerInputDirective }
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CustompickerInput), multi: true },
+    { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: CustompickerInput }
   ],
   host: {
   }
 })
-export class CustompickerInputDirective {
+export class CustompickerInput {
   @Input() set cyiaCustompickerInput(val) {
     this._cyiaCustompickerInput = val
+    val.custompickerInput = this
   }
   @Input() options: CyiaOption[] = []
   get cyiaCustompickerInput() {
@@ -33,7 +35,10 @@ export class CustompickerInputDirective {
   }
   _cyiaCustompickerInput: CustompickerWrapperComponent
   hostElement: HTMLInputElement
-  constructor(private elementRef: ElementRef<HTMLInputElement>) {
+  constructor(
+    private elementRef: ElementRef<HTMLInputElement>,
+    @Optional() private matFiled: MatFormField
+  ) {
     this.hostElement = this.elementRef.nativeElement
   }
   ngOnInit(): void {
@@ -64,5 +69,8 @@ export class CustompickerInputDirective {
   }
   registerOnTouched(fn) {
     this.touchedFn = fn
+  }
+  getConnectedOverlayOrigin() {
+    return this.matFiled ? this.matFiled.getConnectedOverlayOrigin() : this.elementRef
   }
 }
