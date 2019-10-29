@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Sanitizer, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Sanitizer, SimpleChanges, TemplateRef } from '@angular/core';
 import * as monaco from 'monaco-editor';
 import { WrapType, StartType, MultiStartType, Pattern } from './type/editor.type';
 import { repeat, take } from 'rxjs/operators';
@@ -23,6 +23,7 @@ import { coerceCssPixelValue } from '@angular/cdk/coercion';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CyiaMarkdownComponent implements ControlValueAccessor {
+  @Input() extraTool: TemplateRef<any>
   @ViewChild('container', { static: true }) container: ElementRef<HTMLDivElement>
   @Input() pattern: Pattern = Pattern.w;
   @Input() set height(val: string) {
@@ -305,5 +306,23 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       this.initWrite()
     }
     this.cd.markForCheck()
+  }
+
+  /**
+   * 自定义格式时调用
+   *
+   * @memberof CyiaMarkdownComponent
+   */
+  customFormat = (string: string, position: number) => {
+    let wrapText = string;
+    let selection = this.instance.getSelection().clone()
+    this.instance.executeEdits(`${this.editorBarPrefix}${'custom'}`, [{ range: new monaco.Range(selection.startLineNumber, selection.startColumn, selection.endLineNumber, selection.endColumn), text: wrapText }])
+    this.instance.setSelection({
+      startLineNumber: selection.startLineNumber,
+      startColumn: selection.startColumn + position,
+      endLineNumber: selection.startLineNumber,
+      endColumn: selection.startColumn + position
+    })
+    this.instance.focus()
   }
 }

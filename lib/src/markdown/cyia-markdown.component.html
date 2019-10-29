@@ -34,6 +34,9 @@
             <mat-icon>save</mat-icon>
         </button>
     </div>
+    <div>
+        <ng-container *ngTemplateOutlet="extraTool;context:{customFormat:customFormat}"></ng-container>
+    </div>
     <div #container class="monaco-editor--container"></div>
 </div>
 

@@ -21,6 +21,7 @@ import { CustompickerModule } from "cyia-ngx-component/custompicker";
 import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
 import { DialogModule } from './dialog/dialog.module';
+import { ExtraToolModule } from './extra-tool/extra-tool.module';
 // import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { DialogModule } from './dialog/dialog.module';
         CyiaFormGroupModule,
         CyiaFilepickerModule,
         CustompickerModule,
-        DialogModule
+        DialogModule,
+        ExtraToolModule
     ],
     providers: [
 

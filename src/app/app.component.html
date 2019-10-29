@@ -1,1 +1,6 @@
-<cyia-markdown></cyia-markdown>
+<cyia-markdown [extraTool]="extra">
+
+</cyia-markdown>
+<ng-template #extra let-customFormat="customFormat">
+    <cyia-extra-tool [method]="customFormat"></cyia-extra-tool>
+</ng-template>
