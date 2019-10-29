@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { InsertImageComponent } from './insert/insert-image/insert-image.component';
 import { InsertUrlComponent } from './insert/insert-url/insert-url.component';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import md from "markdown-it";
+// import md from "markdown-it";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { Pattern } from '../../class/cyia-form.class';
@@ -79,11 +79,10 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     private snackBar: MatSnackBar
   ) { }
   writeValue(value) {
-    console.log('写入值', value);
     if (typeof value == 'string') {
       this.tempValue = this.value = value;
       if (this.pattern == Pattern.r) {
-        this.initRead()
+        // this.initRead()
       } else if (this.pattern == Pattern.w) {
         this.initWrite()
       }
@@ -122,8 +121,6 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       this.readMode = pattern == Pattern.w ? false : true
     }
     if (changes.height) {
-      console.log(changes.height);
-      console.log(this.height);
       this.height = coerceCssPixelValue(this.height == undefined ? changes.height.previousValue : this.height)
       // console.log(this.height)
     }
@@ -241,42 +238,42 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     this.notifyValueChange(this.instance.getValue())
     this.snackBar.open('保存成功', undefined, { duration: 2000 })
   }
-  /**
-   * 只读时初始化渲染
-   *
-   * @memberof CyiaMarkdownComponent
-   */
-  initRead() {
-    // console.log(this.tempValue);
-    let mdres = md({
-      html: true,
+  // /**
+  //  * 只读时初始化渲染
+  //  *
+  //  * @memberof CyiaMarkdownComponent
+  //  */
+  // initRead() {
+  //   // console.log(this.tempValue);
+  //   let mdres = md({
+  //     html: true,
 
-    })
-    console.log(
-      mdres
-    );
-    mdres.core.ruler.after('linkify', 'test', (s) => {
-      s.tokens.forEach((token) => {
-        if (this.mdClassMap[token.tag]) {
-          token.attrJoin('class', this.mdClassMap[token.tag])
-        }
-      })
-    })
-    // console.log(mdres);
-    // console.log(mdres.renderer.rules);
+  //   })
+  //   console.log(
+  //     mdres
+  //   );
+  //   mdres.core.ruler.after('linkify', 'test', (s) => {
+  //     s.tokens.forEach((token) => {
+  //       if (this.mdClassMap[token.tag]) {
+  //         token.attrJoin('class', this.mdClassMap[token.tag])
+  //       }
+  //     })
+  //   })
+  //   // console.log(mdres);
+  //   // console.log(mdres.renderer.rules);
 
-    // console.log(mdres.renderer.rules.html_block);
+  //   // console.log(mdres.renderer.rules.html_block);
 
 
-    /**
-     *   mdHtml.renderer.rules.paragraph_open = mdHtml.renderer.rules.heading_open = injectLineNumbers;
-     */
-    this.readValue = this.domSanitizer.bypassSecurityTrustHtml(
-      mdres.render(this.tempValue)
-    )
-    console.log(this.readValue);
-    this.cd.markForCheck()
-  }
+  //   /**
+  //    *   mdHtml.renderer.rules.paragraph_open = mdHtml.renderer.rules.heading_open = injectLineNumbers;
+  //    */
+  //   this.readValue = this.domSanitizer.bypassSecurityTrustHtml(
+  //     mdres.render(this.tempValue)
+  //   )
+  //   console.log(this.readValue);
+  //   this.cd.markForCheck()
+  // }
 
   /**
    * 写入时初始化渲染
@@ -303,7 +300,7 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     // this.disabled = !this.disabled;
     this.tempValue = this.instance.getValue()
     if (this.pattern == Pattern.r) {
-      this.initRead()
+      // this.initRead()
     } else if (this.pattern == Pattern.w) {
       this.initWrite()
     }

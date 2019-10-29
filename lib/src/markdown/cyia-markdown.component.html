@@ -38,6 +38,9 @@
 </div>
 
 
-<div [innerHTML]="readValue" [class.read-item--disabled]="pattern!='r'" class="read-item">
+<!-- <div [innerHTML]="readValue" [class.read-item--disabled]="pattern!='r'" class="read-item">
 
+</div> -->
+<div [class.read-item--disabled]="pattern!='r'" class="read-item">
+    <cyia-cyia-markdown-read [value]="tempValue" [mdClassMap]="mdClassMap"></cyia-cyia-markdown-read>
 </div>
