@@ -49,11 +49,12 @@ export class AppComponent {
     //   type: FormControlType.datepicker,
     //   // appearance: '' as any
     // })
-    // new CyiaFormControl({
-    //   type: FormControlType.input,
-    //   value: '只读测试',
-    //   label: '标签'
-    // })
+    new CyiaFormControl({
+      key:'tet',
+      type: FormControlType.input,
+      value: '多余测试',
+      label: '标签'
+    })
   ).setPattern(Pattern.w)
   ngOnInit(): void {
     setTimeout(() => {

@@ -131,7 +131,7 @@ export class CyiaFormControlWriteComponent implements OnInit {
       // cyiaFormControl.value = val
       // console.log('值变更', val)
     })
-    let value = cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value
+    let value = cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value;
     this.formControl.patchValue(value)
   }
   ngOnInit() {
@@ -163,6 +163,11 @@ export class CyiaFormControlWriteComponent implements OnInit {
     const outValue = cyiaFormControl.outputPipe ? cyiaFormControl.outputPipe(cyiaFormControl, value) : value;
     this.valueOutput$.next(outValue)
   }
+  /**
+   * 表单值输出订阅方法
+   * 会在两个方法都赋值后,进行订阅
+   * @memberof CyiaFormControlWriteComponent
+   */
   valueOutput() {
     this.valueOutput$.pipe(filter(() => this.changeFn && !!this.touchedFn)).subscribe((outValue) => {
       this.changeFn(outValue)

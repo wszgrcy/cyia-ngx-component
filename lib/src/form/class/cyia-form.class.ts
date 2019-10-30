@@ -107,7 +107,9 @@ export class _CyiaFormControl<T = any> extends CyiaControlBase {
     options?: (arg0: this) => Promise<CyiaOption<T>[]> = async () => []
     /**自定义选项的模板,控件内 */
     optionTemplate?: TemplateRef<any>
-    /**输入值管道转化,控件内 */
+    /**输入值管道转化,控件内
+     * 输入的是a但是想进入后value赋值为b
+     */
     inputPipe?: (arg0: this, value) => any
     /**输出值管道转化,控件内 */
     outputPipe?: (arg0: this, value) => any

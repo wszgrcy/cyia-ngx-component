@@ -30,8 +30,12 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
     }
   }
   @Input() cyiaFormGroup: CyiaFormGroup
+  /**
+   * ! 调用不传递 */
   @Input() deep: number = 0
-  /**顶层用于处理事件变更的 */
+  /**
+   * ! 调用不传递
+   * 顶层用于处理事件变更的 */
   @Input() service: CyiaFormGroupService
   @Output() errorsChange = new EventEmitter()
   @Output() statusChange = new EventEmitter()
@@ -45,6 +49,7 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   value
   notOutputKeyList: string[] = []
   tableFormatList: (CyiaFormControl | CyiaFormGroup)[][] = []
+  // formValueInit = {}
   constructor(
     private fb: FormBuilder,
     private renderer: Renderer2,
@@ -53,7 +58,6 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   ) {
   }
   ngOnChanges(changes: SimpleChanges): void {
-
     if (changes.cyiaFormGroup && !this.init) {
       if (!this.deep) this.service = new CyiaFormGroupService()
       let formGroup = new FormGroup({})
@@ -62,7 +66,7 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
         if (item instanceof CyiaFormGroup) {
           formGroup.addControl(item.key, this.fb.control(undefined))
         } else if (item instanceof CyiaFormControl) {
-          formGroup.addControl(item.key, this.fb.control(item.value, item.validator))
+          formGroup.addControl(item.key, this.fb.control(undefined, item.validator))
         }
         // else if (item instanceof CyiaFormArray) {
         //   formGroup.addControl(item.key, this.fb.control(undefined))
@@ -90,8 +94,13 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
       this.value = value
     }
   }
+  /**
+   * 只进行值变更,不对value赋值
+   *
+   * @param {*} value
+   * @memberof CyiaFormGroupComponent
+   */
   valueChange(value) {
-    this.value = value
     this.changeFn(value)
     this.touchedFn(value)
   }
@@ -105,20 +114,25 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
     //   return 'array'
     // }
   }
+
   /**
    * 监听值变化,发送到上一级
-   *
+   * 
    * @memberof CyiaFormGroupComponent
    */
   valueChangeListener() {
+    let controls = Object.keys(this.formGroup.controls)
     this.formGroup.valueChanges.subscribe((val) => {
+      //doc 保证所有值都初始化后,允许传递数据到外界
+      if (controls.length !== controls.map((key) => this.formGroup.controls[key].dirty).filter(Boolean).length) return
       const notOutputKeyList = this.cyiaFormGroup.controls.map((item) => !item.output ? item.key : null).filter(Boolean)
-      this.valueChange(this.outputFilter(val, notOutputKeyList))
+      this.value = this.outputFilter(val, notOutputKeyList)
+      this.valueChange(this.value)
     })
   }
   /**
    * 对不输出的字段过滤
-   *
+   * 针对group
    * @returns
    * @memberof CyiaFormGroupComponent
    */
