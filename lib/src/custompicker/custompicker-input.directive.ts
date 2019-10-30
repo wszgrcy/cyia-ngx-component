@@ -44,13 +44,17 @@ export class CustompickerInput {
   ngOnInit(): void {
     this.cyiaCustompickerInput.resultChange
       .pipe(filter((value) => value !== undefined))
-      .subscribe((e: { value: string, display: string }) => {
+      .subscribe((e: { value: any, display: string }) => {
         this.notifyValueChange(e.value)
         if (e.display != undefined)
           this.hostElement.value = e.display
       })
   }
   writeValue(val) {
+    if (val === null) return
+    this.value = val
+    //doc 保存从外界输入的,并在打开弹窗是赋值
+    this.cyiaCustompickerInput.inputChange.next(this.value)
     const option = this.options.find((option) => option.value == val)
     this.hostElement.value = option ? option.label : this.hostElement.value
   }
@@ -58,6 +62,7 @@ export class CustompickerInput {
   value: any
   // disabled
   notifyValueChange(value) {
+    this.value = value
     this.changeFn(value)
     this.touchedFn(value)
   }

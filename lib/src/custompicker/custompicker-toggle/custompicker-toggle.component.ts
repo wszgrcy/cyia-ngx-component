@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { AbstractCustompicker } from '../class/custompicker.abstract.class';
 import { CustompickerWrapperComponent } from '../custompicker-wrapper/custompicker-wrapper.component';
 
 @Component({
@@ -11,8 +10,8 @@ import { CustompickerWrapperComponent } from '../custompicker-wrapper/custompick
 export class CustompickerToggleComponent implements OnInit {
   @Input() for:CustompickerWrapperComponent
   /**打开模式,吸附还是弹窗 */
-  @Input() mode: AbstractCustompicker
-  @Input() icon: string = 'note'
+  // @Input() mode: AbstractCustompicker
+  @Input() icon: string = 'near_me'
   constructor() { }
 
   ngOnInit() {
