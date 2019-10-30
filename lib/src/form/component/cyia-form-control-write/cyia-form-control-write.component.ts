@@ -27,7 +27,7 @@ import { CyiaFormGroupService } from '../cyia-form-group/cyia-form-group.service
 
   }
 })
-export class CyiaFormControlWriteComponent implements OnInit {
+export class CyiaFormControlWriteComponent {
   @ViewChild('pickerTemplate', { static: false }) set picker(val) {
     this._picker = val
     if (val) {
@@ -87,7 +87,7 @@ export class CyiaFormControlWriteComponent implements OnInit {
 
   private changeFn: Function
   private touchedFn: Function
-  valueInput$ = new BehaviorSubject(undefined)
+  // valueInput$ = new BehaviorSubject(undefined)
   valueOutput$ = new BehaviorSubject(undefined)
   constructor(
     private cd: ChangeDetectorRef,
@@ -104,37 +104,39 @@ export class CyiaFormControlWriteComponent implements OnInit {
    */
   initFormControl(cyiaFormControl: CyiaFormControl) {
     if (this.formControl) return
+    let value = cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value;
     this.formControl = new FormControl(
-      undefined,
+      value,
       cyiaFormControl.validator)
     this.formControl.valueChanges.subscribe(async (val) => {
+      this.valueChange(cyiaFormControl, val)
+    })
+    //doc 初始化时向外界发送值,主要是为了,进行数据的级联
+    this.valueChange(cyiaFormControl, value, true)
+  }
+
+  valueChange(cyiaFormControl: CyiaFormControl, val: any, init = false) {
+    if ((val !== undefined && init) || !init) {
       //doc 错误提示
       this.errors = this.setErrorHint(this.formControl.errors)
       this.nowError = this.errors ? Object.values(this.errors)[0] as string : null
       //doc 如果允许输出错误,才输出
       cyiaFormControl.outputError && this.errorsChange.emit(this.errors)
-      // this.statusChange.emit(this.formControl.status)
-      //原值变更操作
-      this.notifyValueChange(val, cyiaFormControl)
-      //doc 如果是自动补全,那么需要计算出过滤的菜单
-      if ([FormControlType.autocomplete, FormControlType.select, FormControlType.checkbox, FormControlType.slideToggle, FormControlType.radio].includes(cyiaFormControl.type)
-      ) {
-        cyiaFormControl.filterPipe && cyiaFormControl.filterPipe(cyiaFormControl, val).then((res) => {
-          this.options = res || []
-        })
-      }
-      !this.formControl.touched && this.formControl.markAllAsTouched()
-      //doc 值变更外界调用
-      cyiaFormControl.valueChange && this.service && cyiaFormControl.valueChange(cyiaFormControl, this.formControl, this.formControl.value).then((list) => {
-        this.service.event$.next(list)
+    }
+    //doc 控件值变更操作
+    this.notifyValueChange(val, cyiaFormControl)
+    //doc 如果是自动补全,那么需要计算出过滤的菜单
+    if ([FormControlType.autocomplete, FormControlType.select, FormControlType.checkbox, FormControlType.slideToggle, FormControlType.radio].includes(cyiaFormControl.type)
+    ) {
+      cyiaFormControl.filterPipe && cyiaFormControl.filterPipe(cyiaFormControl, val).then((res) => {
+        this.options = res || []
       })
-      // cyiaFormControl.value = val
-      // console.log('值变更', val)
-    })
-    let value = cyiaFormControl.inputPipe ? cyiaFormControl.inputPipe(cyiaFormControl, cyiaFormControl.value) : cyiaFormControl.value;
-    this.formControl.patchValue(value)
-  }
-  ngOnInit() {
+    }
+    if ((val !== undefined && init) || !init) {
+      !this.formControl.touched && this.formControl.markAllAsTouched()
+    }
+    //doc 值变更外界调用(级联)
+    cyiaFormControl.valueChange && this.service && cyiaFormControl.valueChange(cyiaFormControl, this.formControl, this.formControl.value).then((list) => this.service.event$.next(list))
   }
 
   registerOnChange(fn) {
@@ -147,10 +149,10 @@ export class CyiaFormControlWriteComponent implements OnInit {
   }
 
   writeValue(value) {
-    this.valueInput$.next(value)
+    // this.valueInput$.next(value)
   }
   /**
-   * 在valueChange时告知外界值变更
+   * 在控件的值变更时告知外界值变更
    *
    * @author cyia
    * @date 2019-09-12
@@ -169,10 +171,12 @@ export class CyiaFormControlWriteComponent implements OnInit {
    * @memberof CyiaFormControlWriteComponent
    */
   valueOutput() {
-    this.valueOutput$.pipe(filter(() => this.changeFn && !!this.touchedFn)).subscribe((outValue) => {
-      this.changeFn(outValue)
-      this.touchedFn(outValue)
-    })
+    this.valueOutput$.pipe(
+      // filter((value) => value !== undefined),
+      filter(() => this.changeFn && !!this.touchedFn)).subscribe((outValue) => {
+        this.changeFn(outValue)
+        this.touchedFn(outValue)
+      })
   }
   labelPositionChange(cyiaFormControl: CyiaFormControl) {
     if (cyiaFormControl.labelPosition == 'default') {
@@ -321,17 +325,17 @@ export class CyiaFormControlWriteComponent implements OnInit {
     }
     return Object.values(obj).length ? obj : null
   }
-  /**
-   *!  当writeValue传入值时触发订阅
-   * 目前依靠传入的实例变更,
-   * @author cyia
-   * @date 2019-09-12
-   */
-  valueInputSubscribe() {
-    this.valueInput$.subscribe((value) => {
-      if (value === undefined) return
-      this.formControl.patchValue(this._cyiaFormControl.outputPipe ? this._cyiaFormControl.outputPipe(this._cyiaFormControl, value) : value)
-      this.cd.markForCheck()
-    })
-  }
+  // /**
+  //  *!  当writeValue传入值时触发订阅
+  //  * 目前依靠传入的实例变更,
+  //  * @author cyia
+  //  * @date 2019-09-12
+  //  */
+  // valueInputSubscribe() {
+  //   this.valueInput$.subscribe((value) => {
+  //     if (value === undefined) return
+  //     this.formControl.patchValue(this._cyiaFormControl.outputPipe ? this._cyiaFormControl.outputPipe(this._cyiaFormControl, value) : value)
+  //     this.cd.markForCheck()
+  //   })
+  // }
 }

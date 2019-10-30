@@ -117,6 +117,7 @@ export class _CyiaFormControl<T = any> extends CyiaControlBase {
      * todo 只要是options都应该可以用
      * autocomplete使用 */
     filterPipe?: (arg0: this, value) => Promise<CyiaOption<T>[]>
+    /**级联用 */
     valueChange?: (arg0: this, formControl: FormControl, value) => Promise<CyiaFormControlChange[]>
     height?: number | string
 
