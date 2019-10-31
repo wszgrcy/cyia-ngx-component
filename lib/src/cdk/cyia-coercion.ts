@@ -1,4 +1,4 @@
-import moment from "moment";
+import * as moment from "moment";
 /**
  * @description 强制转化为Moment对象,用来显示
  * @author cyia
@@ -32,7 +32,7 @@ export function coerceCssTimeValue(value: string | number, unit: 's' | 'ms' = 's
     if (value != value) {
       return `0${unit}`
     }
-    
+
     if (unit == 's') {
       return `${value / 1000}${unit}`
     } else if (unit == 'ms') {
