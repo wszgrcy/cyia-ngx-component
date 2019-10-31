@@ -12,6 +12,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field'
 import { TemplateRef, Type } from '@angular/core';
 import { CyiaOption } from '../type/options.type';
 import { LayoutStyle } from '../type/form-group.type';
+import { classClone } from 'cyia-ngx-component/common'
 // @ListenClass()
 export class CyiaControlBase {
     readonly key?: string = `${Math.random()}`
@@ -130,7 +131,8 @@ export class CyiaFormControl<T = any> extends _CyiaFormControl {
         super()
         this.change$ = this._changeFn() as any
         // console.log(this.change$)
-        this._setValue(cyiaFormControl)
+        // this._setValue(cyiaFormControl)
+        classClone.call(this, cyiaFormControl)
     }
 
     /**控件路径,应该由grouop赋值 */
@@ -138,13 +140,6 @@ export class CyiaFormControl<T = any> extends _CyiaFormControl {
     @ChangeSubscribe()
     private _changeFn() {
 
-    }
-    private _setValue(object) {
-        if (!object) return
-        for (const key in object) {
-            if (!object.hasOwnProperty(key)) continue
-            this[key] = object[key]
-        }
     }
 }
 export class _CyiaFormGroup extends CyiaControlBase {
@@ -161,14 +156,38 @@ export class CyiaFormGroup extends _CyiaFormGroup {
     // outputError?: boolean = true
     constructor(config: _CyiaFormControl) {
         super()
-        this._setValue(config)
+        classClone.call(this, config)
     }
-    private _setValue(object) {
-        if (!object) return
-        for (const key in object) {
-            if (!object.hasOwnProperty(key)) continue
-            this[key] = object[key]
+    /**
+     * 设置布局用
+     * 通过设置列,快速设置布局
+     * @param {number} column
+     * @returns
+     * @memberof CyiaFormGroup
+     */
+    setColumn(column: number) {
+        let length = this.controls.length;
+        let row = (length / column) | 0;
+        switch (this.layoutStyle) {
+            case LayoutStyle.cssGrid:
+                this.gridTemplateAreas = []
+                for (let i = 0; i < row; i++) {
+                    this.gridTemplateAreas[i] = []
+                    for (let j = 0; j < column; j++) {
+                        let num = i * column + j + 1
+                        if (num > length) num = 0
+                        this.gridTemplateAreas[i][j] = num;
+                    }
+                }
+                break;
+            case LayoutStyle.htmlTable:
+                this.tableSize = [row, column];
+                break
+            default:
+                break;
         }
+        console.log(this.tableSize,this.gridTemplateAreas);
+        return this
     }
     getControl(key: string, withLink = false) {
         return this.controls.find((control) => control.key == key || (withLink ? control['linkKey'] == key : false))

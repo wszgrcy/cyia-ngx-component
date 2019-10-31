@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Sanitizer, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input, forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Sanitizer, SimpleChanges, TemplateRef, NgZone } from '@angular/core';
 import * as monaco from 'monaco-editor';
 import { WrapType, StartType, MultiStartType, Pattern } from './type/editor.type';
 import { repeat, take } from 'rxjs/operators';
@@ -77,7 +77,8 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     private matDialog: MatDialog,
     private cd: ChangeDetectorRef,
     private domSanitizer: DomSanitizer,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private ngZone: NgZone
   ) { }
   writeValue(value) {
     if (typeof value == 'string') {
@@ -282,13 +283,14 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
    * @author cyia
    * @date 2019-09-19
    */
-  initWrite() {
+  async initWrite() {
+    await this.ngZone.onStable.pipe(take(1)).toPromise()
     this.instance = this.instance || monaco.editor.create(this.container.nativeElement, {
       language: 'markdown',
       minimap: { enabled: false },
       automaticLayout: true,
-
     })
+
   }
   /**
    * 切换读写
@@ -296,14 +298,14 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
    * @author cyia
    * @date 2019-09-19
    */
-  switchPattern() {
+  async switchPattern() {
     this.pattern = this.pattern == Pattern.w ? Pattern.r : Pattern.w;
     // this.disabled = !this.disabled;
     this.tempValue = this.instance.getValue()
     if (this.pattern == Pattern.r) {
       // this.initRead()
     } else if (this.pattern == Pattern.w) {
-      this.initWrite()
+      await this.initWrite()
     }
     this.cd.markForCheck()
   }
