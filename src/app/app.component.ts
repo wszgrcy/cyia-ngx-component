@@ -7,6 +7,7 @@ import { FormControlType } from 'cyia-ngx-component';
 import { LayoutStyle } from 'cyia-ngx-component';
 import { LAZY_LOAD } from './lazy/lazy-import';
 import { DialogComponent } from './dialog/dialog.component';
+import { Validators } from '@angular/forms';
 // import { CyiaDatePickerComponent } from "../../dist/lib";
 // import * as chroma from "chroma-js";
 @Component({
@@ -49,11 +50,15 @@ export class AppComponent {
     //   type: FormControlType.datepicker,
     //   // appearance: '' as any
     // })
-    // new CyiaFormControl({
-    //   type: FormControlType.input,
-    //   value: '只读测试',
-    //   label: '标签'
-    // })
+    new CyiaFormControl({
+      key: 'tet',
+      type: FormControlType.input,
+      // value: '',
+      validator: [Validators.required],
+      label: '标签',
+      placeholder:'占位符',
+      // appearance:''
+    })
   ).setPattern(Pattern.w)
   ngOnInit(): void {
     setTimeout(() => {
