@@ -14,7 +14,7 @@ export class Custompicker<T = any> {
     /**
      * 关闭调用
      *
-     * @param {{ value: T, display: string }} outputValue 需要返回的值,value为实际绑定的值,display为显示的值
+     * @param outputValue 需要返回的值,value为实际绑定的值,display为显示的值
      * @memberof Custompicker
      */
     close(outputValue: { value: T, display: string }) {

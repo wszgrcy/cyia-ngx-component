@@ -11,6 +11,9 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.1.7
+- 自定义表单控件弹窗
+- 表单输出逻辑
 ## 0.1.6
 - markdown分包
 - 表单控件完善

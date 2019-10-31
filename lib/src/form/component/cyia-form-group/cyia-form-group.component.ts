@@ -97,7 +97,7 @@ export class CyiaFormGroupComponent implements ControlValueAccessor {
   /**
    * 只进行值变更,不对value赋值
    *
-   * @param {*} value
+   * @param  value
    * @memberof CyiaFormGroupComponent
    */
   valueChange(value) {
