@@ -19,8 +19,8 @@ export class AppComponent {
   @ViewChild('cyiadate', { static: true }) cyiadate: CyiaDatePickerComponent
   dialog = DialogComponent
   constructor(private service: CyiaHttpService) {
-    this.group.layoutStyle = LayoutStyle.htmlTable
-    this.group.tableSize = [2, 2]
+    // this.group.layoutStyle = LayoutStyle.htmlTable
+    // this.group.tableSize = [2, 2]
   }
   input1
   date = new Date().getTime();
@@ -39,7 +39,7 @@ export class AppComponent {
       ]
     }
   ]
-  group = CyiaFormFactory.group({ gridTemplateAreas: [[1]] },
+  group = CyiaFormFactory.group({},
     new CyiaFormControl({
       label: '数据',
       type: FormControlType.markdown,
@@ -56,10 +56,11 @@ export class AppComponent {
       // value: '',
       validator: [Validators.required],
       label: '标签',
-      placeholder:'占位符',
+      placeholder: '占位符',
+      required: true
       // appearance:''
     })
-  ).setPattern(Pattern.w)
+  ).setPattern(Pattern.w).setColumn(1)
   ngOnInit(): void {
     setTimeout(() => {
       this.length = 10

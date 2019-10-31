@@ -10,4 +10,5 @@ export enum FormControlType {
     autocomplete = 'autocomplete',
     markdown = 'markdown',
     datepicker = 'datepicker',
+    customPicker='custom-picker'
 }

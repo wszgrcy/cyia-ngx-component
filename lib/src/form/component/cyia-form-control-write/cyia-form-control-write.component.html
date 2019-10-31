@@ -48,6 +48,12 @@
           <cyia-datepicker [formControl]="formControl" [matDatepicker]="picker" #cyiadate
             [placeholder]="cyiaFormControl.placeholder"></cyia-datepicker>
         </ng-container>
+        <ng-container *ngSwitchCase="'custom-picker'">
+          <input matInput type="text" [cyiaCustompickerInput]="custom" [options]="options" [formControl]="formControl" [placeholder]="cyiaFormControl.placeholder" [required]="flag.required">
+          <cyia-custompicker-toggle [for]="custom" matSuffix></cyia-custompicker-toggle>
+          <cyia-custompicker-wrapper #custom [component]="cyiaFormControl.component">
+          </cyia-custompicker-wrapper>
+        </ng-container>
       </ng-container>
       <mat-datepicker-toggle matSuffix [for]="picker" *ngIf="picker"></mat-datepicker-toggle>
       <mat-error *ngIf="nowError&&cyiaFormControl.displayError">{{nowError}}</mat-error>

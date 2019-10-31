@@ -8,6 +8,9 @@
       "cyia-ngx-component/common/validator": [
         "./src/common/validator"
       ],
+      "cyia-ngx-component/common": [
+        "./src/common"
+      ],
       "cyia-ngx-component/markdown": [
         "./src/markdown"
       ],
