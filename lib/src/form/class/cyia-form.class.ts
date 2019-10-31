@@ -161,7 +161,7 @@ export class CyiaFormGroup extends _CyiaFormGroup {
     /**
      * 设置布局用
      * 通过设置列,快速设置布局
-     * @param {number} column
+     * @param  column
      * @returns
      * @memberof CyiaFormGroup
      */

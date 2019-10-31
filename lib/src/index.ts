@@ -1,3 +1,6 @@
+// export * from 'cyia-ngx-component/markdown';
+// export * from 'cyia-ngx-component/custompicker';
+// export * from 'cyia-ngx-component/common'
 export * from './define/index';
 export * from './upload/index';
 export * from './upload4image/index';
@@ -24,5 +27,3 @@ export * from './form/class/cyia-form.class'
 export * from './form/enum/control-type.enum'
 export * from './form/type/form-group.type'
 export * from './form/type/options.type'
-export * from 'cyia-ngx-component/markdown';
-export * from 'cyia-ngx-component/custompicker';
