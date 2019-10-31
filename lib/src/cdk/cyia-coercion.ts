@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 /**
  * @description 强制转化为Moment对象,用来显示
  * @author cyia

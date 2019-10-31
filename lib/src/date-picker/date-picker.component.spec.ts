@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CyiaDatePickerComponent } from './date-picker.component';
 @Component({
     template: `

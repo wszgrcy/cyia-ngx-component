@@ -11,6 +11,8 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.1.9
+- 更改导出方式
 ## 0.1.8
 - 自定义表单布局
 - 自定义表单添加自定义选择器

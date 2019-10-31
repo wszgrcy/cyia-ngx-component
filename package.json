@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "ng build lib",
-    "postbuild:lib": "copy README.md .\\dist\\cyia-ngx-component && cd dist/cyia-ngx-component&&npm publish",
+    "xpostbuild:lib": "copy README.md .\\dist\\cyia-ngx-component && cd dist/cyia-ngx-component&&npm publish",
     "update": "ng update --all --force",
     "test:lib": "ng test lib"
   },
