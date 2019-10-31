@@ -186,7 +186,6 @@ export class CyiaFormGroup extends _CyiaFormGroup {
             default:
                 break;
         }
-        console.log(this.tableSize,this.gridTemplateAreas);
         return this
     }
     getControl(key: string, withLink = false) {
