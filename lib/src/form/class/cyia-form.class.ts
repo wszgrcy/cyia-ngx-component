@@ -9,7 +9,7 @@ import { CyiaFormControlChange } from '../type/change-type.type'
 import { ListenClass } from '../decorator/listen-class.decorator'
 import { ChangeSubscribe } from '../decorator/change-subscribe.decorator'
 import { MatFormFieldAppearance } from '@angular/material/form-field'
-import { TemplateRef } from '@angular/core';
+import { TemplateRef, Type } from '@angular/core';
 import { CyiaOption } from '../type/options.type';
 import { LayoutStyle } from '../type/form-group.type';
 // @ListenClass()
@@ -120,7 +120,8 @@ export class _CyiaFormControl<T = any> extends CyiaControlBase {
     /**级联用 */
     valueChange?: (arg0: this, formControl: FormControl, value) => Promise<CyiaFormControlChange[]>
     height?: number | string
-
+    /**自定义选择器传入组件 */
+    component?: Type<any>
 }
 export class CyiaFormControl<T = any> extends _CyiaFormControl {
     change$: Subject<CyiaFormControlChange>

@@ -16,7 +16,7 @@ import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColo
 import { CyiaDatePickerModule } from "cyia-ngx-component";
 import { CyiaMarkdownModule } from "cyia-ngx-component/markdown";
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CustompickerModule } from "cyia-ngx-component/custompicker";
+import { CyiaCustompickerModule } from "cyia-ngx-component/custompicker";
 // import { EditformModule } from './editform/editform.module';
 import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
@@ -57,7 +57,7 @@ import { ExtraToolModule } from './extra-tool/extra-tool.module';
         DynamicControlModule,
         CyiaFormGroupModule,
         CyiaFilepickerModule,
-        CustompickerModule,
+        CyiaCustompickerModule,
         DialogModule,
         ExtraToolModule
     ],

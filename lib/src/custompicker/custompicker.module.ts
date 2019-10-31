@@ -16,4 +16,4 @@ import { CustompickerInput } from './custompicker-input.directive';
       CustompickerInput
    ]
 })
-export class CustompickerModule { }
+export class CyiaCustompickerModule { }

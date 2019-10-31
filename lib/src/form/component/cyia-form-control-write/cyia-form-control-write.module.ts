@@ -11,6 +11,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CyiaMarkdownModule } from 'cyia-ngx-component/markdown';
 import { CyiaDatePickerModule } from '../../../date-picker/date-picker.module';
 import { CyiaFormControlWriteComponent } from './cyia-form-control-write.component';
+import { CyiaCustompickerModule } from 'cyia-ngx-component/custompicker';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +26,7 @@ import { CyiaFormControlWriteComponent } from './cyia-form-control-write.compone
     MatAutocompleteModule,
     CyiaMarkdownModule,
     CyiaDatePickerModule.forRoot('zh-cn'),
+    CyiaCustompickerModule
   ],
   declarations: [CyiaFormControlWriteComponent],
   exports: [CyiaFormControlWriteComponent]

@@ -56,7 +56,8 @@ export class AppComponent {
       // value: '',
       validator: [Validators.required],
       label: '标签',
-      placeholder:'占位符',
+      placeholder: '占位符',
+      required: true
       // appearance:''
     })
   ).setPattern(Pattern.w)
