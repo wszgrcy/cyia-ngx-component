@@ -173,7 +173,10 @@ export class CyiaFormControlWriteComponent {
   valueOutput() {
     this.valueOutput$.pipe(
       // filter((value) => value !== undefined),
-      filter(() => this.changeFn && !!this.touchedFn)).subscribe((outValue) => {
+      filter(() => this.changeFn && !!this.touchedFn)).subscribe(async (outValue) => {
+        if (!this.ngZone.isStable) {
+          await this.ngZone.onStable.pipe(take(1)).toPromise()
+        }
         this.changeFn(outValue)
         this.touchedFn(outValue)
       })
