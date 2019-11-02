@@ -80,13 +80,13 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     private snackBar: MatSnackBar,
     private ngZone: NgZone
   ) { }
-  writeValue(value) {
+  async writeValue(value) {
     if (typeof value == 'string') {
       this.tempValue = this.value = value;
       if (this.pattern == Pattern.r) {
         // this.initRead()
       } else if (this.pattern == Pattern.w) {
-        this.initWrite()
+        await this.initWrite()
       }
       this.instance && this.instance.setValue(value)
 
@@ -117,14 +117,12 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
     }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes)
     if (changes.pattern) {
       const pattern = changes.pattern.currentValue || changes.pattern.previousValue
       this.readMode = pattern == Pattern.w ? false : true
     }
     if (changes.height) {
       this.height = coerceCssPixelValue(this.height == undefined ? changes.height.previousValue : this.height)
-      // console.log(this.height)
     }
   }
   /**
@@ -159,7 +157,6 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       selection.endLineNumber == selection.startLineNumber) {
       this.instance.setSelection({ startLineNumber: selection.startLineNumber, startColumn: selection.startColumn + wrapText.length, endLineNumber: selection.startLineNumber, endColumn: selection.startColumn + wrapText.length })
     } else {
-      // console.log(wrapText)
       this.instance.setSelection({ startLineNumber: selection.endLineNumber, startColumn: selection.endColumn + wrapText.length * 2, endLineNumber: selection.endLineNumber, endColumn: selection.endColumn + wrapText.length * 2 })
     }
     this.instance.focus()
@@ -220,7 +217,6 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
       default:
         break;
     }
-    // console.log(res)
     res && this.insert(res)
   }
   insert(value: string) {
@@ -246,14 +242,10 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
   //  * @memberof CyiaMarkdownComponent
   //  */
   // initRead() {
-  //   // console.log(this.tempValue);
   //   let mdres = md({
   //     html: true,
 
   //   })
-  //   console.log(
-  //     mdres
-  //   );
   //   mdres.core.ruler.after('linkify', 'test', (s) => {
   //     s.tokens.forEach((token) => {
   //       if (this.mdClassMap[token.tag]) {
@@ -261,10 +253,6 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
   //       }
   //     })
   //   })
-  //   // console.log(mdres);
-  //   // console.log(mdres.renderer.rules);
-
-  //   // console.log(mdres.renderer.rules.html_block);
 
 
   //   /**
@@ -273,7 +261,6 @@ export class CyiaMarkdownComponent implements ControlValueAccessor {
   //   this.readValue = this.domSanitizer.bypassSecurityTrustHtml(
   //     mdres.render(this.tempValue)
   //   )
-  //   console.log(this.readValue);
   //   this.cd.markForCheck()
   // }
 

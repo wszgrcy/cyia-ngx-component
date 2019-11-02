@@ -11,6 +11,10 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.1.11
+- markdown写入值初始化
+## 0.1.10
+- 自定义组件变更检测抛出异常
 ## 0.1.9
 - 更改导出方式
 ## 0.1.8
