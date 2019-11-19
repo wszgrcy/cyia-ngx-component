@@ -11,6 +11,8 @@ qq|435466133
 github|https://github.com/wszgrcy/cyia-ngx-component
 
 # 更新日志
+## 0.1.12
+- 修正自定义选择器的组件载入
 ## 0.1.11
 - markdown写入值初始化
 ## 0.1.10

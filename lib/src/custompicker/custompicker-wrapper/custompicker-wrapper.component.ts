@@ -48,7 +48,9 @@ export class CustompickerWrapperComponent implements OnInit {
    * @memberof CustompickerWrapperComponent
    */
   async open() {
-    this.component = await this.lazyLoadComponent()
+    if (this.path) {
+      this.component = await this.lazyLoadComponent()
+    }
     if (this.mode == 0) {
       this.openDialog()
     } else {
@@ -56,7 +58,6 @@ export class CustompickerWrapperComponent implements OnInit {
     }
   }
   async lazyLoadComponent(): Promise<Type<any>> {
-    if (!this.path) return undefined
     let module = await this.path()
     const ngModuleFactory = module instanceof NgModuleFactory ? module : await this.compiler.compileModuleAsync(module)
     const ngModuleRef = ngModuleFactory.create(this.injector)
