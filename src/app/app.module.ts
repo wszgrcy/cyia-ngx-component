@@ -12,58 +12,74 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { CyiaFormModule } from 'cyia-ngx-form';
-import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorpickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaFormGroupModule, CyiaFilepickerModule, DynamicComponentModule } from "cyia-ngx-component";
-import { CyiaDatePickerModule } from "cyia-ngx-component";
-import { CyiaMarkdownModule } from "cyia-ngx-component/markdown";
+import { CyiaUploadModule, CyiaUpload4ImageModule, CyiaDirectiveModule, CyiaColorpickerModule, CyiaComponentToggleModule, DynamicControlModule, CyiaFormGroupModule, CyiaFilepickerModule, DynamicComponentModule } from 'cyia-ngx-component';
+import { CyiaDatePickerModule } from 'cyia-ngx-component';
+import { CyiaMarkdownModule } from 'cyia-ngx-component/markdown';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CyiaCustompickerModule } from "cyia-ngx-component/custompicker";
+import { CyiaCustompickerModule } from 'cyia-ngx-component/custompicker';
 // import { EditformModule } from './editform/editform.module';
 import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
 import { DialogModule } from './dialog/dialog.module';
 import { ExtraToolModule } from './extra-tool/extra-tool.module';
+import { LoadComponentModule } from './load-component/load-component.module';
+import { LoadComponentService } from './services/load-component.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { LoadingHintModule } from './loading-hint/loading-hint.module';
+import { LoadComponentComponent } from './load-component/load-component.component';
+import { LoadingHintComponent } from './loading-hint/loading-hint.component';
 // import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
-    declarations: [
-        AppComponent
+  declarations: [
+    AppComponent
 
-    ],
-    imports: [
-        BrowserModule,
-        CyiaHttpModule.forRoot(requestList),//doc 自请求
-        CyiaDatePickerModule.forRoot('zh-cn'),
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        FormsModule,
-        ReactiveFormsModule,
-        // CyiaFormModule,
-        MatInputModule,
-        CyiaUploadModule,
-        MatIconModule,
-        CyiaUpload4ImageModule,
-        // EditformModule,//doc 子组件
-        CyiaDirectiveModule,
-        MatPaginatorModule,
-        // CyiaPaginatorPatchModule
-        CyiaColorpickerModule,
-        CyiaComponentToggleModule,
-        CyiaMarkdownModule,
-        DynamicComponentModule,
-        RouterModule.forRoot([
-            LAZY_LOAD
-        ]),
-        DynamicControlModule,
-        CyiaFormGroupModule,
-        CyiaFilepickerModule,
-        CyiaCustompickerModule,
-        DialogModule,
-        ExtraToolModule
-    ],
-    providers: [
-
-    ],
-    bootstrap: [AppComponent]
+  ],
+  imports: [
+    BrowserModule,
+    CyiaHttpModule.forRoot(requestList), // doc 自请求
+    CyiaDatePickerModule.forRoot('zh-cn'),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // CyiaFormModule,
+    MatInputModule,
+    CyiaUploadModule,
+    MatIconModule,
+    CyiaUpload4ImageModule,
+    // EditformModule,//doc 子组件
+    CyiaDirectiveModule,
+    MatPaginatorModule,
+    // CyiaPaginatorPatchModule
+    CyiaColorpickerModule,
+    CyiaComponentToggleModule,
+    CyiaMarkdownModule,
+    DynamicComponentModule,
+    RouterModule.forRoot([
+      LAZY_LOAD
+    ]),
+    DynamicControlModule,
+    CyiaFormGroupModule,
+    CyiaFilepickerModule,
+    CyiaCustompickerModule,
+    DialogModule,
+    ExtraToolModule,
+    LoadComponentModule,
+    MatDialogModule,
+    OverlayModule,
+    LoadingHintModule
+  ],
+  providers: [
+    LoadComponentService,
+    { provide: 'DEFAULT_LOADING_COMPONENT', useValue: LoadingHintComponent }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(loadComponent: LoadComponentService) {
+
+  }
+}
