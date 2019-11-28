@@ -22,14 +22,8 @@ import { RouterModule } from '@angular/router';
 import { LAZY_LOAD } from './lazy/lazy-import';
 import { DialogModule } from './dialog/dialog.module';
 import { ExtraToolModule } from './extra-tool/extra-tool.module';
-import { LoadComponentModule } from './load-component/load-component.module';
-import { LoadComponentService } from './services/load-component.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { LoadingHintModule } from './loading-hint/loading-hint.module';
-import { LoadComponentComponent } from './load-component/load-component.component';
-import { LoadingHintComponent } from './loading-hint/loading-hint.component';
-// import { CyiaPaginatorPatchModule } from '../../lib/src/paginator-patch/paginator-patch.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -67,19 +61,13 @@ import { LoadingHintComponent } from './loading-hint/loading-hint.component';
     CyiaCustompickerModule,
     DialogModule,
     ExtraToolModule,
-    LoadComponentModule,
     MatDialogModule,
     OverlayModule,
-    LoadingHintModule
   ],
   providers: [
-    LoadComponentService,
-    { provide: 'DEFAULT_LOADING_COMPONENT', useValue: LoadingHintComponent }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(loadComponent: LoadComponentService) {
 
-  }
 }
