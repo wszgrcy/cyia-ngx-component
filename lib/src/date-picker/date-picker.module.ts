@@ -1,10 +1,10 @@
 import { CyiaTimeComponent } from './cyia-time/cyia-time.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CyiaDatePickerComponent } from './date-picker.component';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
-import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from "@angular/material/core";
-import { MatInputModule } from "@angular/material/input";
+// import { ModuleWithProviders } from '@angular/compiler';
+import { MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 import { MomentDateAdapter, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +38,7 @@ export class CyiaDatePickerModule {
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
         { provide: MAT_DATE_FORMATS, useValue: matDateFormats },
       ]
-    }
+    };
   }
 
 }
