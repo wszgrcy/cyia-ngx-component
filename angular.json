@@ -10,7 +10,7 @@
       "prefix": "cyia",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
+          "style": "scss",
           "changeDetection": "OnPush"
         }
       },
@@ -107,7 +107,7 @@
       "sourceRoot": "lib/src",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
+          "style": "scss",
           "viewEncapsulation": "None",
           "changeDetection": "OnPush",
           "prefix": "cyia"
@@ -119,6 +119,11 @@
           "options": {
             "tsConfig": "lib/tsconfig.lib.json",
             "project": "lib/src/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "lib/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -144,5 +149,8 @@
       }
     }
   },
-  "defaultProject": "cyia-ngx-template-demo"
+  "defaultProject": "cyia-ngx-template-demo",
+  "cli": {
+    "analytics": false
+  }
 }

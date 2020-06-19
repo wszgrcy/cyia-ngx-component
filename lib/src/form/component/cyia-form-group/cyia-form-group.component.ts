@@ -23,7 +23,7 @@ import { fadeInItems } from '@angular/material/menu';
 export class CyiaFormGroupComponent implements ControlValueAccessor {
   /**所有控件的元素列表,用于布局 */
   @ViewChildren('controlEl', { read: ElementRef }) controlList: QueryList<ElementRef>
-  @ViewChild('wrapper', { static: false }) set wrapper(val: ElementRef<HTMLDivElement>) {
+  @ViewChild('wrapper') set wrapper(val: ElementRef<HTMLDivElement>) {
     if (!this.wrapperInit) {
       this.wrapperInit = true;
       this.setLayout(val);

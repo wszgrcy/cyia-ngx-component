@@ -17,7 +17,7 @@ import { CyiaFormControlWriteComponent } from '../cyia-form-control-write/cyia-f
 })
 export class CyiaFormControlComponent implements ControlValueAccessor {
   /**用于label关联 */
-  @ViewChild(CyiaFormControlWriteComponent, { static: false }) writeControl: CyiaFormControlWriteComponent
+  @ViewChild(CyiaFormControlWriteComponent) writeControl: CyiaFormControlWriteComponent
   @Input() service: CyiaFormGroupService
   @Input() cyiaFormControl: CyiaFormControl
   @Output() errorsChange = new EventEmitter()

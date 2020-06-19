@@ -28,7 +28,7 @@ const entryComponentsArray = [LoadingDialogComponent]
     entryComponents: [...entryComponentsArray],
 })
 export class CyiaPopupModule {
-    static forRoot(config: CyiaPopupModuleConfig): ModuleWithProviders {
+    static forRoot(config: CyiaPopupModuleConfig): ModuleWithProviders<CyiaPopupModule> {
         return {
             ngModule: CyiaPopupModule,
             providers: [

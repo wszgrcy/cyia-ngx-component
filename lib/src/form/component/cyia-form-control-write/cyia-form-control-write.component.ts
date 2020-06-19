@@ -28,7 +28,7 @@ import { CyiaFormGroupService } from '../cyia-form-group/cyia-form-group.service
   }
 })
 export class CyiaFormControlWriteComponent {
-  @ViewChild('pickerTemplate', { static: false }) set picker(val) {
+  @ViewChild('pickerTemplate') set picker(val) {
     this._picker = val
     if (val) {
       this.cd.markForCheck()

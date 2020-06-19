@@ -30,7 +30,7 @@ import { FormsModule } from '@angular/forms';
   providers: []
 })
 export class CyiaDatePickerModule {
-  static forRoot(language: string, matDateFormats: MatDateFormats = MAT_MOMENT_DATE_FORMATS): ModuleWithProviders {
+  static forRoot(language: string, matDateFormats: MatDateFormats = MAT_MOMENT_DATE_FORMATS): ModuleWithProviders<CyiaDatePickerModule> {
     return {
       ngModule: CyiaDatePickerModule,
       providers: [
