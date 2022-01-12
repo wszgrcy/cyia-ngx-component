@@ -35,7 +35,7 @@
     "core-js": "3.6.5",
     "cyia-ngx-common": "^9.0.0",
     "image-compressor.js": "^1.1.4",
-    "markdown-it": "^11.0.0",
+    "markdown-it": "^12.3.2",
     "moment": "^2.26.0",
     "monaco-editor": "0.20.0",
     "ngx-markdown": "^9.1.1",
